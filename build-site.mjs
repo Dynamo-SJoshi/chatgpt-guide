@@ -5,15 +5,15 @@ import { marked } from 'marked';
 // ---- Languages (source .md -> output page) ----
 // `dir: 'rtl'` would be set for Urdu when added later.
 const LANGS = [
-  { code: 'english', native: 'English',   en: 'English',  file: 'chatgpt-guide-english-master.md' },
-  { code: 'hindi',   native: 'हिंदी',      en: 'Hindi',    file: 'chatgpt-guide-hindi.md' },
-  { code: 'bengali', native: 'বাংলা',      en: 'Bengali',  file: 'chatgpt-guide-bengali.md' },
-  { code: 'tamil',   native: 'தமிழ்',      en: 'Tamil',    file: 'chatgpt-guide-tamil.md' },
-  { code: 'telugu',  native: 'తెలుగు',     en: 'Telugu',   file: 'chatgpt-guide-telugu.md' },
-  { code: 'kannada', native: 'ಕನ್ನಡ',      en: 'Kannada',  file: 'chatgpt-guide-kannada.md' },
-  { code: 'marathi', native: 'मराठी',      en: 'Marathi',  file: 'chatgpt-guide-marathi.md' },
-  { code: 'punjabi', native: 'ਪੰਜਾਬੀ',     en: 'Punjabi',  file: 'chatgpt-guide-punjabi.md' },
-  { code: 'odia',    native: 'ଓଡ଼ିଆ',       en: 'Odia',     file: 'chatgpt-guide-odia.md' },
+  { code: 'english', native: 'English',   en: 'English',  file: 'guides/english.md' },
+  { code: 'hindi',   native: 'हिंदी',      en: 'Hindi',    file: 'guides/hindi.md' },
+  { code: 'bengali', native: 'বাংলা',      en: 'Bengali',  file: 'guides/bengali.md' },
+  { code: 'tamil',   native: 'தமிழ்',      en: 'Tamil',    file: 'guides/tamil.md' },
+  { code: 'telugu',  native: 'తెలుగు',     en: 'Telugu',   file: 'guides/telugu.md' },
+  { code: 'kannada', native: 'ಕನ್ನಡ',      en: 'Kannada',  file: 'guides/kannada.md' },
+  { code: 'marathi', native: 'मराठी',      en: 'Marathi',  file: 'guides/marathi.md' },
+  { code: 'punjabi', native: 'ਪੰਜਾਬੀ',     en: 'Punjabi',  file: 'guides/punjabi.md' },
+  { code: 'odia',    native: 'ଓଡ଼ିଆ',       en: 'Odia',     file: 'guides/odia.md' },
 ];
 
 const CREDIT = 'Made with ❤️ by Garv Sachdeva';

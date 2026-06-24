@@ -1,53 +1,57 @@
-# ChatGPT Made Easy — A Simple Guide in Your Language
+# A Basic ChatGPT Guide — in Your Language
 
-A friendly, beginner's guide to using **ChatGPT** on a phone — written for first-time and low-digital-literacy users in India. Available in multiple Indian languages, free to read and share.
+A beginner-friendly guide to using **ChatGPT** on a phone, with simple tips for everyday life — written for first-time and low-digital-literacy users in India. Available in multiple Indian languages, free to read, download, and share.
 
-🌐 **Live site:** _(GitHub Pages link goes here once deployed)_
+🌐 **Live site:** https://garviiii.github.io/chatgpt-guide/
 
 ## Languages
 
-English, Hindi, Tamil, Telugu, Kannada, Marathi, Punjabi, Odia.
-_(Bengali, Gujarati, Urdu planned.)_
+English, Hindi, Bengali, Tamil, Telugu, Kannada, Marathi, Punjabi, Odia.
+_(Gujarati, Urdu planned.)_
 
 ## What's in this repo
 
 ```
-chatgpt-guide-<lang>.md   # the guide, one markdown file per language (source of truth)
-build-site.mjs            # builds the static website from the .md files
-docs/                     # the generated website (served by GitHub Pages)
-assets/screenshots/       # screenshot images used by the guides
-pdf-tools/                # converts a guide .md into a print-ready PDF
+guides/<lang>.md      # the guide, one markdown file per language (source of truth)
+assets/screenshots/   # screenshot images used by the guides
+build-site.mjs        # builds the static website (docs/) from guides/
+docs/                 # the generated website, served by GitHub Pages
+  ├─ assets/          #   screenshots (copied at build time)
+  └─ pdfs/            #   downloadable PDFs (copied at build time)
+pdfs/                 # generated PDFs, one per language (source)
+pdf-tools/            # build-pdfs.mjs (md → PDF) + helpers
 ```
 
 ## Build the website
 
 ```bash
 npm install        # one time (installs marked)
-npm run build      # regenerates docs/ from the .md files
+npm run build      # regenerates docs/ from guides/ (also copies assets + pdfs)
 ```
 
-Then open `docs/index.html` in a browser to preview. Rebuild whenever a `.md` changes.
+Open `docs/index.html` to preview. Rebuild whenever a guide or a PDF changes.
+
+## Build the PDFs
+
+```bash
+cd pdf-tools && npm install   # one time
+npm run pdfs                  # renders all 9 guides → pdfs/
+```
+
+Each PDF has inline screenshots, page numbers, native-script fonts, and a credit page. Re-run `npm run build` afterwards so `docs/pdfs/` picks up the new files.
 
 ## Deploy free on GitHub Pages
 
-1. Push this repo to GitHub.
-2. Repo **Settings → Pages → Build and deployment**.
-3. Source: **Deploy from a branch**. Branch: **main**, folder: **/docs**. Save.
-4. After a minute the site is live at `https://<username>.github.io/<repo>/`.
+Repo **Settings → Pages → Build and deployment** → Source: **Deploy from a branch**, Branch: **main**, folder: **/docs**. Live at `https://<username>.github.io/<repo>/`.
 
-## Build a PDF of a guide
+## Editing a guide
 
-See [pdf-tools/README.md](pdf-tools/README.md). It renders a guide with automatic page breaks and a correct table-of-contents (numbers measured from the real PDF).
+1. Edit `guides/<lang>.md`.
+2. `cd pdf-tools && npm run pdfs` (if you want the PDF updated).
+3. `npm run build` from the repo root to regenerate the site.
 
-```bash
-cd pdf-tools && npm install
-node convert.mjs ../chatgpt-guide-hindi.md ../chatgpt-guide-hindi.pdf
-```
-
-## Adding screenshots
-
-The guides contain `[SCREENSHOT: description]` placeholders — 37 of them, in the **same order in every language**. Drop matching images into `assets/screenshots/` and they can be wired into all language files at once.
+Screenshots are referenced inline as `![caption](assets/screenshots/screenshot-N.png)` — same image positions across every language, so captions stay in each language.
 
 ## License & credit
 
-Educational use. ChatGPT is a product of OpenAI. App interfaces change over time; steps are accurate at the time of writing.
+Made with ❤️ by Garv Sachdeva. Educational use. ChatGPT is a product of OpenAI. App interfaces change over time; steps are accurate at the time of writing.

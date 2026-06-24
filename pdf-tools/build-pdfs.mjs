@@ -11,15 +11,15 @@ fs.mkdirSync(OUT, { recursive: true });
 const CREDIT = 'Made with ❤️ by Garv Sachdeva';
 
 const LANGS = [
-  { code: 'english', file: 'chatgpt-guide-english-master.md' },
-  { code: 'hindi',   file: 'chatgpt-guide-hindi.md' },
-  { code: 'bengali', file: 'chatgpt-guide-bengali.md' },
-  { code: 'tamil',   file: 'chatgpt-guide-tamil.md' },
-  { code: 'telugu',  file: 'chatgpt-guide-telugu.md' },
-  { code: 'kannada', file: 'chatgpt-guide-kannada.md' },
-  { code: 'marathi', file: 'chatgpt-guide-marathi.md' },
-  { code: 'punjabi', file: 'chatgpt-guide-punjabi.md' },
-  { code: 'odia',    file: 'chatgpt-guide-odia.md' },
+  { code: 'english', file: 'guides/english.md' },
+  { code: 'hindi',   file: 'guides/hindi.md' },
+  { code: 'bengali', file: 'guides/bengali.md' },
+  { code: 'tamil',   file: 'guides/tamil.md' },
+  { code: 'telugu',  file: 'guides/telugu.md' },
+  { code: 'kannada', file: 'guides/kannada.md' },
+  { code: 'marathi', file: 'guides/marathi.md' },
+  { code: 'punjabi', file: 'guides/punjabi.md' },
+  { code: 'odia',    file: 'guides/odia.md' },
 ];
 const only = process.argv.slice(2);
 const targets = only.length ? LANGS.filter((l) => only.includes(l.code)) : LANGS;

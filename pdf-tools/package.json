@@ -4,8 +4,7 @@
   "description": "",
   "main": "convert.mjs",
   "scripts": {
-    "build": "node convert.mjs ../chatgpt-guide-english-master.md ../chatgpt-guide-english-master.pdf",
-    "check": "node verify.mjs ../chatgpt-guide-english-master.pdf"
+    "pdfs": "node build-pdfs.mjs"
   },
   "keywords": [],
   "author": "",

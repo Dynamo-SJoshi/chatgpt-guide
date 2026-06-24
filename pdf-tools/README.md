@@ -25,17 +25,25 @@ CHROME_PATH="/path/to/chrome" node convert.mjs ...
 
 ## Use
 
-Convert any markdown file:
+Build all language PDFs into `../pdfs/` (run from `pdf-tools/`):
+
+```
+npm run pdfs                 # all 9 guides
+node build-pdfs.mjs hindi    # or just specific languages
+```
+
+`build-pdfs.mjs` reads `../guides/<lang>.md`, renders with native-script fonts, inline
+screenshots, page-number footers, and a credit page. TOC page numbers are stripped
+(unreliable across Indic scripts; footers show pages instead).
+
+### Legacy single-file tool
+
+`convert.mjs` renders one markdown file and measures real TOC page numbers (works well
+for Latin scripts). `verify.mjs` checks those numbers.
 
 ```
 node convert.mjs <input.md> [output.pdf]
-```
-
-Shortcuts for the English master guide (run from `pdf-tools/`):
-
-```
-npm run build    # convert ../chatgpt-guide-english-master.md -> .pdf
-npm run check    # verify the TOC numbers in that PDF
+node verify.mjs <output.pdf>
 ```
 
 ## Output
