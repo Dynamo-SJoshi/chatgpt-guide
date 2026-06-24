@@ -52,7 +52,9 @@ body { margin:0; color:var(--ink); background:var(--bg);
 .topbar a.home { text-decoration:none; color:var(--accent); font-weight:700; font-size:15px; white-space:nowrap; }
 .topbar .spacer { flex:1; }
 .topbar select { font-size:15px; padding:7px 9px; border:1px solid var(--line); border-radius:8px;
-  background:var(--surface); color:var(--ink); max-width:48vw; }
+  background:var(--surface); color:var(--ink); max-width:40vw; }
+.topbar .pdf-dl { text-decoration:none; font-size:13px; font-weight:600; color:var(--accent);
+  border:1px solid var(--accent-border); border-radius:8px; padding:6px 9px; white-space:nowrap; }
 
 /* content */
 .wrap { max-width:820px; margin:0 auto; padding:24px 20px 40px; }
@@ -87,11 +89,15 @@ code { background:var(--surface2); padding:2px 5px; border-radius:5px; font-size
   padding:4px 12px; border-radius:999px; font-size:.85em; font-weight:600; margin-top:10px; }
 .grid { max-width:820px; margin:24px auto 50px; padding:0 20px; display:grid;
   grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:14px; }
-.card { display:block; text-decoration:none; border:1px solid var(--line); border-radius:14px; background:var(--surface);
+.card { border:1px solid var(--line); border-radius:14px; background:var(--surface);
   padding:20px 16px; text-align:center; transition:transform .08s ease, box-shadow .12s ease, border-color .12s; }
 .card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(16,24,40,.10); border-color:var(--accent); }
+.card-main { display:block; text-decoration:none; }
 .card .lang { font-size:1.5em; font-weight:700; color:var(--ink); }
 .card .en { color:var(--muted); font-size:.9em; margin-top:4px; }
+.card-pdf { display:inline-block; margin-top:12px; font-size:12px; text-decoration:none; color:var(--muted);
+  border:1px solid var(--line); border-radius:999px; padding:3px 11px; }
+.card-pdf:hover { color:var(--accent); border-color:var(--accent); }
 
 /* footers */
 .foot { text-align:center; color:var(--muted); font-size:.85em; padding:22px 20px; border-top:1px solid var(--line); }
@@ -161,6 +167,7 @@ ${THEME_HEAD}
   <a class="home" href="index.html">🏠 Home</a>
   <span class="spacer"></span>
   ${langSwitcher(lang.code)}
+  <a class="pdf-dl" href="pdfs/${lang.code}.pdf" download>⬇ PDF</a>
   ${themeBtn(false)}
 </div>
 <main class="wrap">
@@ -174,7 +181,7 @@ ${THEME_INIT}
 
 function indexHtml() {
   const cards = LANGS.map(
-    (l) => `  <a class="card" href="${l.code}.html"><div class="lang">${l.native}</div><div class="en">${l.en}</div></a>`
+    (l) => `  <div class="card"><a class="card-main" href="${l.code}.html"><div class="lang">${l.native}</div><div class="en">${l.en}</div></a><a class="card-pdf" href="pdfs/${l.code}.pdf" download>⬇ PDF</a></div>`
   ).join('\n');
   return `<!doctype html>
 <html lang="en">
@@ -232,5 +239,17 @@ if (fs.existsSync(assetsSrc)) {
   }
   const n = fs.readdirSync(path.join(assetsDst, 'screenshots')).length;
   console.log(`copied assets → docs/assets (${n} files in screenshots/)`);
+}
+
+// copy generated PDFs into docs/ so they're downloadable from the site
+const pdfSrc = path.join(ROOT, 'pdfs');
+const pdfDst = path.join(OUT, 'pdfs');
+if (fs.existsSync(pdfSrc)) {
+  fs.rmSync(pdfDst, { recursive: true, force: true });
+  fs.cpSync(pdfSrc, pdfDst, { recursive: true });
+  const n = fs.readdirSync(pdfDst).filter((f) => f.endsWith('.pdf')).length;
+  console.log(`copied pdfs → docs/pdfs (${n} files)`);
+} else {
+  console.log('no pdfs/ folder — run pdf-tools/build-pdfs.mjs first');
 }
 console.log(`built docs/index.html + style.css  (${built} language pages)`);
