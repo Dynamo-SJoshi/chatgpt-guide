@@ -1,5 +1,4 @@
 # A Basic ChatGPT Guide
-## Beginner-Friendly ChatGPT — Simple Tips to Help in Everyday Life
 
 *A simple guide to using ChatGPT on your phone. It is written for first-time users and for people who are not comfortable with English or technology. It covers everything from installing the app to using voice and the camera. It uses real everyday examples like cooking, health, farming, budgets, government forms, and small business.*
 
