@@ -56,7 +56,7 @@ function preprocess(md) {
 
 // inline <img src="relative/path"> as base64 data URIs — Chrome blocks file:// subresources
 // from setContent's about:blank origin, so referencing image files never loads them.
-const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.svg': 'image/svg+xml' };
+const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
 function inlineImages(html) {
   return html.replace(/(<img\b[^>]*\bsrc=")([^"]+)"/g, (m, pre, src) => {
     if (src.startsWith('data:') || /^https?:\/\//.test(src)) return m;

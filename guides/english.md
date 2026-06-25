@@ -120,7 +120,7 @@ We will now install ChatGPT together. Just follow along, one step at a time. Kee
 2. Below it, you will usually see the words **"Play Store."**
 3. Tap on it once with your finger.
 
-![A phone home screen with a finger pointing to the colourful triangle "Play Store" icon.](assets/screenshots/screenshot-1.png)
+![A phone home screen with a finger pointing to the colourful triangle "Play Store" icon.](assets/screenshots/screenshot-1.webp)
 
 If you cannot find it, swipe up from the bottom of your screen to see all your apps, then look for "Play Store."
 
@@ -133,7 +133,7 @@ If you cannot find it, swipe up from the bottom of your screen to see all your a
    (Type it slowly, letter by letter: c-h-a-t-g-p-t. Do not worry about capital letters.)
 4. Tap the **search button** (it looks like a magnifying glass 🔍) on your keyboard.
 
-![The Play Store search bar with "chatgpt" typed in it, and the magnifying glass search button highlighted.](assets/screenshots/screenshot-2.png)
+![The Play Store search bar with "chatgpt" typed in it, and the magnifying glass search button highlighted.](assets/screenshots/screenshot-2.webp)
 
 ## Step 3 — Find the correct app
 
@@ -159,9 +159,9 @@ The icon is a **black or white circle with a knot-like flower pattern** in the m
 
 > **Tip:** Use a Wi-Fi connection if you have one, so you do not use up your mobile data. But it is a small app, so mobile data is also fine.
 
-![The ChatGPT app page with the green "Install" button highlighted.](assets/screenshots/screenshot-3.png)
+![The ChatGPT app page with the green "Install" button highlighted.](assets/screenshots/screenshot-3.webp)
 
-![The same page now showing a green "Open" button after installation is complete.](assets/screenshots/screenshot-5.png)
+![The same page now showing a green "Open" button after installation is complete.](assets/screenshots/screenshot-5.webp)
 
 ## Step 5 — Open the app
 
@@ -169,7 +169,7 @@ Tap the **"Open"** button. (From next time, you can also open it directly by tap
 
 The first time it opens, you will see a welcome screen. Now we will create your account.
 
-![The ChatGPT welcome screen with options to "Sign up" and "Log in."](assets/screenshots/screenshot-6.png)
+![The ChatGPT welcome screen with options to "Sign up" and "Log in."](assets/screenshots/screenshot-6.webp)
 
 ## Step 6 — Create your account
 
@@ -192,7 +192,7 @@ If you already use Gmail (most Android phones already have a Google account set 
 3. It may ask "ChatGPT wants to use Google to sign in" — tap **"Continue"** or **"Allow."**
 4. That's it! Your account is created. No password, no email to verify.
 
-![A pop-up showing a list of Gmail accounts to choose from, with one account highlighted.](assets/screenshots/screenshot-7.png)
+![A pop-up showing a list of Gmail accounts to choose from, with one account highlighted.](assets/screenshots/screenshot-7.webp)
 
 ### The Other Way — Sign up with Email
 
@@ -207,7 +207,7 @@ If you want to use a different email, or you do not have Gmail, follow these ste
    - **Write your password down** somewhere safe (a diary), because you will need it next time you log in.
 5. Tap **"Continue."**
 
-![The sign-up screen with an email field and a password field, with example text typed in.](assets/screenshots/screenshot-8.png)
+![The sign-up screen with an email field and a password field, with example text typed in.](assets/screenshots/screenshot-8.webp)
 
 ## Step 7 — Verify your email
 
@@ -243,7 +243,7 @@ Congratulations! 🎉 You will now see the main ChatGPT screen. Let us understan
 - To the **right of that box** is an arrow or microphone — the arrow **sends** your message; the microphone lets you **speak** instead of typing.
 - In the **top-left corner**, there are usually three lines (☰) or a small icon. Tapping it shows your **past chats** — like a history of everything you asked.
 
-![The main ChatGPT chat screen with labels pointing to: (1) the message box at the bottom, (2) the send arrow, (3) the microphone, and (4) the menu lines at top-left.](assets/screenshots/screenshot-9.png)
+![The main ChatGPT chat screen with labels pointing to: (1) the message box at the bottom, (2) the send arrow, (3) the microphone, and (4) the menu lines at top-left.](assets/screenshots/screenshot-9.webp)
 
 ## Step 11 — Say your first hello
 
@@ -255,7 +255,7 @@ Then tap the send arrow. Within a few seconds, ChatGPT will reply warmly.
 
 **You did it!** You now have ChatGPT working on your phone. From here on, everything is just asking questions — which we will learn properly in Section 7.
 
-![A chat showing the user's message "Hello! Can you help me in simple language?" and ChatGPT's friendly reply below it.](assets/screenshots/screenshot-10.png)
+![A chat showing the user's message "Hello! Can you help me in simple language?" and ChatGPT's friendly reply below it.](assets/screenshots/screenshot-10.webp)
 
 ---
 <div class="page-break"></div>
@@ -272,7 +272,7 @@ If your phone is an **iPhone** (made by Apple), the steps are almost the same as
 2. Below it is written **"App Store."**
 3. Tap on it.
 
-![An iPhone home screen with a finger pointing to the blue "App Store" icon.](assets/screenshots/screenshot-11.png)
+![An iPhone home screen with a finger pointing to the blue "App Store" icon.](assets/screenshots/screenshot-11.webp)
 
 ## Step 2 — Search for ChatGPT
 
@@ -298,7 +298,7 @@ Check that the maker says **"OpenAI."** Avoid copycats with slightly different n
    - Your **Apple ID password.**
 3. The app will download. When finished, the button changes to **"OPEN."**
 
-![The ChatGPT app page on iPhone with the "GET" button highlighted.](assets/screenshots/screenshot-12.png)
+![The ChatGPT app page on iPhone with the "GET" button highlighted.](assets/screenshots/screenshot-12.webp)
 
 ## Step 5 — Open and create your account
 
@@ -359,7 +359,7 @@ Now ChatGPT sits on your main screen, ready in one tap.
 3. Scroll to find **ChatGPT.**
 4. Press, hold, and drag its widget onto your home screen. A widget lets you start a chat or speak directly from the home screen.
 
-![The Android widgets menu showing the ChatGPT widget being placed on the home screen.](assets/screenshots/screenshot-13.png)
+![The Android widgets menu showing the ChatGPT widget being placed on the home screen.](assets/screenshots/screenshot-13.webp)
 
 ### On iPhone
 
@@ -396,7 +396,7 @@ Your phone can type in your own script (Devanagari for Hindi, Tamil script, etc.
 2. If your language is not there, go to phone **Settings → System → Languages & input → On-screen keyboard → Gboard → Languages → Add keyboard,** and add your language (for example, "Hindi" or "Tamil").
 3. Now you can switch to your language keyboard by tapping the globe 🌐, and type in your own script.
 
-![An Android keyboard showing the globe icon and a list of added languages like Hindi and Tamil.](assets/screenshots/screenshot-14.png)
+![An Android keyboard showing the globe icon and a list of added languages like Hindi and Tamil.](assets/screenshots/screenshot-14.webp)
 
 **On iPhone:**
 1. Go to **Settings → General → Keyboard → Keyboards → Add New Keyboard.**
@@ -448,7 +448,7 @@ This turns your spoken words into typed text, then ChatGPT replies in writing.
 5. Your spoken words turn into text in the box. Check it looks right, then tap the **send arrow.**
 6. ChatGPT replies in writing, which you can read or have read aloud.
 
-![A "Allow ChatGPT to record audio" permission pop-up with the "Allow" button highlighted.](assets/screenshots/screenshot-15.png)
+![A "Allow ChatGPT to record audio" permission pop-up with the "Allow" button highlighted.](assets/screenshots/screenshot-15.webp)
 
 ### Way 2 — Full voice conversation (talk and listen, like a real call)
 
@@ -461,7 +461,7 @@ This is the magical one. You **talk,** and ChatGPT **talks back out loud** — a
 5. To ask the next thing, just keep talking. It remembers the conversation.
 6. When done, tap the **"X"** or close button to end the call.
 
-![The voice conversation screen with a large glowing circle and a "listening..." indicator.](assets/screenshots/screenshot-16.png)
+![The voice conversation screen with a large glowing circle and a "listening..." indicator.](assets/screenshots/screenshot-16.webp)
 
 > **Tip:** This is also a wonderful, private way to **practise spoken English.** Talk to it in English, and it will gently reply — no one is judging you, and you can repeat as many times as you like.
 
@@ -513,7 +513,7 @@ Think of it like showing a photo to a knowledgeable friend and asking, *"What is
 5. After the photo is attached, **type or speak your question** about it — for example, *"What is wrong with this plant?"*
 6. Tap send. ChatGPT looks at the photo and answers.
 
-![The message box with the "+" / camera icon 📷 circled, showing "Take Photo" and "Photo Library" options.](assets/screenshots/screenshot-17.png)
+![The message box with the "+" / camera icon 📷 circled, showing "Take Photo" and "Photo Library" options.](assets/screenshots/screenshot-17.webp)
 
 ## Six powerful ways to use the camera
 

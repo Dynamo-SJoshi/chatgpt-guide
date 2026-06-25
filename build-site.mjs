@@ -17,6 +17,29 @@ const LANGS = [
 ];
 
 const CREDIT = 'Made with ❤️ by Garv Sachdeva';
+const LOCALE = { english: 'en_US', hindi: 'hi_IN', bengali: 'bn_IN', tamil: 'ta_IN', telugu: 'te_IN', kannada: 'kn_IN', marathi: 'mr_IN', punjabi: 'pa_IN', odia: 'or_IN' };
+const BASE = 'https://pygarv.github.io/chatgpt-guide/';
+const OG_IMG = BASE + 'assets/og.png';
+const DESC = 'A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.';
+
+// Open Graph + Twitter card so shared links (WhatsApp, social) show a title, blurb and preview.
+function meta({ title, url, locale = 'en_US' }) {
+  const esc = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+  return `<meta name="description" content="${esc(DESC)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="A Basic ChatGPT Guide">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(DESC)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${OG_IMG}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="${locale}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(DESC)}">
+<meta name="twitter:image" content="${OG_IMG}">`;
+}
 
 const ROOT = path.resolve('.');
 const OUT = path.join(ROOT, 'docs');
@@ -155,6 +178,7 @@ function pageHtml(lang, bodyHtml) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — ${lang.native}</title>
+${meta({ title: `A Basic ChatGPT Guide — ${lang.native} (${lang.en})`, url: `${BASE}${lang.code}.html`, locale: LOCALE[lang.code] || 'en_US' })}
 ${THEME_HEAD}
 <link rel="stylesheet" href="style.css">
 </head>
@@ -185,6 +209,7 @@ function indexHtml() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — in Your Language</title>
+${meta({ title: 'A Basic ChatGPT Guide — Free, in 9 Indian languages', url: BASE })}
 ${THEME_HEAD}
 <link rel="stylesheet" href="style.css">
 </head>
