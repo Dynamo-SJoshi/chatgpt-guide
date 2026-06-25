@@ -54,11 +54,23 @@ function preprocess(md) {
   return md.replace(/^(\s*\d+\.\s+\*\*.+?\*\*)\s*[—–-]\s*[^—–\-\n]*\d+\s*$/gm, '$1');
 }
 
+// inline <img src="relative/path"> as base64 data URIs — Chrome blocks file:// subresources
+// from setContent's about:blank origin, so referencing image files never loads them.
+const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.svg': 'image/svg+xml' };
+function inlineImages(html) {
+  return html.replace(/(<img\b[^>]*\bsrc=")([^"]+)"/g, (m, pre, src) => {
+    if (src.startsWith('data:') || /^https?:\/\//.test(src)) return m;
+    const file = path.join(ROOT, src);
+    if (!fs.existsSync(file)) { console.warn(`  missing image: ${src}`); return m; }
+    const mime = MIME[path.extname(file).toLowerCase()] || 'application/octet-stream';
+    return `${pre}data:${mime};base64,${fs.readFileSync(file).toString('base64')}"`;
+  });
+}
+
 function mdToHtml(md) {
-  const body = marked.parse(preprocess(md), { mangle: false, headerIds: true });
+  const body = inlineImages(marked.parse(preprocess(md), { mangle: false, headerIds: true }));
   const credit = `<div class="pdf-credit">${CREDIT.replace('❤️', '<span class="heart">❤️</span>')}</div>`;
   return `<!doctype html><html><head><meta charset="utf-8">
-<base href="file://${ROOT}/">
 <style>${CSS}</style></head><body>${body}${credit}</body></html>`;
 }
 
@@ -66,7 +78,7 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new'
 for (const lang of targets) {
   const md = fs.readFileSync(path.join(ROOT, lang.file), 'utf8');
   const page = await browser.newPage();
-  await page.setContent(mdToHtml(md), { waitUntil: 'networkidle0' });
+  await page.setContent(mdToHtml(md), { waitUntil: 'load', timeout: 0 });
   await page.pdf({
     path: path.join(OUT, `${lang.code}.pdf`),
     format: 'A4', printBackground: true, displayHeaderFooter: true,
