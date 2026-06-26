@@ -17,6 +17,8 @@ const LANGS = [
 ];
 
 const CREDIT = 'Made with ❤️ by Garv Sachdeva';
+// Cloudflare Web Analytics (cookieless, privacy-friendly visitor counts)
+const ANALYTICS = `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>`;
 const LOCALE = { english: 'en_US', hindi: 'hi_IN', bengali: 'bn_IN', tamil: 'ta_IN', telugu: 'te_IN', kannada: 'kn_IN', marathi: 'mr_IN', punjabi: 'pa_IN', odia: 'or_IN' };
 const BASE = 'https://pygarv.github.io/chatgpt-guide/';
 const OG_IMG = BASE + 'assets/og.png';
@@ -181,6 +183,7 @@ function pageHtml(lang, bodyHtml) {
 ${meta({ title: `A Basic ChatGPT Guide — ${lang.native} (${lang.en})`, url: `${BASE}${lang.code}.html`, locale: LOCALE[lang.code] || 'en_US' })}
 ${THEME_HEAD}
 <link rel="stylesheet" href="style.css">
+${ANALYTICS}
 </head>
 <body>
 <div class="topbar">
@@ -212,6 +215,7 @@ function indexHtml() {
 ${meta({ title: 'A Basic ChatGPT Guide — Free, in 9 Indian languages', url: BASE })}
 ${THEME_HEAD}
 <link rel="stylesheet" href="style.css">
+${ANALYTICS}
 </head>
 <body>
 ${themeBtn(true)}
