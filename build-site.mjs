@@ -95,7 +95,7 @@ const CSS = `
 }
 * { box-sizing:border-box; }
 button { appearance:none; -webkit-appearance:none; font:inherit; }
-html { -webkit-text-size-adjust:100%; }
+html { -webkit-text-size-adjust:100%; font-size:calc(18px * var(--fs)); }
 .ic { width:1.15em; height:1.15em; display:inline-block; vertical-align:-0.18em; flex:none; }
 .iconbtn .ic, .btn .ic { width:20px; height:20px; vertical-align:middle; }
 .pdf-dl .ic { width:15px; height:15px; vertical-align:-0.2em; }
@@ -103,7 +103,7 @@ html { -webkit-text-size-adjust:100%; }
 .chnav .ic { width:16px; height:16px; }
 body { margin:0; color:var(--ink); background:var(--bg);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans','Noto Sans Devanagari','Noto Sans Bengali','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Kannada','Noto Sans Oriya','Noto Sans Gurmukhi', sans-serif;
-  line-height:1.75; font-size:calc(18px * var(--fs));
+  line-height:1.75; font-size:1rem;
   transition: background .2s ease, color .2s ease; }
 h1,h2,h3 { line-height:1.3; }
 
@@ -221,7 +221,7 @@ code { background:var(--surface2); padding:2px 6px; border-radius:6px; font-size
 .site-foot .fine a { color:var(--accent); }
 
 @media (max-width:480px) {
-  body { font-size:calc(17px * var(--fs)); }
+  html { font-size:calc(17px * var(--fs)); }
   .hero { padding:30px 18px 4px; }
   .hero h1 { font-size:1.7em; }
   .grid { grid-template-columns:1fr 1fr; gap:12px; }
@@ -244,6 +244,16 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>`;
 const THEME_INIT = `<script>var _b=document.getElementById('themeBtn');if(_b)_b.innerHTML=document.documentElement.dataset.theme==='dark'?IC.sun:IC.moon;</script>`;
+
+// PWA: installable / add-to-home-screen
+const PWA_HEAD = `<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e8f6f">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ChatGPT Guide">`;
+const SW_REG = `<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>`;
 
 // controls block reused on every page (theme + font size)
 const controls = () =>
@@ -335,6 +345,7 @@ function pageHtml(lang, chaps) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — ${lang.native}</title>
 ${meta({ title: `A Basic ChatGPT Guide — ${lang.native} (${lang.en})`, url: `${BASE}${lang.code}.html`, locale: lang.locale })}
+${PWA_HEAD}
 ${ICON_SCRIPT}
 ${HEAD_JS}
 <link rel="stylesheet" href="style.css">
@@ -373,6 +384,7 @@ ${chapterSections}
 
 ${footer()}
 ${THEME_INIT}
+${SW_REG}
 ${GUIDE_JS}
 </body>
 </html>`;
@@ -390,6 +402,7 @@ function indexHtml() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — in Your Language</title>
 ${meta({ title: 'A Basic ChatGPT Guide — Free, in 9 Indian languages', url: BASE })}
+${PWA_HEAD}
 ${ICON_SCRIPT}
 ${HEAD_JS}
 <link rel="stylesheet" href="style.css">
@@ -424,6 +437,7 @@ ${THEME_INIT}
   grid.insertBefore(card, grid.firstChild);
 }catch(e){}})();
 </script>
+${SW_REG}
 </body>
 </html>`;
 }
@@ -536,6 +550,38 @@ for (const lang of LANGS) {
 fs.writeFileSync(path.join(OUT, 'index.html'), indexHtml());
 fs.writeFileSync(path.join(OUT, 'style.css'), CSS.trim() + '\n');
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
+
+// PWA manifest + service worker (installable, offline after first visit)
+const MANIFEST = {
+  name: 'A Basic ChatGPT Guide',
+  short_name: 'ChatGPT Guide',
+  description: DESC,
+  start_url: 'index.html',
+  scope: './',
+  display: 'standalone',
+  orientation: 'portrait',
+  background_color: '#fbf9f5',
+  theme_color: '#0e8f6f',
+  icons: [
+    { src: 'assets/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
+    { src: 'assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+  ],
+};
+fs.writeFileSync(path.join(OUT, 'manifest.webmanifest'), JSON.stringify(MANIFEST, null, 2));
+
+const SW = `// cache-first with background refresh; offline after first visit. Bump CACHE to invalidate.
+const CACHE='cg-v1';
+self.addEventListener('install',function(e){self.skipWaiting();});
+self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){if(k!==CACHE)return caches.delete(k);}));}).then(function(){return self.clients.claim();}));});
+self.addEventListener('fetch',function(e){
+  var r=e.request; if(r.method!=='GET'||!r.url.startsWith(self.location.origin))return;
+  e.respondWith(caches.open(CACHE).then(function(c){return c.match(r).then(function(hit){
+    var net=fetch(r).then(function(res){if(res&&res.status===200)c.put(r,res.clone());return res;}).catch(function(){return hit;});
+    return hit||net;
+  });}));
+});
+`;
+fs.writeFileSync(path.join(OUT, 'sw.js'), SW);
 
 // copy assets into docs/ (GitHub Pages serves only docs/)
 const assetsSrc = path.join(ROOT, 'assets');
