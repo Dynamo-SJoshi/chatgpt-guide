@@ -18,6 +18,7 @@
 <meta name="twitter:title" content="A Basic ChatGPT Guide — मराठी (Marathi)">
 <meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
 <meta name="twitter:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
+<script>var IC={"home":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m3 11 9-7 9 7\"/><path d=\"M5 10v10h14V10\"/></svg>","download":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3v12\"/><path d=\"m7 12 5 5 5-5\"/><path d=\"M5 21h14\"/></svg>","moon":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12.8A8 8 0 1 1 11.2 3 6 6 0 0 0 21 12.8z\"/></svg>","sun":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4\"/></svg>","speak":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 9v6h4l5 4V5L8 9H4z\"/><path d=\"M16 8a5 5 0 0 1 0 8\"/></svg>","stop":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"2\"/></svg>","chevL":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m15 18-6-6 6-6\"/></svg>","chevR":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 6 6 6-6 6\"/></svg>","arrowR":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m13 6 6 6-6 6\"/></svg>","arrowL":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19 12H5\"/><path d=\"m11 18-6-6 6-6\"/></svg>","check":"<svg class=\"ic\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 5 5 9-9\"/></svg>"};</script>
 <script>
 (function(){try{
   var t=localStorage.getItem('theme');
@@ -25,7 +26,7 @@
   document.documentElement.dataset.theme=t;
   var f=parseFloat(localStorage.getItem('fs'))||1; document.documentElement.style.setProperty('--fs',f);
 }catch(e){}})();
-function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.innerHTML=(t==='dark'?IC.sun:IC.moon);}
 function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>
 <link rel="stylesheet" href="style.css">
@@ -33,19 +34,19 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
 </head>
 <body data-bcp="mr-IN">
 <div class="topbar">
-  <a class="home" href="#" onclick="goHome();return false;" title="Contents">🏠</a>
+  <a class="home" href="#" onclick="goHome();return false;" title="Contents"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-7 9 7"/><path d="M5 10v10h14V10"/></svg></a>
   <span class="spacer"></span>
   <select onchange="if(this.value)location.href=this.value+location.hash" aria-label="Choose language"><option value="english.html">English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html" selected>मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html">ଓଡ଼ିଆ — Odia</option></select>
-  <a class="pdf-dl" href="pdfs/marathi.pdf" download>⬇ PDF</a>
-  <div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button><button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div><button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+  <a class="pdf-dl" href="pdfs/marathi.pdf" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg> PDF</a>
+  <div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button><button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div><button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8 8 0 1 1 11.2 3 6 6 0 0 0 21 12.8z"/></svg></button>
 </div>
 
 <div class="readbar" id="readbar" hidden>
-  <button class="btn speak" id="speakBtn" onclick="toggleSpeak()" hidden>🔊</button>
-  <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter">◀</button>
+  <button class="iconbtn speak" id="speakBtn" onclick="toggleSpeak()" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg></button>
+  <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
   <div class="progress"><i id="progFill"></i></div>
   <span class="count" id="chCount"></span>
-  <button class="iconbtn arrow" onclick="nextCh()" aria-label="Next chapter">▶</button>
+  <button class="iconbtn arrow" onclick="nextCh()" aria-label="Next chapter"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
 </div>
 
 <main class="wrap">
@@ -63,22 +64,22 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
 
     </div>
     <div class="chapter-list">
-<button class="chapcard" onclick="openCh(0)"><span class="num">1</span><span class="name">ChatGPT म्हणजे काय?</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(1)"><span class="num">2</span><span class="name">Android वर सुरुवात कशी करावी</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(2)"><span class="num">3</span><span class="name">iPhone (iOS) वर सुरुवात कशी करावी</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(3)"><span class="num">4</span><span class="name">सोप्या वापरासाठी सेटअप</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(4)"><span class="num">5</span><span class="name">ChatGPT शी फोन कॉलसारखी बोला (आवाज)</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(5)"><span class="num">6</span><span class="name">फोटो काढून प्रश्न विचारा (कॅमेऱ्याचा वापर)</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(6)"><span class="num">7</span><span class="name">प्रश्न कसे विचारावेत (प्रॉम्प्टच्या मूलभूत गोष्टी)</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(7)"><span class="num">8</span><span class="name">20 गोष्टी ज्या तुम्ही आजच करून पाहाव्यात</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(8)"><span class="num">9</span><span class="name">रोजच्या आयुष्यातील उदाहरणे</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(9)"><span class="num">10</span><span class="name">ज्येष्ठ नागरिकांसाठी ChatGPT</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(10)"><span class="num">11</span><span class="name">महिला आणि घर सांभाळणाऱ्यांसाठी ChatGPT</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(11)"><span class="num">12</span><span class="name">नवीन कौशल्ये शिकणे</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(12)"><span class="num">13</span><span class="name">ChatGPT तुमचे पैसे वाचवू शकते</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(13)"><span class="num">14</span><span class="name">ChatGPT काय करू शकत नाही</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(14)"><span class="num">15</span><span class="name">टिप्स आणि युक्त्या</span><span class="go">→</span></button>
-<button class="chapcard" onclick="openCh(15)"><span class="num">16</span><span class="name">झटपट संदर्भ कार्ड</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(0)"><span class="num">1</span><span class="name">ChatGPT म्हणजे काय?</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(1)"><span class="num">2</span><span class="name">Android वर सुरुवात कशी करावी</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(2)"><span class="num">3</span><span class="name">iPhone (iOS) वर सुरुवात कशी करावी</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(3)"><span class="num">4</span><span class="name">सोप्या वापरासाठी सेटअप</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(4)"><span class="num">5</span><span class="name">ChatGPT शी फोन कॉलसारखी बोला (आवाज)</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(5)"><span class="num">6</span><span class="name">फोटो काढून प्रश्न विचारा (कॅमेऱ्याचा वापर)</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(6)"><span class="num">7</span><span class="name">प्रश्न कसे विचारावेत (प्रॉम्प्टच्या मूलभूत गोष्टी)</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(7)"><span class="num">8</span><span class="name">20 गोष्टी ज्या तुम्ही आजच करून पाहाव्यात</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(8)"><span class="num">9</span><span class="name">रोजच्या आयुष्यातील उदाहरणे</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(9)"><span class="num">10</span><span class="name">ज्येष्ठ नागरिकांसाठी ChatGPT</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(10)"><span class="num">11</span><span class="name">महिला आणि घर सांभाळणाऱ्यांसाठी ChatGPT</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(11)"><span class="num">12</span><span class="name">नवीन कौशल्ये शिकणे</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(12)"><span class="num">13</span><span class="name">ChatGPT तुमचे पैसे वाचवू शकते</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(13)"><span class="num">14</span><span class="name">ChatGPT काय करू शकत नाही</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(14)"><span class="num">15</span><span class="name">टिप्स आणि युक्त्या</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
+<button class="chapcard" onclick="openCh(15)"><span class="num">16</span><span class="name">झटपट संदर्भ कार्ड</span><span class="go"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></button>
     </div>
   </section>
 <section class="chapter" id="c0" data-name="ChatGPT म्हणजे काय?" hidden>
@@ -1488,7 +1489,7 @@ ChatGPT तुम्हाला सांगू शकते की प्र�
 </main>
 
 <footer class="page-foot"><span class="credit">Made with ❤️ by Garv Sachdeva</span></footer>
-<script>var _b=document.getElementById('themeBtn');if(_b)_b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>var _b=document.getElementById('themeBtn');if(_b)_b.innerHTML=document.documentElement.dataset.theme==='dark'?IC.sun:IC.moon;</script>
 <script>
 (function(){
   var sections=[].slice.call(document.querySelectorAll('.chapter'));
@@ -1505,13 +1506,13 @@ ChatGPT तुम्हाला सांगू शकते की प्र�
   function name(i){ return sections[i]?sections[i].getAttribute('data-name'):''; }
   function buildNav(i){
     var nav=document.getElementById('nav'+i); if(!nav) return;
-    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">← Back</span><span class="lbl">'+name(i-1)+'</span></a>'
-                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">←</span><span class="lbl">🏠 Home</span></a>';
-    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next →</span><span class="lbl">'+name(i+1)+'</span></a>'
-                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">Done ✓</span><span class="lbl">🏠 Home</span></a>';
+    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">'+IC.arrowL+' Back</span><span class="lbl">'+name(i-1)+'</span></a>'
+                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">'+IC.arrowL+'</span><span class="lbl">'+IC.home+' Home</span></a>';
+    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next '+IC.arrowR+'</span><span class="lbl">'+name(i+1)+'</span></a>'
+                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">'+IC.check+' Done</span><span class="lbl">'+IC.home+' Home</span></a>';
     nav.innerHTML=prev+next;
   }
-  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.textContent='🔊';} }
+  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.innerHTML=IC.speak;} }
 
   function show(i){
     stopSpeak();
@@ -1568,7 +1569,7 @@ ChatGPT तुम्हाला सांगू शकते की प्र�
     // split into sentence-ish chunks WITHOUT lookbehind (old Safari throws on lookbehind regex literals)
     queue=(text.match(/[^.!?।]+[.!?।]*/g)||[text]).map(function(s){return s.trim();}).filter(Boolean);
     if(!queue.length) return;
-    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.textContent='⏹ Stop';
+    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.innerHTML=IC.stop;
     speakNext();
   };
   window.addEventListener('beforeunload', stopSpeak);

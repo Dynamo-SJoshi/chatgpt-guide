@@ -23,6 +23,24 @@ const DESC = 'A simple, beginner-friendly guide to using ChatGPT on your phone. 
 // Cloudflare Web Analytics (cookieless, privacy-friendly visitor counts)
 const ANALYTICS = `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>`;
 
+// ---- inline SVG icon set (currentColor, no external files) ----
+const P = {
+  home: '<path d="m3 11 9-7 9 7"/><path d="M5 10v10h14V10"/>',
+  download: '<path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/>',
+  moon: '<path d="M21 12.8A8 8 0 1 1 11.2 3 6 6 0 0 0 21 12.8z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  speak: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8"/>',
+  stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
+  chevL: '<path d="m15 18-6-6 6-6"/>',
+  chevR: '<path d="m9 6 6 6-6 6"/>',
+  arrowR: '<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>',
+  arrowL: '<path d="M19 12H5"/><path d="m11 18-6-6 6-6"/>',
+  check: '<path d="m5 12 5 5 9-9"/>',
+};
+const svg = (n) => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]}</svg>`;
+const ICON = Object.fromEntries(Object.keys(P).map((k) => [k, svg(k)]));
+const ICON_SCRIPT = `<script>var IC=${JSON.stringify(ICON)};</script>`;
+
 const ROOT = path.resolve('.');
 const OUT = path.join(ROOT, 'docs');
 fs.mkdirSync(OUT, { recursive: true });
@@ -62,6 +80,11 @@ const CSS = `
 * { box-sizing:border-box; }
 button { appearance:none; -webkit-appearance:none; font:inherit; }
 html { -webkit-text-size-adjust:100%; }
+.ic { width:1.15em; height:1.15em; display:inline-block; vertical-align:-0.18em; flex:none; }
+.iconbtn .ic, .btn .ic { width:20px; height:20px; vertical-align:middle; }
+.pdf-dl .ic { width:15px; height:15px; vertical-align:-0.2em; }
+.chapcard .go .ic { width:22px; height:22px; display:block; }
+.chnav .ic { width:16px; height:16px; }
 body { margin:0; color:var(--ink); background:var(--bg);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans','Noto Sans Devanagari','Noto Sans Bengali','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Kannada','Noto Sans Oriya','Noto Sans Gurmukhi', sans-serif;
   line-height:1.75; font-size:calc(18px * var(--fs));
@@ -195,16 +218,16 @@ const HEAD_JS = `<script>
   document.documentElement.dataset.theme=t;
   var f=parseFloat(localStorage.getItem('fs'))||1; document.documentElement.style.setProperty('--fs',f);
 }catch(e){}})();
-function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.innerHTML=(t==='dark'?IC.sun:IC.moon);}
 function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>`;
-const THEME_INIT = `<script>var _b=document.getElementById('themeBtn');if(_b)_b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>`;
+const THEME_INIT = `<script>var _b=document.getElementById('themeBtn');if(_b)_b.innerHTML=document.documentElement.dataset.theme==='dark'?IC.sun:IC.moon;</script>`;
 
 // controls block reused on every page (theme + font size)
 const controls = () =>
   `<div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button>` +
   `<button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div>` +
-  `<button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>`;
+  `<button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">${ICON.moon}</button>`;
 
 // ---- markdown transforms ----
 function preprocess(md) {
@@ -261,7 +284,7 @@ function pageHtml(lang, chaps) {
     .map(
       (c, i) =>
         `<button class="chapcard" onclick="openCh(${i})"><span class="num">${i + 1}</span>` +
-        `<span class="name">${escapeHtml(chapterName(c.title))}</span><span class="go">→</span></button>`
+        `<span class="name">${escapeHtml(chapterName(c.title))}</span><span class="go">${ICON.arrowR}</span></button>`
     )
     .join('\n');
 
@@ -283,25 +306,26 @@ function pageHtml(lang, chaps) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — ${lang.native}</title>
 ${meta({ title: `A Basic ChatGPT Guide — ${lang.native} (${lang.en})`, url: `${BASE}${lang.code}.html`, locale: lang.locale })}
+${ICON_SCRIPT}
 ${HEAD_JS}
 <link rel="stylesheet" href="style.css">
 ${ANALYTICS}
 </head>
 <body data-bcp="${lang.bcp}">
 <div class="topbar">
-  <a class="home" href="#" onclick="goHome();return false;" title="Contents">🏠</a>
+  <a class="home" href="#" onclick="goHome();return false;" title="Contents">${ICON.home}</a>
   <span class="spacer"></span>
   ${langSwitcher(lang.code)}
-  <a class="pdf-dl" href="pdfs/${lang.code}.pdf" download>⬇ PDF</a>
+  <a class="pdf-dl" href="pdfs/${lang.code}.pdf" download>${ICON.download} PDF</a>
   ${controls()}
 </div>
 
 <div class="readbar" id="readbar" hidden>
-  <button class="btn speak" id="speakBtn" onclick="toggleSpeak()" hidden>🔊</button>
-  <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter">◀</button>
+  <button class="iconbtn speak" id="speakBtn" onclick="toggleSpeak()" hidden>${ICON.speak}</button>
+  <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter">${ICON.chevL}</button>
   <div class="progress"><i id="progFill"></i></div>
   <span class="count" id="chCount"></span>
-  <button class="iconbtn arrow" onclick="nextCh()" aria-label="Next chapter">▶</button>
+  <button class="iconbtn arrow" onclick="nextCh()" aria-label="Next chapter">${ICON.chevR}</button>
 </div>
 
 <main class="wrap">
@@ -336,12 +360,13 @@ function indexHtml() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — in Your Language</title>
 ${meta({ title: 'A Basic ChatGPT Guide — Free, in 9 Indian languages', url: BASE })}
+${ICON_SCRIPT}
 ${HEAD_JS}
 <link rel="stylesheet" href="style.css">
 ${ANALYTICS}
 </head>
 <body>
-<div class="floating fsgroup">${controls()}</div>
+<div class="topbar"><span class="spacer"></span>${controls()}</div>
 <section class="hero">
   <h1>A Basic ChatGPT Guide</h1>
   <p>A simple, friendly guide to using ChatGPT on your phone. For first-time users. It can even read aloud to you.</p>
@@ -397,13 +422,13 @@ const GUIDE_JS = `<script>
   function name(i){ return sections[i]?sections[i].getAttribute('data-name'):''; }
   function buildNav(i){
     var nav=document.getElementById('nav'+i); if(!nav) return;
-    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">← Back</span><span class="lbl">'+name(i-1)+'</span></a>'
-                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">←</span><span class="lbl">🏠 Home</span></a>';
-    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next →</span><span class="lbl">'+name(i+1)+'</span></a>'
-                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">Done ✓</span><span class="lbl">🏠 Home</span></a>';
+    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">'+IC.arrowL+' Back</span><span class="lbl">'+name(i-1)+'</span></a>'
+                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">'+IC.arrowL+'</span><span class="lbl">'+IC.home+' Home</span></a>';
+    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next '+IC.arrowR+'</span><span class="lbl">'+name(i+1)+'</span></a>'
+                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">'+IC.check+' Done</span><span class="lbl">'+IC.home+' Home</span></a>';
     nav.innerHTML=prev+next;
   }
-  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.textContent='🔊';} }
+  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.innerHTML=IC.speak;} }
 
   function show(i){
     stopSpeak();
@@ -460,7 +485,7 @@ const GUIDE_JS = `<script>
     // split into sentence-ish chunks WITHOUT lookbehind (old Safari throws on lookbehind regex literals)
     queue=(text.match(/[^.!?।]+[.!?।]*/g)||[text]).map(function(s){return s.trim();}).filter(Boolean);
     if(!queue.length) return;
-    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.textContent='⏹ Stop';
+    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.innerHTML=IC.stop;
     speakNext();
   };
   window.addEventListener('beforeunload', stopSpeak);
