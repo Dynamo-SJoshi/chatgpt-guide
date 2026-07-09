@@ -33,6 +33,7 @@ const P = {
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   speak: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8"/>',
   stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/>',
   chevL: '<path d="m15 18-6-6 6-6"/>',
   chevR: '<path d="m9 6 6 6-6 6"/>',
   arrowR: '<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>',
@@ -298,10 +299,17 @@ function langSwitcher(currentCode) {
 // per-language page: cover + chapter list (home) and one hidden section per chapter, driven by inline JS.
 function pageHtml(lang, chaps) {
   const cover = chaps[0];
-  const sections = chaps.slice(1);
-  const coverHtml = bodyToHtml(stripTOC(cover.body));
+  // pull the intro ("A Note Before You Begin") out of the cover so it becomes chapter 1
+  // (gets its own reading bar + read-aloud); the cover keeps only title + tagline.
+  const coverRaw = stripTOC(cover.body);
+  const hIdx = coverRaw.search(/^##\s/m);
+  const taglineMd = hIdx >= 0 ? coverRaw.slice(0, hIdx) : coverRaw;
+  const introTitle = hIdx >= 0 ? (coverRaw.slice(hIdx).match(/^##\s+(.+)/) || [])[1] : '';
+  const introMd = hIdx >= 0 ? coverRaw.slice(hIdx).replace(/^##\s+.+\r?\n?/, '') : '';
+  const chapters = (introTitle ? [{ title: introTitle, body: introMd }] : []).concat(chaps.slice(1));
+  const coverHtml = bodyToHtml(taglineMd);
 
-  const chapterList = sections
+  const chapterList = chapters
     .map(
       (c, i) =>
         `<button class="chapcard" onclick="openCh(${i})"><span class="num">${i + 1}</span>` +
@@ -309,7 +317,7 @@ function pageHtml(lang, chaps) {
     )
     .join('\n');
 
-  const chapterSections = sections
+  const chapterSections = chapters
     .map((c, i) => {
       const name = escapeHtml(chapterName(c.title));
       return `<section class="chapter" id="c${i}" data-name="${name}" hidden>
@@ -334,7 +342,7 @@ ${ANALYTICS}
 </head>
 <body data-bcp="${lang.bcp}">
 <div class="topbar">
-  <a class="home" href="#" onclick="goHome();return false;" title="Contents">${ICON.home}</a>
+  <a class="home" href="index.html" title="All languages">${ICON.home}</a>
   <span class="spacer"></span>
   ${langSwitcher(lang.code)}
   <a class="pdf-dl" href="pdfs/${lang.code}.pdf" download>${ICON.download} PDF</a>
@@ -342,6 +350,7 @@ ${ANALYTICS}
 </div>
 
 <div class="readbar" id="readbar" hidden>
+  <button class="iconbtn" onclick="goHome()" aria-label="Contents" title="Contents">${ICON.list}</button>
   <button class="iconbtn speak" id="speakBtn" onclick="toggleSpeak()" hidden>${ICON.speak}</button>
   <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter">${ICON.chevL}</button>
   <div class="progress"><i id="progFill"></i></div>
@@ -441,9 +450,9 @@ const GUIDE_JS = `<script>
   function buildNav(i){
     var nav=document.getElementById('nav'+i); if(!nav) return;
     var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">'+IC.arrowL+' Back</span><span class="lbl">'+name(i-1)+'</span></a>'
-                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">'+IC.arrowL+'</span><span class="lbl">'+IC.home+' Home</span></a>';
+                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">'+IC.arrowL+'</span><span class="lbl">'+IC.list+' Contents</span></a>';
     var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next '+IC.arrowR+'</span><span class="lbl">'+name(i+1)+'</span></a>'
-                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">'+IC.check+' Done</span><span class="lbl">'+IC.home+' Home</span></a>';
+                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">'+IC.check+' Done</span><span class="lbl">'+IC.list+' Contents</span></a>';
     nav.innerHTML=prev+next;
   }
   function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.innerHTML=IC.speak;} }
