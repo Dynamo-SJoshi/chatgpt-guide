@@ -33,8 +33,7 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
 </head>
 <body data-bcp="mr-IN">
 <div class="topbar">
-  <a class="home" href="#" onclick="goHome();return false;">🏠</a>
-  <a class="home" href="index.html" title="All languages">🌐</a>
+  <a class="home" href="#" onclick="goHome();return false;" title="Contents">🏠</a>
   <span class="spacer"></span>
   <select onchange="if(this.value)location.href=this.value+location.hash" aria-label="Choose language"><option value="english.html">English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html" selected>मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html">ଓଡ଼ିଆ — Odia</option></select>
   <a class="pdf-dl" href="pdfs/marathi.pdf" download>⬇ PDF</a>
@@ -43,8 +42,10 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
 
 <div class="readbar" id="readbar" hidden>
   <button class="btn speak" id="speakBtn" onclick="toggleSpeak()" hidden>🔊</button>
+  <button class="iconbtn arrow" onclick="prevCh()" aria-label="Previous chapter">◀</button>
   <div class="progress"><i id="progFill"></i></div>
   <span class="count" id="chCount"></span>
+  <button class="iconbtn arrow" onclick="nextCh()" aria-label="Next chapter">▶</button>
 </div>
 
 <main class="wrap">
@@ -1530,6 +1531,8 @@ ChatGPT तुम्हाला सांगू शकते की प्र�
   }
   window.openCh=function(i){ location.hash='ch'+i; };
   window.goHome=function(){ if(location.hash){ location.hash=''; } else { show(-1); } };
+  window.nextCh=function(){ if(cur<N-1) openCh(cur+1); else goHome(); };
+  window.prevCh=function(){ if(cur>0) openCh(cur-1); else goHome(); };
 
   function fromHash(){
     var m=(location.hash||'').match(/^#ch(\d+)$/);
