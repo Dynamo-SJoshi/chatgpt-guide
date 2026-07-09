@@ -50,7 +50,6 @@ function footer() {
   return `<footer class="site-foot">
   <div class="foot-links">
     <a href="${REPO}" target="_blank" rel="noopener">${GH_SVG} Contribute on GitHub</a>
-    <a href="${OPENAI}" target="_blank" rel="noopener">Visit OpenAI</a>
   </div>
   <p class="credit">${CREDIT}</p>
   <p class="fine">A free, independent guide to help first-time users. ChatGPT is a product of <a href="${OPENAI}" target="_blank" rel="noopener">OpenAI</a> — this guide is not affiliated with or endorsed by OpenAI. Free to read &amp; share. It is open source, so anyone can suggest fixes or improvements.</p>
