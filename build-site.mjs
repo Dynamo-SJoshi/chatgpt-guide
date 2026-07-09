@@ -18,6 +18,8 @@ const LANGS = [
 
 const CREDIT = 'Made with ❤️ by Garv Sachdeva';
 const BASE = 'https://pygarv.github.io/chatgpt-guide/';
+const REPO = 'https://github.com/pygarv/chatgpt-guide';
+const OPENAI = 'https://openai.com';
 const OG_IMG = BASE + 'assets/og.png';
 const DESC = 'A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.';
 // Cloudflare Web Analytics (cookieless, privacy-friendly visitor counts)
@@ -40,6 +42,19 @@ const P = {
 const svg = (n) => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]}</svg>`;
 const ICON = Object.fromEntries(Object.keys(P).map((k) => [k, svg(k)]));
 const ICON_SCRIPT = `<script>var IC=${JSON.stringify(ICON)};</script>`;
+// GitHub mark (filled, own viewBox)
+const GH_SVG = '<svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2.1.1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>';
+
+function footer() {
+  return `<footer class="site-foot">
+  <div class="foot-links">
+    <a href="${REPO}" target="_blank" rel="noopener">${GH_SVG} Contribute on GitHub</a>
+    <a href="${OPENAI}" target="_blank" rel="noopener">Visit OpenAI</a>
+  </div>
+  <p class="credit">${CREDIT}</p>
+  <p class="fine">A free, independent guide to help first-time users. ChatGPT is a product of <a href="${OPENAI}" target="_blank" rel="noopener">OpenAI</a> — this guide is not affiliated with or endorsed by OpenAI. Free to read &amp; share. It is open source, so anyone can suggest fixes or improvements.</p>
+</footer>`;
+}
 
 const ROOT = path.resolve('.');
 const OUT = path.join(ROOT, 'docs');
@@ -193,10 +208,16 @@ code { background:var(--surface2); padding:2px 6px; border-radius:6px; font-size
 .card .tag { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff;
   font-size:.72rem; font-weight:700; padding:3px 10px; border-radius:999px; white-space:nowrap; }
 
-/* footers */
-.foot { text-align:center; color:var(--muted); font-size:.88em; padding:24px 20px; border-top:1px solid var(--line); }
-.foot .credit, .page-foot .credit { color:var(--ink); font-weight:700; }
-.page-foot { max-width:760px; margin:0 auto; text-align:center; color:var(--muted); font-size:.85em; padding:24px 20px; border-top:1px solid var(--line); }
+/* footer */
+.site-foot { border-top:1px solid var(--line); margin-top:44px; padding:30px 20px 46px; text-align:center; color:var(--muted); }
+.foot-links { display:flex; flex-wrap:wrap; gap:10px 14px; justify-content:center; margin-bottom:16px; }
+.foot-links a { display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink); font-weight:700;
+  border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:9px 16px; font-size:.92rem; transition:border-color .12s, color .12s; }
+.foot-links a:hover { border-color:var(--accent); color:var(--accent); }
+.foot-links .ic { width:18px; height:18px; }
+.site-foot .credit { color:var(--ink); font-weight:700; margin:8px 0; font-size:1rem; }
+.site-foot .fine { font-size:.83rem; max-width:540px; margin:8px auto 0; line-height:1.65; }
+.site-foot .fine a { color:var(--accent); }
 
 @media (max-width:480px) {
   body { font-size:calc(17px * var(--fs)); }
@@ -341,7 +362,7 @@ ${chapterList}
 ${chapterSections}
 </main>
 
-<footer class="page-foot"><span class="credit">${CREDIT}</span></footer>
+${footer()}
 ${THEME_INIT}
 ${GUIDE_JS}
 </body>
@@ -376,10 +397,7 @@ ${ANALYTICS}
 <nav class="grid" id="langGrid">
 ${cards}
 </nav>
-<div class="foot">
-  <p><span class="credit">${CREDIT}</span></p>
-  <p>ChatGPT is a product of OpenAI. · Free to read &amp; share.</p>
-</div>
+${footer()}
 ${THEME_INIT}
 <script>
 // suggest the visitor's likely language: pin its card to the front with a tag
