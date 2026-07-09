@@ -16,7 +16,8 @@ const LANGS = [
   { code: 'odia',    native: 'ଓଡ଼ିଆ',       en: 'Odia',     bcp: 'or-IN', locale: 'or_IN', file: 'guides/odia.md' },
 ];
 
-const CREDIT = 'Made with ❤️ by Garv Sachdeva';
+const PORTFOLIO = 'https://pygarv.github.io/Portfolio/';
+const CREDIT = `Built by <a href="${PORTFOLIO}" target="_blank" rel="noopener">Garv</a>`;
 const BASE = 'https://pygarv.github.io/chatgpt-guide/';
 const REPO = 'https://github.com/pygarv/chatgpt-guide';
 const OPENAI = 'https://openai.com';
@@ -216,6 +217,8 @@ code { background:var(--surface2); padding:2px 6px; border-radius:6px; font-size
 .foot-links a:hover { border-color:var(--accent); color:var(--accent); }
 .foot-links .ic { width:18px; height:18px; }
 .site-foot .credit { color:var(--ink); font-weight:700; margin:8px 0; font-size:1rem; }
+.site-foot .credit a { color:var(--accent); text-decoration:none; }
+.site-foot .credit a:hover { text-decoration:underline; }
 .site-foot .fine { font-size:.83rem; max-width:540px; margin:8px auto 0; line-height:1.65; }
 .site-foot .fine a { color:var(--accent); }
 

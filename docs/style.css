@@ -133,6 +133,8 @@ code { background:var(--surface2); padding:2px 6px; border-radius:6px; font-size
 .foot-links a:hover { border-color:var(--accent); color:var(--accent); }
 .foot-links .ic { width:18px; height:18px; }
 .site-foot .credit { color:var(--ink); font-weight:700; margin:8px 0; font-size:1rem; }
+.site-foot .credit a { color:var(--accent); text-decoration:none; }
+.site-foot .credit a:hover { text-decoration:underline; }
 .site-foot .fine { font-size:.83rem; max-width:540px; margin:8px auto 0; line-height:1.65; }
 .site-foot .fine a { color:var(--accent); }
 

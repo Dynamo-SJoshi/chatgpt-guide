@@ -8,7 +8,7 @@ const ROOT = path.resolve('..');            // repo root (script lives in pdf-to
 const OUT = path.join(ROOT, 'pdfs');
 fs.mkdirSync(OUT, { recursive: true });
 
-const CREDIT = 'Made with ❤️ by Garv Sachdeva';
+const PORTFOLIO = 'https://pygarv.github.io/Portfolio/';
 
 const LANGS = [
   { code: 'english', file: 'guides/english.md' },
@@ -45,7 +45,7 @@ h1:first-of-type { page-break-before: avoid; break-before: avoid; }
 table, blockquote, pre, img { page-break-inside: avoid; break-inside: avoid; }
 h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
 .pdf-credit { page-break-before: always; text-align: center; color: #444; margin-top: 45%; font-size: 1.1em; }
-.pdf-credit .heart { color: #e25555; }
+.pdf-credit a { color: #10a37f; text-decoration: none; }
 `;
 
 // strip the "— page N" tail from numbered TOC lines (page numbers are unreliable across scripts;
@@ -69,7 +69,7 @@ function inlineImages(html) {
 
 function mdToHtml(md) {
   const body = inlineImages(marked.parse(preprocess(md), { mangle: false, headerIds: true }));
-  const credit = `<div class="pdf-credit">${CREDIT.replace('❤️', '<span class="heart">❤️</span>')}</div>`;
+  const credit = `<div class="pdf-credit">Built by <a href="${PORTFOLIO}">Garv</a></div>`;
   return `<!doctype html><html><head><meta charset="utf-8">
 <style>${CSS}</style></head><body>${body}${credit}</body></html>`;
 }
