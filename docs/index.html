@@ -19,34 +19,57 @@
 <meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
 <meta name="twitter:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
 <script>
-(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;}catch(e){}})();
+(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  document.documentElement.dataset.theme=t;
+  var f=parseFloat(localStorage.getItem('fs'))||1; document.documentElement.style.setProperty('--fs',f);
+}catch(e){}})();
 function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>
 <link rel="stylesheet" href="style.css">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>
 </head>
 <body>
-<button id="themeBtn" class="theme floating" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+<div class="floating fsgroup"><div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button><button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div><button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button></div>
 <section class="hero">
   <h1>A Basic ChatGPT Guide</h1>
-  <p>A beginner-friendly guide to using ChatGPT on your phone — with simple tips to help in everyday life. Choose your language to begin.</p>
-  <span class="badge">100% Free • No experience needed</span>
+  <p>A simple, friendly guide to using ChatGPT on your phone. For first-time users. It can even read aloud to you.</p>
+  <span class="badge">100% Free · No experience needed</span>
 </section>
-<nav class="grid">
-  <a class="card" href="english.html"><div class="lang">English</div><div class="en">English</div></a>
-  <a class="card" href="hindi.html"><div class="lang">हिंदी</div><div class="en">Hindi</div></a>
-  <a class="card" href="bengali.html"><div class="lang">বাংলা</div><div class="en">Bengali</div></a>
-  <a class="card" href="tamil.html"><div class="lang">தமிழ்</div><div class="en">Tamil</div></a>
-  <a class="card" href="telugu.html"><div class="lang">తెలుగు</div><div class="en">Telugu</div></a>
-  <a class="card" href="kannada.html"><div class="lang">ಕನ್ನಡ</div><div class="en">Kannada</div></a>
-  <a class="card" href="marathi.html"><div class="lang">मराठी</div><div class="en">Marathi</div></a>
-  <a class="card" href="punjabi.html"><div class="lang">ਪੰਜਾਬੀ</div><div class="en">Punjabi</div></a>
-  <a class="card" href="odia.html"><div class="lang">ଓଡ଼ିଆ</div><div class="en">Odia</div></a>
+<div class="pick">Choose your language</div>
+<nav class="grid" id="langGrid">
+  <a class="card" data-code="english" data-bcp="en-IN" href="english.html"><div class="lang">English</div><div class="en">English</div></a>
+  <a class="card" data-code="hindi" data-bcp="hi-IN" href="hindi.html"><div class="lang">हिंदी</div><div class="en">Hindi</div></a>
+  <a class="card" data-code="bengali" data-bcp="bn-IN" href="bengali.html"><div class="lang">বাংলা</div><div class="en">Bengali</div></a>
+  <a class="card" data-code="tamil" data-bcp="ta-IN" href="tamil.html"><div class="lang">தமிழ்</div><div class="en">Tamil</div></a>
+  <a class="card" data-code="telugu" data-bcp="te-IN" href="telugu.html"><div class="lang">తెలుగు</div><div class="en">Telugu</div></a>
+  <a class="card" data-code="kannada" data-bcp="kn-IN" href="kannada.html"><div class="lang">ಕನ್ನಡ</div><div class="en">Kannada</div></a>
+  <a class="card" data-code="marathi" data-bcp="mr-IN" href="marathi.html"><div class="lang">मराठी</div><div class="en">Marathi</div></a>
+  <a class="card" data-code="punjabi" data-bcp="pa-IN" href="punjabi.html"><div class="lang">ਪੰਜਾਬੀ</div><div class="en">Punjabi</div></a>
+  <a class="card" data-code="odia" data-bcp="or-IN" href="odia.html"><div class="lang">ଓଡ଼ିଆ</div><div class="en">Odia</div></a>
 </nav>
 <div class="foot">
   <p><span class="credit">Made with ❤️ by Garv Sachdeva</span></p>
-  <p>ChatGPT is a product of OpenAI. • Free to read &amp; share.</p>
+  <p>ChatGPT is a product of OpenAI. · Free to read &amp; share.</p>
 </div>
-<script>document.getElementById('themeBtn').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>var _b=document.getElementById('themeBtn');if(_b)_b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>
+// suggest the visitor's likely language: pin its card to the front with a tag
+(function(){try{
+  var pref=(navigator.languages||[navigator.language||'']).map(function(x){return (x||'').toLowerCase().split('-')[0];});
+  var grid=document.getElementById('langGrid');
+  var cards=[].slice.call(grid.children);
+  var map={en:'english',hi:'hindi',bn:'bengali',ta:'tamil',te:'telugu',kn:'kannada',mr:'marathi',pa:'punjabi',or:'odia'};
+  var want=null; for(var i=0;i<pref.length && !want;i++){ if(map[pref[i]]) want=map[pref[i]]; }
+  if(!want) return;
+  var card=cards.filter(function(c){return c.dataset.code===want;})[0];
+  if(!card) return;
+  card.classList.add('suggested');
+  var tag=document.createElement('span'); tag.className='tag'; tag.textContent='Suggested for you'; card.appendChild(tag);
+  grid.insertBefore(card, grid.firstChild);
+}catch(e){}})();
+</script>
 </body>
 </html>

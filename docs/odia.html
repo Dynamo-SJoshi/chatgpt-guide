@@ -19,55 +19,70 @@
 <meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
 <meta name="twitter:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
 <script>
-(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;}catch(e){}})();
+(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  document.documentElement.dataset.theme=t;
+  var f=parseFloat(localStorage.getItem('fs'))||1; document.documentElement.style.setProperty('--fs',f);
+}catch(e){}})();
 function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>
 <link rel="stylesheet" href="style.css">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>
 </head>
-<body>
+<body data-bcp="or-IN">
 <div class="topbar">
-  <a class="home" href="index.html">🏠 Home</a>
+  <a class="home" href="#" onclick="goHome();return false;">🏠</a>
+  <a class="home" href="index.html" title="All languages">🌐</a>
   <span class="spacer"></span>
-  <select onchange="if(this.value)location.href=this.value" aria-label="Choose language"><option value="english.html">English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html">मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html" selected>ଓଡ଼ିଆ — Odia</option></select>
+  <select onchange="if(this.value)location.href=this.value+location.hash" aria-label="Choose language"><option value="english.html">English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html">मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html" selected>ଓଡ଼ିଆ — Odia</option></select>
   <a class="pdf-dl" href="pdfs/odia.pdf" download>⬇ PDF</a>
-  <button id="themeBtn" class="theme" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+  <div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button><button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div><button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
 </div>
+
+<div class="readbar" id="readbar" hidden>
+  <button class="btn speak" id="speakBtn" onclick="toggleSpeak()" hidden>🔊</button>
+  <div class="progress"><i id="progFill"></i></div>
+  <span class="count" id="chCount"></span>
+</div>
+
 <main class="wrap">
-<h1>ଏକ ବେସିକ୍ ChatGPT ଗାଇଡ୍</h1>
-<p><em>ଆପଣଙ୍କ ଫୋନରେ ChatGPT ବ୍ୟବହାର କରିବା ପାଇଁ ଏକ ସରଳ ଗାଇଡ୍। ଏହା ପ୍ରଥମ ଥର ବ୍ୟବହାର କରୁଥିବା ଲୋକଙ୍କ ପାଇଁ ଏବଂ ଇଂରାଜୀ କିମ୍ବା ଟେକ୍ନୋଲୋଜିରେ ଅଭ୍ୟସ୍ତ ନ ଥିବା ଲୋକଙ୍କ ପାଇଁ ଲେଖାଯାଇଛି। ଏଥିରେ ଆପ୍ ଇନଷ୍ଟଲ୍ କରିବାଠାରୁ ଆରମ୍ଭ କରି ସ୍ୱର ଓ କ୍ୟାମେରା ବ୍ୟବହାର ପର୍ଯ୍ୟନ୍ତ ସବୁକିଛି ବୁଝାଯାଇଛି। ଏଥିରେ ରୋଷେଇ, ସ୍ୱାସ୍ଥ୍ୟ, ଚାଷ, ବଜେଟ୍, ସରକାରୀ ଫର୍ମ ଏବଂ ଛୋଟ ବ୍ୟବସାୟ ଭଳି ଦୈନନ୍ଦିନ ଜୀବନର ପ୍ରକୃତ ଉଦାହରଣ ବ୍ୟବହାର କରାଯାଇଛି।</em></p>
-<hr>
-<div class="page-break"></div><h2>ବିଷୟ-ସୂଚୀ (Table of Contents)</h2>
-<ol>
-<li><strong>ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ ଗୋଟିଏ କଥା</strong></li>
-<li><strong>ଭାଗ 1 — ChatGPT କ’ଣ?</strong></li>
-<li><strong>ଭାଗ 2 — Android ରେ କିପରି ଆରମ୍ଭ କରିବେ</strong></li>
-<li><strong>ଭାଗ 3 — iPhone (iOS) ରେ କିପରି ଆରମ୍ଭ କରିବେ</strong></li>
-<li><strong>ଭାଗ 4 — ସହଜ ବ୍ୟବହାର ପାଇଁ ସେଟଅପ୍</strong></li>
-<li><strong>ଭାଗ 5 — ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ (ସ୍ୱର)</strong></li>
-<li><strong>ଭାଗ 6 — ଫଟୋ ଉଠାଇ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ (କ୍ୟାମେରା ବ୍ୟବହାର)</strong></li>
-<li><strong>ଭାଗ 7 — ପ୍ରଶ୍ନ କିପରି ପଚାରିବେ (ପ୍ରମ୍ପ୍ଟର ମୂଳ କଥା)</strong></li>
-<li><strong>ଭାଗ 8 — 20ଟି ଜିନିଷ ଯାହା ଆପଣ ଆଜି ଚେଷ୍ଟା କରିବା ଉଚିତ</strong></li>
-<li><strong>ଭାଗ 9 — ଦୈନନ୍ଦିନ ଜୀବନର ଉଦାହରଣ</strong></li>
-<li><strong>ଭାଗ 10 — ବରିଷ୍ଠ ନାଗରିକଙ୍କ ପାଇଁ ChatGPT</strong></li>
-<li><strong>ଭାଗ 11 — ମହିଳା ଓ ଘର ସମ୍ଭାଳୁଥିବା ଲୋକଙ୍କ ପାଇଁ ChatGPT</strong></li>
-<li><strong>ଭାଗ 12 — ନୂଆ କୌଶଳ ଶିଖିବା</strong></li>
-<li><strong>ଭାଗ 13 — ChatGPT ଆପଣଙ୍କ ଟଙ୍କା ସଞ୍ଚୟ କରିପାରେ</strong></li>
-<li><strong>ଭାଗ 14 — ChatGPT କ’ଣ କରିପାରିବ ନାହିଁ</strong></li>
-<li><strong>ଭାଗ 15 — ଟିପ୍ସ ଓ କୌଶଳ</strong></li>
-<li><strong>ଭାଗ 16 — ଝଟପଟ ବ୍ୟବହାର କାର୍ଡ</strong></li>
-</ol>
-<hr>
-<div class="page-break"></div><h2>ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ ଗୋଟିଏ କଥା</h2>
+  <section id="home">
+    <div class="cover">
+      <h1>ଏକ ବେସିକ୍ ChatGPT ଗାଇଡ୍</h1>
+      <p><em>ଆପଣଙ୍କ ଫୋନରେ ChatGPT ବ୍ୟବହାର କରିବା ପାଇଁ ଏକ ସରଳ ଗାଇଡ୍। ଏହା ପ୍ରଥମ ଥର ବ୍ୟବହାର କରୁଥିବା ଲୋକଙ୍କ ପାଇଁ ଏବଂ ଇଂରାଜୀ କିମ୍ବା ଟେକ୍ନୋଲୋଜିରେ ଅଭ୍ୟସ୍ତ ନ ଥିବା ଲୋକଙ୍କ ପାଇଁ ଲେଖାଯାଇଛି। ଏଥିରେ ଆପ୍ ଇନଷ୍ଟଲ୍ କରିବାଠାରୁ ଆରମ୍ଭ କରି ସ୍ୱର ଓ କ୍ୟାମେରା ବ୍ୟବହାର ପର୍ଯ୍ୟନ୍ତ ସବୁକିଛି ବୁଝାଯାଇଛି। ଏଥିରେ ରୋଷେଇ, ସ୍ୱାସ୍ଥ୍ୟ, ଚାଷ, ବଜେଟ୍, ସରକାରୀ ଫର୍ମ ଏବଂ ଛୋଟ ବ୍ୟବସାୟ ଭଳି ଦୈନନ୍ଦିନ ଜୀବନର ପ୍ରକୃତ ଉଦାହରଣ ବ୍ୟବହାର କରାଯାଇଛି।</em></p>
+<h2>ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ ଗୋଟିଏ କଥା</h2>
 <p>ନମସ୍କାର, ଏବଂ ଆପଣଙ୍କୁ ସ୍ୱାଗତ!</p>
 <p>ଯଦି ଆପଣ କେବେ ଭାବିଛନ୍ତି ଯେ ଆପଣଙ୍କର ଜଣେ ଏମିତି ବୁଦ୍ଧିମାନ ବନ୍ଧୁ ଥିଲେ ଭଲ ହୁଅନ୍ତା ଯିଏ ପ୍ରାୟ ସବୁ ବିଷୟରେ ଟିକିଏ-ଟିକିଏ ଜାଣିଛନ୍ତି — ଯିଏ ସବୁବେଳେ ଜାଗ୍ରତ ଥାଆନ୍ତି, ଆପଣଙ୍କ ପ୍ରଶ୍ନରେ କେବେ କ୍ଳାନ୍ତ ହୁଅନ୍ତି ନାହିଁ, ଏବଂ ପ୍ରଶ୍ନ ପଚାରିଲେ ଆପଣଙ୍କୁ କେବେ ଛୋଟ ଅନୁଭବ କରାନ୍ତି ନାହିଁ — ତେବେ ଏହି ଛୋଟ ପୁସ୍ତକଟି ଆପଣଙ୍କ ପାଇଁ ହିଁ।</p>
 <p>ଆପଣଙ୍କୁ ଭଲ ଇଂରାଜୀ ଜାଣିବାର ଆବଶ୍ୟକତା ନାହିଁ। ଆପଣଙ୍କ ଯୁବକ ହେବା ଆବଶ୍ୟକ ନୁହେଁ। ଆପଣ &quot;କମ୍ପ୍ୟୁଟରରେ ଚତୁର&quot; ହେବାର ମଧ୍ୟ ଆବଶ୍ୟକ ନାହିଁ। ଯଦି ଆପଣ ଫୋନ କଲ୍ କରିପାରନ୍ତି, WhatsApp ରେ ମେସେଜ୍ ପଠାଇପାରନ୍ତି, କିମ୍ବା ଆପଣଙ୍କ ଫୋନରେ ଫଟୋ ଉଠାଇପାରନ୍ତି, ତେବେ ChatGPT ବ୍ୟବହାର କରିବା ପାଇଁ ଆପଣ ପୂର୍ବରୁ ହିଁ ଯଥେଷ୍ଟ ଜାଣିଛନ୍ତି।</p>
 <p>ଏହି ଗାଇଡ୍ ପାଦ-ପାଦରେ ଆପଣଙ୍କ ହାତ ଧରିବ। ଆମେ ଧୀରେ-ଧୀରେ ଆଗେଇବା। ଏଠାରେ କିଛି ବି କଷ୍ଟକର ନୁହେଁ। ଶେଷ ସୁଦ୍ଧା ଆପଣ ChatGPT ଠାରୁ ରନ୍ଧା ରେସିପି, ପିଲାଙ୍କ ହୋମୱାର୍କରେ ସାହାଯ୍ୟ, ଆପଣଙ୍କ ଦୋକାନ ପାଇଁ ପରାମର୍ଶ, ସରକାରୀ ଫର୍ମର ସୂଚନା, ଏବଂ ଆହୁରି ବହୁତ କିଛି ପଚାରିପାରିବେ — ତାହା ବି ଆପଣଙ୍କ ନିଜ କଥା କହିବାର ଭାଷାରେ।</p>
 <p>ତରବର ହୁଅନ୍ତୁ ନାହିଁ। କୌଣସି ତାଡ଼ ନାହିଁ। ପଢ଼ିବା ସମୟରେ ଆପଣଙ୍କ ଫୋନ ପାଖରେ ରଖନ୍ତୁ, ଏବଂ ପ୍ରତ୍ୟେକ ପାଦ ନିଜେ ଚେଷ୍ଟା କରନ୍ତୁ। କରି ଶିଖିବା ହିଁ ଶିଖିବାର ସବୁଠାରୁ ଭଲ ଉପାୟ।</p>
 <p>ତେବେ ଆସନ୍ତୁ ଆରମ୍ଭ କରିବା।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 1 — ChatGPT କ’ଣ?</h1>
-<h2>ଏହାକୁ ଜଣେ ବହୁତ ବୁଦ୍ଧିମାନ ବନ୍ଧୁ ଭାବରେ ବୁଝନ୍ତୁ</h2>
+
+    </div>
+    <div class="chapter-list">
+<button class="chapcard" onclick="openCh(0)"><span class="num">1</span><span class="name">ChatGPT କ’ଣ?</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(1)"><span class="num">2</span><span class="name">Android ରେ କିପରି ଆରମ୍ଭ କରିବେ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(2)"><span class="num">3</span><span class="name">iPhone (iOS) ରେ କିପରି ଆରମ୍ଭ କରିବେ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(3)"><span class="num">4</span><span class="name">ସହଜ ବ୍ୟବହାର ପାଇଁ ସେଟଅପ୍</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(4)"><span class="num">5</span><span class="name">ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ (ସ୍ୱର)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(5)"><span class="num">6</span><span class="name">ଫଟୋ ଉଠାଇ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ (କ୍ୟାମେରା ବ୍ୟବହାର)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(6)"><span class="num">7</span><span class="name">ପ୍ରଶ୍ନ କିପରି ପଚାରିବେ (ପ୍ରମ୍ପ୍ଟର ମୂଳ କଥା)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(7)"><span class="num">8</span><span class="name">20ଟି ଜିନିଷ ଯାହା ଆପଣ ଆଜି ଚେଷ୍ଟା କରିବା ଉଚିତ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(8)"><span class="num">9</span><span class="name">ଦୈନନ୍ଦିନ ଜୀବନର ଉଦାହରଣ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(9)"><span class="num">10</span><span class="name">ବରିଷ୍ଠ ନାଗରିକଙ୍କ ପାଇଁ ChatGPT</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(10)"><span class="num">11</span><span class="name">ମହିଳା ଓ ଘର ସମ୍ଭାଳୁଥିବା ଲୋକଙ୍କ ପାଇଁ ChatGPT</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(11)"><span class="num">12</span><span class="name">ନୂଆ କୌଶଳ ଶିଖିବା</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(12)"><span class="num">13</span><span class="name">ChatGPT ଆପଣଙ୍କ ଟଙ୍କା ସଞ୍ଚୟ କରିପାରେ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(13)"><span class="num">14</span><span class="name">ChatGPT କ’ଣ କରିପାରିବ ନାହିଁ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(14)"><span class="num">15</span><span class="name">ଟିପ୍ସ ଓ କୌଶଳ</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(15)"><span class="num">16</span><span class="name">ଝଟପଟ ବ୍ୟବହାର କାର୍ଡ</span><span class="go">→</span></button>
+    </div>
+  </section>
+<section class="chapter" id="c0" data-name="ChatGPT କ’ଣ?" hidden>
+  <div class="ch-title"><span class="num">1</span><h1>ChatGPT କ’ଣ?</h1></div>
+  <div class="chapter-body"><h2>ଏହାକୁ ଜଣେ ବହୁତ ବୁଦ୍ଧିମାନ ବନ୍ଧୁ ଭାବରେ ବୁଝନ୍ତୁ</h2>
 <p>କଳ୍ପନା କରନ୍ତୁ ଆପଣଙ୍କର ଜଣେ ବନ୍ଧୁ ଅଛନ୍ତି ଯିଏ ହଜାର ହଜାର ବହି, ଖବରକାଗଜ ଓ ୱେବସାଇଟ୍ ପଢ଼ିଛନ୍ତି। ଏହି ବନ୍ଧୁ ରନ୍ଧାବଢ଼ା ବିଷୟରେ ଟିକିଏ, ଚାଷ ବିଷୟରେ ଟିକିଏ, ସ୍ୱାସ୍ଥ୍ୟ ବିଷୟରେ ଟିକିଏ, ପାଠପଢ଼ା ବିଷୟରେ ଟିକିଏ, ବ୍ୟବସାୟ ବିଷୟରେ ଟିକିଏ — ପ୍ରାୟ ସବୁ ବିଷୟରେ ଜାଣିଛନ୍ତି।</p>
 <p>ଏବେ କଳ୍ପନା କରନ୍ତୁ ଏହି ବନ୍ଧୁ ଆପଣଙ୍କ ଫୋନ ଭିତରେ ରୁହନ୍ତି, ଦିନର 24 ଘଣ୍ଟା, ସପ୍ତାହର ସାତ ଦିନ ଯାକ ଜାଗ୍ରତ ରୁହନ୍ତି, ଏବଂ ସବୁବେଳେ ସାହାଯ୍ୟ କରିବାକୁ ପ୍ରସ୍ତୁତ। ଆପଣ ଏହି ବନ୍ଧୁଙ୍କୁ ଦିନ 2ଟାରେ କିମ୍ବା ରାତି 2ଟାରେ, ଯେକୌଣସି ସମୟରେ ପ୍ରଶ୍ନ ପଚାରିପାରିବେ। ଏହି ବନ୍ଧୁ କେବେ ରାଗନ୍ତି ନାହିଁ, କେବେ କ୍ଳାନ୍ତ ହୁଅନ୍ତି ନାହିଁ, ଏବଂ କେବେ କୁହନ୍ତି ନାହିଁ &quot;ପରେ ପଚାର।&quot;</p>
 <p><strong>ସେହି ବନ୍ଧୁ ହିଁ ChatGPT।</strong></p>
@@ -108,9 +123,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </blockquote>
 <h2>ଆପଣଙ୍କୁ ଗୋଟିଏ ଛୋଟ ପ୍ରତିଶ୍ରୁତି</h2>
 <p>ଯେତେବେଳକୁ ଆପଣ ଏହି ଗାଇଡ୍ ସମ୍ପୂର୍ଣ୍ଣ କରିବେ, ସେତେବେଳକୁ ଆପଣ ଏ ସବୁ ନିଜେ କରିପାରିବେ, କାହାରି ସାହାଯ୍ୟ ବିନା। ତେଣୁ ପଢ଼ୁଥାଆନ୍ତୁ, ଏବଂ ଆସନ୍ତୁ ଏହାକୁ ଆପଣଙ୍କ ଫୋନରେ ସେଟ୍ କରିବା।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 2 — Android ରେ କିପରି ଆରମ୍ଭ କରିବେ</h1>
-<p><em>(ଯଦି ଆପଣଙ୍କ ପାଖରେ iPhone ଅଛି, ତେବେ ଆପଣ ସିଧା ଭାଗ 3 କୁ ଯାଇପାରିବେ।)</em></p>
+</div>
+  <nav class="chnav" id="nav0"></nav>
+</section>
+<section class="chapter" id="c1" data-name="Android ରେ କିପରି ଆରମ୍ଭ କରିବେ" hidden>
+  <div class="ch-title"><span class="num">2</span><h1>Android ରେ କିପରି ଆରମ୍ଭ କରିବେ</h1></div>
+  <div class="chapter-body"><p><em>(ଯଦି ଆପଣଙ୍କ ପାଖରେ iPhone ଅଛି, ତେବେ ଆପଣ ସିଧା ଭାଗ 3 କୁ ଯାଇପାରିବେ।)</em></p>
 <p>ଅଧିକାଂଶ ଭାରତୀୟ ଫୋନ — Samsung, Vivo, Oppo, Redmi, Realme, Motorola, ଓ ଅନ୍ୟ — <strong>Android</strong> ନାମକ ଜିନିଷରେ ଚାଲେ। ଆପଣ ଚିହ୍ନିପାରିବେ ଯେ ଏହା Android ଫୋନ ଯଦି ଏଥିରେ <strong>Google Play Store</strong> ଆପ୍ ଅଛି। Play Store ସେହି ଦୋକାନ ଯେଉଁଠୁ ଆମେ ଆପ୍ ସୁରକ୍ଷିତ ଭାବରେ ଓ ମାଗଣାରେ ଡାଉନ୍‌ଲୋଡ୍ କରୁ।</p>
 <p>ଏବେ ଆମେ ମିଳିମିଶି ChatGPT ଇନ୍‌ଷ୍ଟଲ୍ କରିବା। କେବଳ ଗୋଟି ଗୋଟି ପାଦ ସାଙ୍ଗରେ ଆଗେଇ ଚାଲନ୍ତୁ। ଆପଣଙ୍କ ଫୋନ ଅନ୍‌ଲକ୍ କରି ପ୍ରସ୍ତୁତ ରଖନ୍ତୁ।</p>
 <h2>ପାଦ 1 — Google Play Store ଖୋଲନ୍ତୁ</h2>
@@ -119,7 +137,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଏହାର ତଳେ ଆପଣ ସାଧାରଣତଃ <strong>&quot;Play Store&quot;</strong> ଲେଖା ଦେଖିବେ।</li>
 <li>ଏହାକୁ ଥରେ ଆଙ୍ଗୁଠିରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-1.webp" alt="ଏକ ଫୋନର ହୋମ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଆଙ୍ଗୁଠି ରଙ୍ଗବେରଙ୍ଗ ତ୍ରିଭୁଜ &quot;Play Store&quot; ଆଇକନ୍ ଆଡ଼କୁ ଦେଖାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-1.webp" alt="ଏକ ଫୋନର ହୋମ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଆଙ୍ଗୁଠି ରଙ୍ଗବେରଙ୍ଗ ତ୍ରିଭୁଜ &quot;Play Store&quot; ଆଇକନ୍ ଆଡ଼କୁ ଦେଖାଉଛି।"></p>
 <p>ଯଦି ଏହା ନ ମିଳେ, ତେବେ ସ୍କ୍ରିନ୍‌ର ତଳୁ ଉପରକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ ଯାହାଫଳରେ ଆପଣଙ୍କ ସବୁ ଆପ୍ ଦେଖାଯିବ, ତା’ପରେ &quot;Play Store&quot; ଖୋଜନ୍ତୁ।</p>
 <h2>ପାଦ 2 — ChatGPT ଖୋଜନ୍ତୁ</h2>
 <ol>
@@ -133,7 +151,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li><p>ଆପଣଙ୍କ କୀବୋର୍ଡରେ <strong>ସର୍ଚ୍ଚ ବଟନ୍</strong> (ଆବର୍ଦ୍ଧକ କାଚ 🔍 ପରି) ଟ୍ୟାପ୍ କରନ୍ତୁ।</p>
 </li>
 </ol>
-<p><img src="assets/screenshots/screenshot-2.webp" alt="Play Store ର ସର୍ଚ୍ଚ ବାର୍ ଯେଉଁଥିରେ &quot;chatgpt&quot; ଟାଇପ୍ ହୋଇଛି, ଏବଂ ଆବର୍ଦ୍ଧକ କାଚ ଥିବା ସର୍ଚ୍ଚ ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-2.webp" alt="Play Store ର ସର୍ଚ୍ଚ ବାର୍ ଯେଉଁଥିରେ &quot;chatgpt&quot; ଟାଇପ୍ ହୋଇଛି, ଏବଂ ଆବର୍ଦ୍ଧକ କାଚ ଥିବା ସର୍ଚ୍ଚ ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
 <h2>ପାଦ 3 — ସଠିକ୍ ଆପ୍ ଚିହ୍ନନ୍ତୁ</h2>
 <p>ଏହା ଏକ <strong>ଜରୁରୀ</strong> ପାଦ। ଅନେକ ଆପ୍ ଦେଖାଯାଇପାରେ, ଏବଂ କିଛି ନକଲି କିମ୍ବା ନକଲ ହୋଇପାରେ। ଆମକୁ <strong>ଅସଲି, ଅଫିସିଆଲ୍</strong> ଆପ୍ ଦରକାର।</p>
 <p>ଏମିତି ଆପ୍ ଖୋଜନ୍ତୁ ଯେଉଁଥିରେ ଲେଖା ଥାଏ:</p>
@@ -156,12 +174,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <blockquote>
 <p><strong>ଟିପ୍:</strong> ଯଦି ଆପଣଙ୍କ ପାଖରେ Wi-Fi ଅଛି ତେବେ ତାହା ବ୍ୟବହାର କରନ୍ତୁ, ଯାହାଫଳରେ ଆପଣଙ୍କ ମୋବାଇଲ ଡାଟା ଖର୍ଚ୍ଚ ନ ହୁଏ। କିନ୍ତୁ ଏହା ଏକ ଛୋଟ ଆପ୍, ତେଣୁ ମୋବାଇଲ ଡାଟା ବି ଠିକ୍।</p>
 </blockquote>
-<p><img src="assets/screenshots/screenshot-3.webp" alt="ChatGPT ଆପ୍‌ର ପୃଷ୍ଠା ଯେଉଁଥିରେ ସବୁଜ &quot;Install&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
-<p><img src="assets/screenshots/screenshot-5.webp" alt="ସେହି ପୃଷ୍ଠା ଯେଉଁଥିରେ ଇନ୍‌ଷ୍ଟଲ୍ ହେବା ପରେ ବର୍ତ୍ତମାନ ସବୁଜ &quot;Open&quot; ବଟନ୍ ଦେଖାଯାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-3.webp" alt="ChatGPT ଆପ୍‌ର ପୃଷ୍ଠା ଯେଉଁଥିରେ ସବୁଜ &quot;Install&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-5.webp" alt="ସେହି ପୃଷ୍ଠା ଯେଉଁଥିରେ ଇନ୍‌ଷ୍ଟଲ୍ ହେବା ପରେ ବର୍ତ୍ତମାନ ସବୁଜ &quot;Open&quot; ବଟନ୍ ଦେଖାଯାଉଛି।"></p>
 <h2>ପାଦ 5 — ଆପ୍ ଖୋଲନ୍ତୁ</h2>
 <p><strong>&quot;Open&quot;</strong> ବଟନ୍ ଟ୍ୟାପ୍ କରନ୍ତୁ। (ପରବର୍ତ୍ତୀ ଥରରୁ, ଆପଣ ସିଧା ChatGPT ଆଇକନ୍ ଟ୍ୟାପ୍ କରି ବି ଏହାକୁ ଖୋଲିପାରିବେ, ଯାହା ବର୍ତ୍ତମାନ ଆପଣଙ୍କ ଫୋନର ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ଅଛି।)</p>
 <p>ପ୍ରଥମ ଥର ଖୋଲିଲେ ଆପଣ ଏକ ସ୍ୱାଗତ ସ୍କ୍ରିନ୍ ଦେଖିବେ। ଏବେ ଆମେ ଆପଣଙ୍କ ଆକାଉଣ୍ଟ ତିଆରି କରିବା।</p>
-<p><img src="assets/screenshots/screenshot-6.webp" alt="ChatGPT ର ସ୍ୱାଗତ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ &quot;Sign up&quot; ଓ &quot;Log in&quot; ର ବିକଳ୍ପ ଅଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-6.webp" alt="ChatGPT ର ସ୍ୱାଗତ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ &quot;Sign up&quot; ଓ &quot;Log in&quot; ର ବିକଳ୍ପ ଅଛି।"></p>
 <h2>ପାଦ 6 — ଆପଣଙ୍କ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ</h2>
 <p>ChatGPT ବ୍ୟବହାର କରିବା ପାଇଁ ଆପଣଙ୍କୁ ଏକ ମାଗଣା ଆକାଉଣ୍ଟ ଦରକାର। ଏହା ଲାଇବ୍ରେରୀ କାର୍ଡ ତିଆରି କରିବା ପରି — ଏହା ମନେ ରଖେ ଆପଣ କିଏ ଯାହାଫଳରେ ଆପଣଙ୍କ କଥାବାର୍ତ୍ତା ଆପଣଙ୍କ ପାଇଁ ସୁରକ୍ଷିତ ରହେ। ଏହାକୁ ତିଆରି କରିବାରେ ଦୁଇ ମିନିଟ୍ ଲାଗେ।</p>
 <p>ସ୍ୱାଗତ ସ୍କ୍ରିନ୍‌ରେ ଆପଣ କେତୋଟି ବଟନ୍ ଦେଖିବେ। ଆସନ୍ତୁ ଆପଣଙ୍କ ବିକଳ୍ପ ଦେଖିବା:</p>
@@ -179,7 +197,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଏହା ପଚାରିପାରେ &quot;ChatGPT wants to use Google to sign in&quot; — <strong>&quot;Continue&quot;</strong> କିମ୍ବା <strong>&quot;Allow&quot;</strong> ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 <li>ବାସ୍! ଆପଣଙ୍କ ଆକାଉଣ୍ଟ ତିଆରି ହୋଇଗଲା। ନା କୌଣସି ପାସୱାର୍ଡ, ନା କୌଣସି ଇମେଲ ଭେରିଫାଇ କରିବା।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-7.webp" alt="ଏକ ପପ୍-ଅପ୍ ଯେଉଁଥିରେ ବାଛିବା ପାଇଁ Gmail ଆକାଉଣ୍ଟର ତାଲିକା ଅଛି, ଏବଂ ଗୋଟିଏ ଆକାଉଣ୍ଟ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-7.webp" alt="ଏକ ପପ୍-ଅପ୍ ଯେଉଁଥିରେ ବାଛିବା ପାଇଁ Gmail ଆକାଉଣ୍ଟର ତାଲିକା ଅଛି, ଏବଂ ଗୋଟିଏ ଆକାଉଣ୍ଟ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
 <h3>ଅନ୍ୟ ଉପାୟ — ଇମେଲରୁ Sign up କରନ୍ତୁ</h3>
 <p>ଯଦି ଆପଣ କୌଣସି ଅନ୍ୟ ଇମେଲ ବ୍ୟବହାର କରିବାକୁ ଚାହାନ୍ତି, କିମ୍ବା ଆପଣଙ୍କ ପାଖରେ Gmail ନାହିଁ, ତେବେ ଏହି ପାଦ ଅନୁସରଣ କରନ୍ତୁ:</p>
 <ol>
@@ -194,7 +212,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </li>
 <li><strong>&quot;Continue&quot;</strong> ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-8.webp" alt="Sign up ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଇମେଲ ବାକ୍ସ ଓ ଗୋଟିଏ ପାସୱାର୍ଡ ବାକ୍ସ ଅଛି, ଏବଂ ଉଦାହରଣ ସ୍ୱରୂପ କିଛି ଟାଇପ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-8.webp" alt="Sign up ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଇମେଲ ବାକ୍ସ ଓ ଗୋଟିଏ ପାସୱାର୍ଡ ବାକ୍ସ ଅଛି, ଏବଂ ଉଦାହରଣ ସ୍ୱରୂପ କିଛି ଟାଇପ୍ ହୋଇଛି।"></p>
 <h2>ପାଦ 7 — ଆପଣଙ୍କ ଇମେଲ ଭେରିଫାଇ କରନ୍ତୁ</h2>
 <p>ଯଦି ଆପଣ ଇମେଲରୁ sign up କରିଛନ୍ତି, ତେବେ ChatGPT କୁ ନିଶ୍ଚିତ କରିବାକୁ ପଡ଼େ ଯେ ଇମେଲ ସତରେ ଆପଣଙ୍କର। ଏହାକୁ <strong>&quot;ଭେରିଫାଇ କରିବା&quot;</strong> କୁହାଯାଏ।</p>
 <ol>
@@ -225,7 +243,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li><strong>ସେହି ବାକ୍ସର ଡାହାଣ ପଟେ</strong> ଏକ ତୀର କିମ୍ବା ମାଇକ୍ରୋଫୋନ୍ ଅଛି — ତୀର ଆପଣଙ୍କ ମେସେଜ୍ <strong>ପଠାଏ</strong>; ମାଇକ୍ରୋଫୋନ୍‌ରୁ ଆପଣ ଟାଇପ୍ କରିବା ବଦଳରେ <strong>କହିପାରିବେ।</strong></li>
 <li><strong>ଉପର ବାମ କୋଣ</strong> ରେ ସାଧାରଣତଃ ତିନୋଟି ଲାଇନ୍ (☰) କିମ୍ବା ଏକ ଛୋଟ ଆଇକନ୍ ଥାଏ। ଏହାକୁ ଟ୍ୟାପ୍ କଲେ ଆପଣଙ୍କ <strong>ପୁରୁଣା କଥାବାର୍ତ୍ତା</strong> ଦେଖାଯାଏ — ଆପଣ ପଚାରିଥିବା ପ୍ରତ୍ୟେକ ପ୍ରଶ୍ନର ଇତିହାସ।</li>
 </ul>
-<p><img src="assets/screenshots/screenshot-9.webp" alt="ChatGPT ର ମୁଖ୍ୟ ଚାଟ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଲେବଲ୍ ଦେଖାଉଛନ୍ତି: (1) ତଳେ ମେସେଜ୍ ବାକ୍ସ, (2) ପଠାଇବା ତୀର, (3) ମାଇକ୍ରୋଫୋନ୍, ଏବଂ (4) ଉପର ବାମ ମେନୁର ଲାଇନ୍।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-9.webp" alt="ChatGPT ର ମୁଖ୍ୟ ଚାଟ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଲେବଲ୍ ଦେଖାଉଛନ୍ତି: (1) ତଳେ ମେସେଜ୍ ବାକ୍ସ, (2) ପଠାଇବା ତୀର, (3) ମାଇକ୍ରୋଫୋନ୍, ଏବଂ (4) ଉପର ବାମ ମେନୁର ଲାଇନ୍।"></p>
 <h2>ପାଦ 11 — ଆପଣଙ୍କ ପ୍ରଥମ ନମସ୍କାର କୁହନ୍ତୁ</h2>
 <p>ଆସନ୍ତୁ ଏହାକୁ ଚେଷ୍ଟା କରିବା! ତଳେ ମେସେଜ୍ ବାକ୍ସ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ ଏବଂ ଟାଇପ୍ କରନ୍ତୁ:</p>
 <blockquote>
@@ -233,10 +251,13 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </blockquote>
 <p>ତା’ପରେ ପଠାଇବା ତୀର ଟ୍ୟାପ୍ କରନ୍ତୁ। କେତେକ ସେକେଣ୍ଡ ଭିତରେ ChatGPT ଆନ୍ତରିକତାର ସହ ଉତ୍ତର ଦେବ।</p>
 <p><strong>ଆପଣ କରି ଦେଖାଇଲେ!</strong> ଏବେ ଆପଣଙ୍କ ଫୋନରେ ChatGPT ଚାଲୁଛି। ଏବେ ଆଗକୁ ସବୁ କିଛି କେବଳ ପ୍ରଶ୍ନ ପଚାରିବା — ଯାହା ଆମେ ଭାଗ 7 ରେ ଠିକ୍ ଭାବରେ ଶିଖିବା।</p>
-<p><img src="assets/screenshots/screenshot-10.webp" alt="ଏକ ଚାଟ୍ ଯେଉଁଥିରେ ବ୍ୟବହାରକାରୀଙ୍କ ମେସେଜ୍ &quot;ନମସ୍କାର! ଆପଣ ମୋତେ ସରଳ ଭାଷାରେ ସାହାଯ୍ୟ କରିପାରିବେ କି?&quot; ଏବଂ ତା’ ତଳେ ChatGPT ର ବନ୍ଧୁତ୍ୱପୂର୍ଣ୍ଣ ଉତ୍ତର ଦେଖାଯାଉଛି।"></p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 3 — iPhone (iOS) ରେ କିପରି ଆରମ୍ଭ କରିବେ</h1>
-<p><em>(ଯଦି ଆପଣଙ୍କ ପାଖରେ Android ଫୋନ ଅଛି, ତେବେ ଆପଣଙ୍କ କାମ ଭାଗ 2 ରେ ସରିଯାଇଛି। ଆପଣ ସିଧା ଭାଗ 4 କୁ ଯାଇପାରିବେ।)</em></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-10.webp" alt="ଏକ ଚାଟ୍ ଯେଉଁଥିରେ ବ୍ୟବହାରକାରୀଙ୍କ ମେସେଜ୍ &quot;ନମସ୍କାର! ଆପଣ ମୋତେ ସରଳ ଭାଷାରେ ସାହାଯ୍ୟ କରିପାରିବେ କି?&quot; ଏବଂ ତା’ ତଳେ ChatGPT ର ବନ୍ଧୁତ୍ୱପୂର୍ଣ୍ଣ ଉତ୍ତର ଦେଖାଯାଉଛି।"></p>
+</div>
+  <nav class="chnav" id="nav1"></nav>
+</section>
+<section class="chapter" id="c2" data-name="iPhone (iOS) ରେ କିପରି ଆରମ୍ଭ କରିବେ" hidden>
+  <div class="ch-title"><span class="num">3</span><h1>iPhone (iOS) ରେ କିପରି ଆରମ୍ଭ କରିବେ</h1></div>
+  <div class="chapter-body"><p><em>(ଯଦି ଆପଣଙ୍କ ପାଖରେ Android ଫୋନ ଅଛି, ତେବେ ଆପଣଙ୍କ କାମ ଭାଗ 2 ରେ ସରିଯାଇଛି। ଆପଣ ସିଧା ଭାଗ 4 କୁ ଯାଇପାରିବେ।)</em></p>
 <p>ଯଦି ଆପଣଙ୍କ ଫୋନ <strong>iPhone</strong> (Apple ତିଆରି), ତେବେ ପାଦ ପ୍ରାୟ Android ପରି ହିଁ — କେବଳ ସେହି &quot;ଦୋକାନ&quot; ଅଲଗା ଯେଉଁଠୁ ଆମେ ଡାଉନ୍‌ଲୋଡ୍ କରୁ। iPhone ରେ ଆପ୍‌ର ଦୋକାନକୁ <strong>App Store</strong> କୁହାଯାଏ (Play Store ନୁହେଁ)।</p>
 <h2>ପାଦ 1 — App Store ଖୋଲନ୍ତୁ</h2>
 <ol>
@@ -244,7 +265,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଏହାର ତଳେ ଲେଖା ଥାଏ <strong>&quot;App Store.&quot;</strong></li>
 <li>ଏହା ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-11.webp" alt="ଏକ iPhone ର ହୋମ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଆଙ୍ଗୁଠି ନୀଳ &quot;App Store&quot; ଆଇକନ୍ ଆଡ଼କୁ ଦେଖାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-11.webp" alt="ଏକ iPhone ର ହୋମ୍ ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଗୋଟିଏ ଆଙ୍ଗୁଠି ନୀଳ &quot;App Store&quot; ଆଇକନ୍ ଆଡ଼କୁ ଦେଖାଉଛି।"></p>
 <h2>ପାଦ 2 — ChatGPT ଖୋଜନ୍ତୁ</h2>
 <ol>
 <li>App Store ର ତଳ ଡାହାଣ ପଟେ, <strong>&quot;Search&quot;</strong> ବଟନ୍ (ଆବର୍ଦ୍ଧକ କାଚ 🔍) ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
@@ -269,7 +290,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </li>
 <li>ଆପ୍ ଡାଉନ୍‌ଲୋଡ୍ ହେବ। ସମ୍ପୂର୍ଣ୍ଣ ହେଲେ ବଟନ୍ ବଦଳି <strong>&quot;OPEN&quot;</strong> ହୋଇଯାଏ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-12.webp" alt="iPhone ରେ ChatGPT ଆପ୍‌ର ପୃଷ୍ଠା ଯେଉଁଥିରେ &quot;GET&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-12.webp" alt="iPhone ରେ ChatGPT ଆପ୍‌ର ପୃଷ୍ଠା ଯେଉଁଥିରେ &quot;GET&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
 <h2>ପାଦ 5 — ଖୋଲନ୍ତୁ ଓ ଆପଣଙ୍କ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ</h2>
 <ol>
 <li><strong>&quot;OPEN&quot;</strong> ଟ୍ୟାପ୍ କରନ୍ତୁ (କିମ୍ବା ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ନୂଆ ChatGPT ଆଇକନ୍ ଟ୍ୟାପ୍ କରନ୍ତୁ)।</li>
@@ -323,9 +344,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </tr>
 </tbody></table>
 <p>ବାକି ସବୁ କିଛି — ପ୍ରଶ୍ନ ପଚାରିବା, ସ୍ୱରରେ କହିବା, କଥାବାର୍ତ୍ତା ସେଭ୍ କରିବା — ଏକା ପରି। ତେଣୁ ଆପଣଙ୍କ ପାଖରେ ଯେକୌଣସି ଫୋନ ଥାଉ, ବାକି ସମ୍ପୂର୍ଣ୍ଣ ଗାଇଡ୍ ଆପଣଙ୍କ ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ଭାବରେ ଲାଗୁ ହୁଏ।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 4 — ସହଜ ବ୍ୟବହାର ପାଇଁ ସେଟଅପ୍</h1>
-<p>ଏବେ ଯେତେବେଳେ ChatGPT ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇଗଲା, ଆସନ୍ତୁ ଏହାକୁ ବ୍ୟବହାର କରିବାକୁ <strong>ଝଟପଟ ଓ ଆରାମଦାୟକ</strong> କରିବା — ଯାହାଫଳରେ ଆପଣ ଏହାକୁ ଗୋଟିଏ ଟ୍ୟାପ୍‌ରେ ଖୋଲିପାରିବେ ଏବଂ ଆପଣଙ୍କ ନିଜ ଭାଷାରେ ବ୍ୟବହାର କରିପାରିବେ।</p>
+</div>
+  <nav class="chnav" id="nav2"></nav>
+</section>
+<section class="chapter" id="c3" data-name="ସହଜ ବ୍ୟବହାର ପାଇଁ ସେଟଅପ୍" hidden>
+  <div class="ch-title"><span class="num">4</span><h1>ସହଜ ବ୍ୟବହାର ପାଇଁ ସେଟଅପ୍</h1></div>
+  <div class="chapter-body"><p>ଏବେ ଯେତେବେଳେ ChatGPT ଇନ୍‌ଷ୍ଟଲ୍ ହୋଇଗଲା, ଆସନ୍ତୁ ଏହାକୁ ବ୍ୟବହାର କରିବାକୁ <strong>ଝଟପଟ ଓ ଆରାମଦାୟକ</strong> କରିବା — ଯାହାଫଳରେ ଆପଣ ଏହାକୁ ଗୋଟିଏ ଟ୍ୟାପ୍‌ରେ ଖୋଲିପାରିବେ ଏବଂ ଆପଣଙ୍କ ନିଜ ଭାଷାରେ ବ୍ୟବହାର କରିପାରିବେ।</p>
 <h2>1. ChatGPT କୁ ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ରଖନ୍ତୁ</h2>
 <p>ଯେତେବେଳେ ଆପଣ କୌଣସି ଆପ୍ ଇନ୍‌ଷ୍ଟଲ୍ କରନ୍ତି, ତା’ର ଆଇକନ୍ ସାଧାରଣତଃ ନିଜେ ନିଜେ ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ଆସିଯାଏ। କିନ୍ତୁ ଯଦି ତାହା ସହଜରେ ନ ମିଳେ, ତେବେ ଏହାକୁ ହାତ ପାଖରେ ରଖିବାର ଉପାୟ ଏହି।</p>
 <h3>Android ରେ</h3>
@@ -343,7 +367,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ସ୍କ୍ରଲ୍ କରି <strong>ChatGPT</strong> ଖୋଜନ୍ତୁ।</li>
 <li>ଏହାର ୱିଜେଟ୍‌କୁ ଚାପି, ଧରି ହୋମ୍ ସ୍କ୍ରିନ୍‌କୁ ଟାଣନ୍ତୁ। ୱିଜେଟ୍‌ରୁ ଆପଣ ସିଧା ହୋମ୍ ସ୍କ୍ରିନ୍‌ରୁ ଚାଟ୍ ଆରମ୍ଭ କରିପାରିବେ କିମ୍ବା କହିପାରିବେ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-13.webp" alt="Android ର ୱିଜେଟ୍ ମେନୁ ଯେଉଁଥିରେ ChatGPT ୱିଜେଟ୍‌କୁ ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ରଖାଯାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-13.webp" alt="Android ର ୱିଜେଟ୍ ମେନୁ ଯେଉଁଥିରେ ChatGPT ୱିଜେଟ୍‌କୁ ହୋମ୍ ସ୍କ୍ରିନ୍‌ରେ ରଖାଯାଉଛି।"></p>
 <h3>iPhone ରେ</h3>
 <p>ଆଇକନ୍ ସାଧାରଣତଃ ନିଜେ ନିଜେ ଯୋଡ଼ି ହୋଇଯାଏ। ନିଶ୍ଚିତ କରିବା ପାଇଁ:</p>
 <ol>
@@ -374,7 +398,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଯଦି ଆପଣଙ୍କ ଭାଷା ସେଠାରେ ନ ଥାଏ, ତେବେ ଫୋନର <strong>Settings → System → Languages &amp; input → On-screen keyboard → Gboard → Languages → Add keyboard</strong> କୁ ଯାଆନ୍ତୁ, ଏବଂ ଆପଣଙ୍କ ଭାଷା ଯୋଡ଼ନ୍ତୁ (ଉଦାହରଣ ସ୍ୱରୂପ &quot;Odia&quot; କିମ୍ବା &quot;Hindi&quot;)।</li>
 <li>ଏବେ ଆପଣ ଗ୍ଲୋବ୍ 🌐 ଟ୍ୟାପ୍ କରି ଆପଣଙ୍କ ଭାଷାର କୀବୋର୍ଡକୁ ଯାଇପାରିବେ, ଏବଂ ଆପଣଙ୍କ ନିଜ ଲିପିରେ ଟାଇପ୍ କରିପାରିବେ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-14.webp" alt="ଏକ Android କୀବୋର୍ଡ ଯେଉଁଥିରେ ଗ୍ଲୋବ୍ ଆଇକନ୍ ଓ ଓଡ଼ିଆ ଓ ତାମିଲ ପରି ଯୋଡ଼ାଯାଇଥିବା ଭାଷାର ତାଲିକା ଦେଖାଯାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-14.webp" alt="ଏକ Android କୀବୋର୍ଡ ଯେଉଁଥିରେ ଗ୍ଲୋବ୍ ଆଇକନ୍ ଓ ଓଡ଼ିଆ ଓ ତାମିଲ ପରି ଯୋଡ଼ାଯାଇଥିବା ଭାଷାର ତାଲିକା ଦେଖାଯାଉଛି।"></p>
 <p><strong>iPhone ରେ:</strong></p>
 <ol>
 <li><strong>Settings → General → Keyboard → Keyboards → Add New Keyboard</strong> କୁ ଯାଆନ୍ତୁ।</li>
@@ -389,9 +413,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <p>ଏବଂ ଏହା ବାକି ସମ୍ପୂର୍ଣ୍ଣ କଥାବାର୍ତ୍ତାରେ ଓଡ଼ିଆରେ ହିଁ ଜାରି ରଖିବ। ଆପଣ ଏହା ଯେକୌଣସି ଭାଷା ପାଇଁ କରିପାରିବେ।</p>
 <h2>3. ଆପଣ ଟାଇପ୍ କରିବା ବଦଳରେ କହିପାରିବେ ବି</h2>
 <p>ଯଦି ଟାଇପ୍ କରିବା ଧୀର କିମ୍ବା କଷ୍ଟକର ଲାଗେ, ତେବେ ଆପଣଙ୍କୁ ଟାଇପ୍ କରିବାର ଆବଶ୍ୟକ ହିଁ ନାହିଁ — ଆପଣ ChatGPT ସହ ଆପଣଙ୍କ ଭାଷାରେ <strong>କହିପାରିବେ</strong>, ଠିକ୍ ଫୋନରେ କଥା ହେବା ପରି। ଏହା ଏତେ ସାରା ଲୋକଙ୍କ ପାଇଁ ଏତେ ଜରୁରୀ ଯେ ଆମେ ଏହା ପାଇଁ ଏକ ଅଲଗା ଭାଗ ଦେଇଛୁ। ଆଗକୁ <strong>ଭାଗ 5 — ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ</strong> ଦେଖନ୍ତୁ।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 5 — ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ (ସ୍ୱର)</h1>
-<p>ଏହା ବୋଧହୁଏ <strong>ସମ୍ପୂର୍ଣ୍ଣ ପୁସ୍ତକର ସବୁଠାରୁ ଜରୁରୀ ଭାଗ।</strong> ଯଦି ପଢ଼ିବା ଓ ଟାଇପ୍ କରିବା ଧୀର କିମ୍ବା କଷ୍ଟକର ଲାଗେ — ବୋଧହୁଏ ଆଖି ଥକିଯାଏ, ଆଙ୍ଗୁଠି କୀବୋର୍ଡର ଅଭ୍ୟସ୍ତ ନୁହେଁ, କିମ୍ବା ଇଂରାଜୀ ଅକ୍ଷର ଦ୍ୱନ୍ଦ୍ୱରେ ପକାଇଦିଏ — ତେବେ ଏହା ଆପଣଙ୍କ ପାଇଁ ସୁବର୍ଣ୍ଣ ଦ୍ୱାର।</p>
+</div>
+  <nav class="chnav" id="nav3"></nav>
+</section>
+<section class="chapter" id="c4" data-name="ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ (ସ୍ୱର)" hidden>
+  <div class="ch-title"><span class="num">5</span><h1>ChatGPT ସହ ଫୋନ କଲ୍ ପରି କଥା ହୁଅନ୍ତୁ (ସ୍ୱର)</h1></div>
+  <div class="chapter-body"><p>ଏହା ବୋଧହୁଏ <strong>ସମ୍ପୂର୍ଣ୍ଣ ପୁସ୍ତକର ସବୁଠାରୁ ଜରୁରୀ ଭାଗ।</strong> ଯଦି ପଢ଼ିବା ଓ ଟାଇପ୍ କରିବା ଧୀର କିମ୍ବା କଷ୍ଟକର ଲାଗେ — ବୋଧହୁଏ ଆଖି ଥକିଯାଏ, ଆଙ୍ଗୁଠି କୀବୋର୍ଡର ଅଭ୍ୟସ୍ତ ନୁହେଁ, କିମ୍ବା ଇଂରାଜୀ ଅକ୍ଷର ଦ୍ୱନ୍ଦ୍ୱରେ ପକାଇଦିଏ — ତେବେ ଏହା ଆପଣଙ୍କ ପାଇଁ ସୁବର୍ଣ୍ଣ ଦ୍ୱାର।</p>
 <p><strong>ଆପଣ କେବଳ ChatGPT ସହ ଆପଣଙ୍କ ଭାଷାରେ କଥା ହୋଇପାରିବେ, ଠିକ୍ ସେମିତି ଯେମିତି ଫୋନ କଲ୍‌ରେ କଥା ହୁଅନ୍ତି।</strong> ଏହା ଶୁଣେ, ବୁଝେ, ଏବଂ ଉତ୍ତର ବି କହି ଦିଏ। ଟାଇପ୍ କରିବାର କୌଣସି ଆବଶ୍ୟକ ହିଁ ନାହିଁ।</p>
 <h2>ସ୍ୱର କାହିଁକି ସବୁଠାରୁ ସହଜ ଉପାୟ</h2>
 <ul>
@@ -415,7 +442,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଆପଣଙ୍କ କହିଥିବା ଶବ୍ଦ ବାକ୍ସରେ ଟେକ୍ସଟ୍ ହୋଇଯିବ। ଦେଖନ୍ତୁ ଯେ ଠିକ୍ ଲାଗୁଛି, ତା’ପରେ <strong>ପଠାଇବା ତୀର</strong> ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 <li>ChatGPT ଲେଖି ଉତ୍ତର ଦିଏ, ଯାହାକୁ ଆପଣ ପଢ଼ିପାରିବେ କିମ୍ବା ଜୋର୍‌ରେ ପଢ଼ାଇପାରିବେ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-15.webp" alt="&quot;Allow ChatGPT to record audio&quot; ଅନୁମତିର ପପ୍-ଅପ୍ ଯେଉଁଥିରେ &quot;Allow&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-15.webp" alt="&quot;Allow ChatGPT to record audio&quot; ଅନୁମତିର ପପ୍-ଅପ୍ ଯେଉଁଥିରେ &quot;Allow&quot; ବଟନ୍ ହାଇଲାଇଟ୍ ହୋଇଛି।"></p>
 <h3>ଉପାୟ 2 — ସମ୍ପୂର୍ଣ୍ଣ ସ୍ୱର କଥାବାର୍ତ୍ତା (କୁହନ୍ତୁ ଓ ଶୁଣନ୍ତୁ, ଅସଲି କଲ୍ ପରି)</h3>
 <p>ଏହା ଯାଦୁଭରା ଉପାୟ। ଆପଣ <strong>କୁହନ୍ତି,</strong> ଏବଂ ChatGPT <strong>ଜୋର୍‌ରେ କହି ଉତ୍ତର ଦିଏ</strong> — ଏକ ଅସଲି ଆଗ-ପଛ କଥାବାର୍ତ୍ତା, ଠିକ୍ ଫୋନ କଲ୍ ପରି। ବରିଷ୍ଠ ନାଗରିକ ଓ ସେମାନଙ୍କ ସମସ୍ତଙ୍କ ପାଇଁ ବହୁତ ଭଲ ଯେଉଁମାନେ ପଢ଼ିବା ଅପେକ୍ଷା ଶୁଣିବାକୁ ଅଧିକ ପସନ୍ଦ କରନ୍ତି।</p>
 <ol>
@@ -426,7 +453,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ପରବର୍ତ୍ତୀ କଥା ପଚାରିବା ପାଇଁ, କେବଳ କହୁଥାଆନ୍ତୁ। ଏହା କଥାବାର୍ତ୍ତା ମନେ ରଖେ।</li>
 <li>ହୋଇଗଲେ, କଲ୍ ଶେଷ କରିବା ପାଇଁ <strong>&quot;X&quot;</strong> କିମ୍ବା ବନ୍ଦ କରିବା ବଟନ୍ ଟ୍ୟାପ୍ କରନ୍ତୁ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-16.webp" alt="ସ୍ୱର କଥାବାର୍ତ୍ତା ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଏକ ବଡ଼ ଚମକୁଥିବା ବୃତ୍ତ ଓ &quot;listening...&quot; ର ସଙ୍କେତ ଅଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-16.webp" alt="ସ୍ୱର କଥାବାର୍ତ୍ତା ସ୍କ୍ରିନ୍ ଯେଉଁଥିରେ ଏକ ବଡ଼ ଚମକୁଥିବା ବୃତ୍ତ ଓ &quot;listening...&quot; ର ସଙ୍କେତ ଅଛି।"></p>
 <blockquote>
 <p><strong>ଟିପ୍:</strong> ଏହା <strong>କହି ଇଂରାଜୀ ଅଭ୍ୟାସ</strong> କରିବାର ବି ଏକ ଶାନଦାର, ଗୋପନୀୟ ଉପାୟ। ଏଥିରେ ଇଂରାଜୀରେ କଥା ହୁଅନ୍ତୁ, ଏବଂ ଏହା ଧୀରେ ଉତ୍ତର ଦେବ — କେହି ଆପଣଙ୍କୁ ବିଚାର କରୁନାହାନ୍ତି, ଏବଂ ଆପଣ ଯେତେ ଥର ଚାହିଁବେ ଦୋହରାଇ ପାରିବେ।</p>
 </blockquote>
@@ -457,9 +484,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <blockquote>
 <p><strong>ଯେଉଁ ଲୋକେ ଟାଇପ୍ କରିବାରେ ସଂଘର୍ଷ କରନ୍ତି, ସେମାନେ ସ୍ୱରର ଖୋଜ ପାଇବାମାତ୍ରେ ପ୍ରତିଦିନ ChatGPT ବ୍ୟବହାର କରିବାକୁ ଲାଗନ୍ତି।</strong> ଏହାକୁ ଆଜି ହିଁ ଚେଷ୍ଟା କରନ୍ତୁ, ଏବଂ ପରିବାରର ସେହି ସଦସ୍ୟଙ୍କୁ ଦେଖାନ୍ତୁ ଯାହାଙ୍କୁ ଟାଇପ୍ କରିବା କଷ୍ଟକର ଲାଗେ। ଏହା ସବୁ କିଛି ବଦଳାଇ ଦିଏ।</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 6 — ଫଟୋ ଉଠାଇ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ (କ୍ୟାମେରା ବ୍ୟବହାର)</h1>
-<p>ଏଠାରେ ଏକ କଥା ଅଛି ଯାହା ଅଧିକାଂଶ ଲୋକ ଜାଣନ୍ତି ନାହିଁ: <strong>ChatGPT ଛବି ଦେଖିପାରେ।</strong> ଆପଣ ଆପଣଙ୍କ ଫୋନରୁ ଗୋଟିଏ ଫଟୋ ଉଠାଇ, ଏହାକୁ ChatGPT କୁ ପଠାଇ, ଏବଂ ଏ ବିଷୟରେ ପ୍ରଶ୍ନ ପଚାରିପାରିବେ। ବହୁତ ଲୋକଙ୍କ ପାଇଁ, ଏହା ଟାଇପ୍ କରିବା ଅପେକ୍ଷା ବି ଅଧିକ କାମର — କାରଣ ଆପଣ ଆପଣଙ୍କ ସମସ୍ୟାକୁ କେବଳ <em>ଦେଖାଇ</em> ପାରିବେ।</p>
+</div>
+  <nav class="chnav" id="nav4"></nav>
+</section>
+<section class="chapter" id="c5" data-name="ଫଟୋ ଉଠାଇ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ (କ୍ୟାମେରା ବ୍ୟବହାର)" hidden>
+  <div class="ch-title"><span class="num">6</span><h1>ଫଟୋ ଉଠାଇ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ (କ୍ୟାମେରା ବ୍ୟବହାର)</h1></div>
+  <div class="chapter-body"><p>ଏଠାରେ ଏକ କଥା ଅଛି ଯାହା ଅଧିକାଂଶ ଲୋକ ଜାଣନ୍ତି ନାହିଁ: <strong>ChatGPT ଛବି ଦେଖିପାରେ।</strong> ଆପଣ ଆପଣଙ୍କ ଫୋନରୁ ଗୋଟିଏ ଫଟୋ ଉଠାଇ, ଏହାକୁ ChatGPT କୁ ପଠାଇ, ଏବଂ ଏ ବିଷୟରେ ପ୍ରଶ୍ନ ପଚାରିପାରିବେ। ବହୁତ ଲୋକଙ୍କ ପାଇଁ, ଏହା ଟାଇପ୍ କରିବା ଅପେକ୍ଷା ବି ଅଧିକ କାମର — କାରଣ ଆପଣ ଆପଣଙ୍କ ସମସ୍ୟାକୁ କେବଳ <em>ଦେଖାଇ</em> ପାରିବେ।</p>
 <p>ଏହାକୁ ଏମିତି ବୁଝନ୍ତୁ ଯେମିତି କୌଣସି ଜ୍ଞାନୀ ବନ୍ଧୁଙ୍କୁ ଫଟୋ ଦେଖାଇ ପଚାରିବା, <em>&quot;ଏହା କ’ଣ? ମୁଁ କ’ଣ କରିବି?&quot;</em></p>
 <h2>ଫଟୋ ପଠାଇ ଏ ବିଷୟରେ କିପରି ପଚାରିବେ</h2>
 <ol>
@@ -474,7 +504,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>ଫଟୋ ଯୋଡ଼ି ହେବା ପରେ, ଏ ବିଷୟରେ ଆପଣଙ୍କ ପ୍ରଶ୍ନ <strong>ଟାଇପ୍ କରନ୍ତୁ କିମ୍ବା କୁହନ୍ତୁ</strong> — ଉଦାହରଣ ସ୍ୱରୂପ, <em>&quot;ଏହି ଗଛକୁ କ’ଣ ହୋଇଛି?&quot;</em></li>
 <li>ପଠାନ୍ତୁ ଟ୍ୟାପ୍ କରନ୍ତୁ। ChatGPT ଫଟୋ ଦେଖି ଉତ୍ତର ଦିଏ।</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-17.webp" alt="ମେସେଜ୍ ବାକ୍ସ ଯେଉଁଥିରେ &quot;+&quot; / କ୍ୟାମେରା ଆଇକନ୍ 📷 ଗୋଲାକାରରେ ଅଛି, ଏବଂ &quot;Take Photo&quot; ଓ &quot;Photo Library&quot; ବିକଳ୍ପ ଦେଖାଯାଉଛି।"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-17.webp" alt="ମେସେଜ୍ ବାକ୍ସ ଯେଉଁଥିରେ &quot;+&quot; / କ୍ୟାମେରା ଆଇକନ୍ 📷 ଗୋଲାକାରରେ ଅଛି, ଏବଂ &quot;Take Photo&quot; ଓ &quot;Photo Library&quot; ବିକଳ୍ପ ଦେଖାଯାଉଛି।"></p>
 <h2>କ୍ୟାମେରାର ଛଅଟି ଦମଦାର ବ୍ୟବହାର</h2>
 <h3>1. ରୋଗୀ ଗଛ କିମ୍ବା ଫସଲ 🌱</h3>
 <p>ଦାଗ ଥିବା ପତ୍ର କିମ୍ବା ଶୁଖିଯାଉଥିବା ଗଛର ଫଟୋ ଉଠାନ୍ତୁ ଏବଂ ପଚାରନ୍ତୁ:</p>
@@ -534,9 +564,12 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <li>❌ ଏଗୁଡ଼ିକର ଫଟୋ ଉଠାଇବାରୁ ବଞ୍ଚନ୍ତୁ: ଆପଣଙ୍କ Aadhaar (ଆଧାର) କାର୍ଡ ନମ୍ବର, ବ୍ୟାଙ୍କ ପାସବୁକ୍, ATM କାର୍ଡ, ଚେକ୍, ପାସୱାର୍ଡ, କିମ୍ବା କାହାର ବ୍ୟକ୍ତିଗତ ଦସ୍ତାବିଜ୍।</li>
 </ul>
 <p>ଫଟୋକୁ ବି ଶବ୍ଦ ପରି ହିଁ ବୁଝନ୍ତୁ — ଗୁପ୍ତ କିମ୍ବା ବ୍ୟକ୍ତିଗତ ସୂଚନା କେବେ ଅଂଶୀଦାର କରନ୍ତୁ ନାହିଁ।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 7 — ପ୍ରଶ୍ନ କିପରି ପଚାରିବେ (ପ୍ରମ୍ପ୍ଟର ମୂଳ କଥା)</h1>
-<p>ଏହା ସମ୍ପୂର୍ଣ୍ଣ ଗାଇଡ୍‌ର <strong>ହୃଦୟ।</strong> ଥରେ ଆପଣ ଭଲ ପ୍ରଶ୍ନ ପଚାରିବା ଶିଖିଗଲେ, ChatGPT ଦଶ ଗୁଣ ଅଧିକ କାମର ହୋଇଯାଏ। ଚିନ୍ତା କରନ୍ତୁ ନାହିଁ — ଏହା ବହୁତ ସହଜ, ଏବଂ ଆମେ ଅନେକ ଉଦାହରଣ ବ୍ୟବହାର କରିବା।</p>
+</div>
+  <nav class="chnav" id="nav5"></nav>
+</section>
+<section class="chapter" id="c6" data-name="ପ୍ରଶ୍ନ କିପରି ପଚାରିବେ (ପ୍ରମ୍ପ୍ଟର ମୂଳ କଥା)" hidden>
+  <div class="ch-title"><span class="num">7</span><h1>ପ୍ରଶ୍ନ କିପରି ପଚାରିବେ (ପ୍ରମ୍ପ୍ଟର ମୂଳ କଥା)</h1></div>
+  <div class="chapter-body"><p>ଏହା ସମ୍ପୂର୍ଣ୍ଣ ଗାଇଡ୍‌ର <strong>ହୃଦୟ।</strong> ଥରେ ଆପଣ ଭଲ ପ୍ରଶ୍ନ ପଚାରିବା ଶିଖିଗଲେ, ChatGPT ଦଶ ଗୁଣ ଅଧିକ କାମର ହୋଇଯାଏ। ଚିନ୍ତା କରନ୍ତୁ ନାହିଁ — ଏହା ବହୁତ ସହଜ, ଏବଂ ଆମେ ଅନେକ ଉଦାହରଣ ବ୍ୟବହାର କରିବା।</p>
 <h2>&quot;ପ୍ରମ୍ପ୍ଟ&quot; କ’ଣ?</h2>
 <p><strong>&quot;ପ୍ରମ୍ପ୍ଟ&quot; (prompt)</strong> କେବଳ ଆପଣଙ୍କ <strong>ପ୍ରଶ୍ନ କିମ୍ବା ଅନୁରୋଧ</strong> ର ଏକ ଭାରୀ ନାମ — ଯାହା ବି ଆପଣ ChatGPT କୁ ଟାଇପ୍ କରନ୍ତି।</p>
 <ul>
@@ -624,9 +657,12 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <li>&quot;&#39;ଆପଣଙ୍କୁ ଏକ ଆନନ୍ଦମୟ ଓ ସମୃଦ୍ଧ Diwali (ଦୀପାବଳି) ର ଶୁଭେଚ୍ଛା&#39; କୁ ଆନୁଷ୍ଠାନିକ ଓଡ଼ିଆରେ ଅନୁବାଦ କର।&quot;</li>
 </ol>
 <p>କିଛି ଚେଷ୍ଟା କରନ୍ତୁ। ଆପଣ ଯେତେ ଅଧିକ ପଚାରିବେ, ସେତେ ଅଧିକ ଆରାମଦାୟକ ଅନୁଭବ କରିବେ।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 8 — 20ଟି ଜିନିଷ ଯାହା ଆପଣ ଆଜି ଚେଷ୍ଟା କରିବା ଉଚିତ</h1>
-<p>ChatGPT ବିଷୟରେ ପଢ଼ିବା ଠିକ୍, କିନ୍ତୁ ଅସଲି ଯାଦୁ ସେତେବେଳେ ଘଟେ ଯେତେବେଳେ <em>ଆପଣ</em> ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତି। ତେଣୁ ଏଠାରେ <strong>20ଟି ଝଟପଟ ଜିନିଷ</strong> ଅଛି ଯାହା ଆପଣ <strong>ଏବେ ହିଁ</strong> କରିପାରିବେ ସେହି &quot;ବାହ! ଏହା ସତରେ କାମ କରେ!&quot; ମୁହୂର୍ତ୍ତ ଅନୁଭବ କରିବାକୁ।</p>
+</div>
+  <nav class="chnav" id="nav6"></nav>
+</section>
+<section class="chapter" id="c7" data-name="20ଟି ଜିନିଷ ଯାହା ଆପଣ ଆଜି ଚେଷ୍ଟା କରିବା ଉଚିତ" hidden>
+  <div class="ch-title"><span class="num">8</span><h1>20ଟି ଜିନିଷ ଯାହା ଆପଣ ଆଜି ଚେଷ୍ଟା କରିବା ଉଚିତ</h1></div>
+  <div class="chapter-body"><p>ChatGPT ବିଷୟରେ ପଢ଼ିବା ଠିକ୍, କିନ୍ତୁ ଅସଲି ଯାଦୁ ସେତେବେଳେ ଘଟେ ଯେତେବେଳେ <em>ଆପଣ</em> ଏହାକୁ ଚେଷ୍ଟା କରନ୍ତି। ତେଣୁ ଏଠାରେ <strong>20ଟି ଝଟପଟ ଜିନିଷ</strong> ଅଛି ଯାହା ଆପଣ <strong>ଏବେ ହିଁ</strong> କରିପାରିବେ ସେହି &quot;ବାହ! ଏହା ସତରେ କାମ କରେ!&quot; ମୁହୂର୍ତ୍ତ ଅନୁଭବ କରିବାକୁ।</p>
 <p>ଯେକୌଣସି ଗୋଟିଏ ବାଛନ୍ତୁ, ChatGPT ଖୋଲନ୍ତୁ, ଏହାକୁ ଟାଇପ୍ କରନ୍ତୁ (କିମ୍ବା କୁହନ୍ତୁ), ଏବଂ ଦେଖନ୍ତୁ। ଆପଣଙ୍କ ଜୀବନ ଅନୁସାରେ ବିବରଣୀ ବଦଳାନ୍ତୁ। ପ୍ରତ୍ୟେକଟି ଏକ ମିନିଟ୍‌ରୁ କମ୍ ସମୟ ନିଏ।</p>
 <blockquote>
 <p><strong>ଏହି ତାଲିକା କିପରି ବ୍ୟବହାର କରିବେ:</strong> କେବଳ ଗୋଟିଏ ଲାଇନ୍ ChatGPT ରେ କପି କରନ୍ତୁ, [ବ୍ରାକେଟ୍] ରେ ଥିବା ଯେକୌଣସି ଜିନିଷକୁ ଆପଣଙ୍କ ନିଜ ବିବରଣୀରେ ବଦଳାଇ। ଆଜି ଅତିକମ୍‌ରେ 5ଟି ଚେଷ୍ଟା କରନ୍ତୁ!</p>
@@ -715,11 +751,13 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p><strong>ରହସ୍ୟ:</strong> ଆପଣ ଯେତେ ଅଧିକ ଏହି ଛୋଟ &quot;ବାହ!&quot; ମୁହୂର୍ତ୍ତ ସଂଗ୍ରହ କରିବେ, ChatGPT ସେତେ ଅଧିକ ଆପଣଙ୍କ ଦିନର ଏକ ସ୍ୱାଭାବିକ ଅଂଶ ହୋଇଯିବ। କେବଳ ପଢ଼ନ୍ତୁ ନାହିଁ — <strong>ଚେଷ୍ଟା କରନ୍ତୁ!</strong></p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 9 — ଦୈନନ୍ଦିନ ଜୀବନର ଉଦାହରଣ</h1>
-<p>ଏବେ ମଜାର ଭାଗ — ଅସଲି ଉଦାହରଣ! ତଳେ <strong>ଆଠଟି ସମ୍ପୂର୍ଣ୍ଣ କଥାବାର୍ତ୍ତା</strong> ଅଛି ଯାହା ଦେଖାଏ ସାରା ଭାରତର ସାଧାରଣ ଲୋକେ କିପରି ChatGPT ବ୍ୟବହାର କରନ୍ତି। ପ୍ରତ୍ୟେକଟି ଦେଖାଏ <strong>ଆପଣ କ’ଣ ଟାଇପ୍ କରନ୍ତି</strong> ଏବଂ <strong>ChatGPT କ’ଣ ଉତ୍ତର ଦିଏ।</strong> ସେଗୁଡ଼ିକ ପଢ଼ନ୍ତୁ, ତା’ପରେ ଆପଣଙ୍କ ନିଜ ସଂସ୍କରଣ ଚେଷ୍ଟା କରନ୍ତୁ।</p>
+</div>
+  <nav class="chnav" id="nav7"></nav>
+</section>
+<section class="chapter" id="c8" data-name="ଦୈନନ୍ଦିନ ଜୀବନର ଉଦାହରଣ" hidden>
+  <div class="ch-title"><span class="num">9</span><h1>ଦୈନନ୍ଦିନ ଜୀବନର ଉଦାହରଣ</h1></div>
+  <div class="chapter-body"><p>ଏବେ ମଜାର ଭାଗ — ଅସଲି ଉଦାହରଣ! ତଳେ <strong>ଆଠଟି ସମ୍ପୂର୍ଣ୍ଣ କଥାବାର୍ତ୍ତା</strong> ଅଛି ଯାହା ଦେଖାଏ ସାରା ଭାରତର ସାଧାରଣ ଲୋକେ କିପରି ChatGPT ବ୍ୟବହାର କରନ୍ତି। ପ୍ରତ୍ୟେକଟି ଦେଖାଏ <strong>ଆପଣ କ’ଣ ଟାଇପ୍ କରନ୍ତି</strong> ଏବଂ <strong>ChatGPT କ’ଣ ଉତ୍ତର ଦିଏ।</strong> ସେଗୁଡ଼ିକ ପଢ଼ନ୍ତୁ, ତା’ପରେ ଆପଣଙ୍କ ନିଜ ସଂସ୍କରଣ ଚେଷ୍ଟା କରନ୍ତୁ।</p>
 <p><em>(ତଳର ଉତ୍ତରଗୁଡ଼ିକ ସଂକ୍ଷିପ୍ତ ଉଦାହରଣ। ଅସଲି ChatGPT ଟିକିଏ ଅଧିକ ବିବରଣୀ ଦେଇପାରେ — ତାହା ସ୍ୱାଭାବିକ ଓ ଭଲ।)</em></p>
-<hr>
 <h2>ଉଦାହରଣ 1 — ରୋଷେଇ ଘରେ 🍲</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ସନ୍ଧ୍ୟା ହୋଇଗଲାଣି, ଏବଂ ସୁନୀତାଙ୍କ ଘରେ ସୀମିତ ପନିପରିବା ଅଛି। ସେ ଏକ ଝଟପଟ ରେସିପି ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -739,7 +777,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p>&quot;ମୋ ପାଖରେ ପ୍ରେସର କୁକର ନାହିଁ। ମୁଁ ଏକ ସାଧାରଣ ହାଣ୍ଡିରେ ଡାଲି କିପରି ରାନ୍ଧିବି?&quot;</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 2 — ପିଲାର ସ୍ୱାସ୍ଥ୍ୟ 🤒</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ମୀନାଙ୍କ ଛୋଟ ପୁଅକୁ ରାତିରେ ହାଲୁକା ଜ୍ୱର ହୋଇଛି। ଡାକ୍ତରଙ୍କ ବିଷୟରେ ନିଷ୍ପତ୍ତି ନେବା ସମୟରେ ସେ ସୁରକ୍ଷିତ ଘରୋଇ ଯତ୍ନର ଟିପ୍ସ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -767,7 +804,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p><strong>ଆପଣ, ପାଠକଙ୍କ ପାଇଁ ଟିପ୍ପଣୀ:</strong> ଦେଖନ୍ତୁ କିପରି ChatGPT ସ୍ପଷ୍ଟ ଭାବରେ କୁହେ &quot;ମୁଁ ଡାକ୍ତର ନୁହେଁ&quot; ଏବଂ ଆପଣଙ୍କୁ ବତାଏ କେବେ ଅସଲି ସାହାଯ୍ୟ ନେବାକୁ। ସ୍ୱାସ୍ଥ୍ୟ ଉତ୍ତରକୁ <strong>ସବୁବେଳେ</strong> ସାଧାରଣ ସୂଚନା ଭାବରେ ବୁଝନ୍ତୁ, ଡାକ୍ତରଙ୍କ ପ୍ରେସ୍‌କ୍ରିପ୍‌ସନ୍ ଭାବରେ ନୁହେଁ।</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 3 — ପିଲାଙ୍କ ଶିକ୍ଷା 📚</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ରମେଶଙ୍କ ଝିଅ ଶ୍ରେଣୀ 5 ରେ ପଢ଼େ ଓ ବିଜ୍ଞାନ କଷ୍ଟକର ଲାଗେ। ସେ ଫଟୋସିନ୍ଥେସିସ୍ (ଆଲୋକ ସଂଶ୍ଳେଷଣ) କୁ ସରଳ ଭାବରେ ବୁଝାଇବାକୁ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -792,7 +828,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p>&quot;ଏବେ ମୋ ଝିଅକୁ ଏ ବିଷୟରେ ପରୀକ୍ଷା କରିବାକୁ 3ଟି ସହଜ ପ୍ରଶ୍ନ ଦିଅ।&quot;</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 4 — ଚାଷ 🌾</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> କାର୍ତ୍ତିକ ଗହମ ଚାଷ କରନ୍ତି ଏବଂ ଶୀତ ଋତୁର ସାର ବିଷୟରେ ପରାମର୍ଶ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -814,7 +849,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p><strong>ଟିପ୍ପଣୀ:</strong> ଚାଷ ପାଇଁ, ସବୁବେଳେ ଆପଣଙ୍କ ସ୍ଥାନୀୟ Krishi Vigyan Kendra (KVK / କୃଷି ବିଜ୍ଞାନ କେନ୍ଦ୍ର) କିମ୍ବା କୃଷି ସମ୍ପ୍ରସାରଣ ଅଧିକାରୀଙ୍କ ସହ ନିଶ୍ଚିତ କରନ୍ତୁ, କାରଣ ସଠିକ୍ ଉତ୍ତର ଆପଣଙ୍କ ମାଟି, ବିହନ କିସମ, ଓ ଅଞ୍ଚଳ ଉପରେ ନିର୍ଭର କରେ।</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 5 — ପାରିବାରିକ ଅର୍ଥ 💰</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ଚାରି ଜଣିଆ ଏକ ପରିବାର ₹20,000 ମାସିକ ଆୟରେ ବଜେଟ୍ କରିବାକୁ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -884,7 +918,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 </ol>
 <p>ଯଦି ଆପଣଙ୍କ ଘର ଭଡ଼ା କିମ୍ବା ସ୍କୁଲ ଫିସ୍ ଭିନ୍ନ, ତେବେ ଆପଣ ଚାହାନ୍ତି କି ମୁଁ ଏହାକୁ ସଜାଇ ଦେବି?</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 6 — ଯାତ୍ରା ✈️</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ଏକ ଦମ୍ପତି Jaipur (ଜୟପୁର) କୁ ଏକ ଶସ୍ତା 2 ଦିନର ଯାତ୍ରା ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -946,7 +979,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p>&quot;ଆମେ ନିରାମିଷ ଓ ପିଆଜ-ରସୁଣ ଖାଉ ନାହିଁ। ଆମ ପାଇଁ ଖାଦ୍ୟ ଜାଗା ସୁପାରିଶ କର।&quot;</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 7 — ସରକାର ଓ ଦସ୍ତାବିଜ୍ 🏛️</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ଜଣେ ବୟସ୍କ ବ୍ୟକ୍ତି Aadhaar (ଆଧାର) କାର୍ଡ ପାଇଁ ଆବଶ୍ୟକ ଦସ୍ତାବିଜ୍ ବିଷୟରେ ଜାଣିବାକୁ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -985,7 +1017,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p><strong>ଟିପ୍ପଣୀ:</strong> ଯେକୌଣସି ସରକାରୀ ଯୋଜନା କିମ୍ବା ଦସ୍ତାବିଜ୍ ପାଇଁ, ସବୁବେଳେ <strong>ଅଫିସିଆଲ୍ ସରକାରୀ ୱେବସାଇଟ୍</strong> କିମ୍ବା ଅଫିସରେ ବିବରଣୀ ନିଶ୍ଚିତ କରନ୍ତୁ, କାରଣ ପ୍ରକ୍ରିୟା ସମୟ ସମୟରେ ଅପ୍‌ଡେଟ୍ ହୁଏ।</p>
 </blockquote>
-<hr>
 <h2>ଉଦାହରଣ 8 — ଛୋଟ ବ୍ୟବସାୟ 🏪</h2>
 <p><strong>ପରିସ୍ଥିତି:</strong> ଲକ୍ଷ୍ମୀଙ୍କର ଏକ ଶାଢ଼ୀ ଦୋକାନ ଅଛି ଏବଂ ସେ ଏକ ପର୍ବ ସେଲ୍ ପାଇଁ ଏକ WhatsApp ମେସେଜ୍ ଚାହାନ୍ତି।</p>
 <p><strong>ଆପଣ ଟାଇପ୍ କରନ୍ତି:</strong></p>
@@ -1010,7 +1041,6 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p>&quot;ଆଉ ଗୋଟିଏ ସଂସ୍କରଣ ବନାଅ ଯାହାକୁ ମୁଁ ଷ୍ଟାଟସ୍ ଭାବରେ ବି ପୋଷ୍ଟ କରିପାରିବି, କମ୍ ଶବ୍ଦ ସହିତ।&quot;</p>
 </blockquote>
-<hr>
 <h2>ନିଜେ ଖୋଜିବାକୁ ଆଉ କିଛି ଆଇଡିଆ</h2>
 <p>ଥରେ ଆପଣ ଆରାମଦାୟକ ହୋଇଗଲେ, ChatGPT କୁ ଏଗୁଡ଼ିକ ପଚାରିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ:</p>
 <ul>
@@ -1023,9 +1053,12 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <li>ଡାକ୍ତରଙ୍କୁ ଭେଟିବା ପୂର୍ବରୁ ପଚାରିବାକୁ <strong>ପ୍ରଶ୍ନର ଏକ ତାଲିକା।</strong></li>
 </ul>
 <p>ସମ୍ଭାବନା ଅସୀମ। ChatGPT କୁ ସେହି ବୁଦ୍ଧିମାନ ବନ୍ଧୁ ପରି ବୁଝନ୍ତୁ — ଖୋଲାଖୋଲି ପଚାରନ୍ତୁ!</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 10 — ବରିଷ୍ଠ ନାଗରିକଙ୍କ ପାଇଁ ChatGPT</h1>
-<p>ଏହି ଭାଗ ବିଶେଷ ଭାବରେ ଆମ <strong>ବୟସ୍କମାନଙ୍କ</strong> ପାଇଁ — ଜେଜେମା’-ଜେଜେବାପା, ଅବସରପ୍ରାପ୍ତ କକା-ମାଉସୀ, ଏବଂ ଜୀବନର ସୁବର୍ଣ୍ଣ ବର୍ଷରେ ଥିବା ସମସ୍ତଙ୍କ ପାଇଁ। ଏବଂ ଏହା ସେମାନଙ୍କ ପିଲା ଓ ନାତି-ନାତୁଣୀଙ୍କ ପାଇଁ ବି, ଏହାକୁ ସେଟ୍ କରିବାରେ ସାହାଯ୍ୟ କରିବାକୁ।</p>
+</div>
+  <nav class="chnav" id="nav8"></nav>
+</section>
+<section class="chapter" id="c9" data-name="ବରିଷ୍ଠ ନାଗରିକଙ୍କ ପାଇଁ ChatGPT" hidden>
+  <div class="ch-title"><span class="num">10</span><h1>ବରିଷ୍ଠ ନାଗରିକଙ୍କ ପାଇଁ ChatGPT</h1></div>
+  <div class="chapter-body"><p>ଏହି ଭାଗ ବିଶେଷ ଭାବରେ ଆମ <strong>ବୟସ୍କମାନଙ୍କ</strong> ପାଇଁ — ଜେଜେମା’-ଜେଜେବାପା, ଅବସରପ୍ରାପ୍ତ କକା-ମାଉସୀ, ଏବଂ ଜୀବନର ସୁବର୍ଣ୍ଣ ବର୍ଷରେ ଥିବା ସମସ୍ତଙ୍କ ପାଇଁ। ଏବଂ ଏହା ସେମାନଙ୍କ ପିଲା ଓ ନାତି-ନାତୁଣୀଙ୍କ ପାଇଁ ବି, ଏହାକୁ ସେଟ୍ କରିବାରେ ସାହାଯ୍ୟ କରିବାକୁ।</p>
 <p>ପ୍ରିୟ ବୟସ୍କମାନେ: ଏମିତି ଅନୁଭବ କରନ୍ତୁ ନାହିଁ ଯେ &quot;ଏହା ଯୁବକଙ୍କ ପାଇଁ&quot; କିମ୍ବା &quot;ମୁଁ ଏ ପାଇଁ ବହୁତ ବୁଢ଼ା।&quot; ତାହା ଆଦୌ ସତ ନୁହେଁ। ChatGPT ଆପଣଙ୍କ ପାଇଁ ବହୁତ ଭଲ — ଏବଂ ଆପଣ ବୋଧହୁଏ ଅନ୍ୟ ସମସ୍ତଙ୍କ ଅପେକ୍ଷା ଏହାକୁ ଅଧିକ ଭଲ ପାଇବେ, କାରଣ ଏହାର <strong>ଅସୀମ ଧୈର୍ଯ୍ୟ</strong> ଅଛି ଏବଂ ଏହା ଆପଣ ଯେଉଁ ଭାଷା ଓ ଯେଉଁ ଗତିରେ ଚାହିଁବେ ସେଥିରେ ଉତ୍ତର ଦିଏ।</p>
 <blockquote>
 <p><strong>ଏକ କୋମଳ ଟିପ୍:</strong> <strong>ସ୍ୱର ଫିଚର୍</strong> (ଭାଗ 5) ବ୍ୟବହାର କରନ୍ତୁ। ଆପଣ କେବଳ ChatGPT ସହ <em>କଥା</em> ହୋଇପାରିବେ ଓ ତା’ର ଉତ୍ତର <em>ଶୁଣିପାରିବେ</em> — ଆପଣଙ୍କ ଆଖିକୁ କଷ୍ଟ ଦେବାର କିମ୍ବା ଛୋଟ କୀବୋର୍ଡ ସହ ଯୁଝିବାର ଆବଶ୍ୟକ ନାହିଁ। କେବଳ ଆପଣଙ୍କ ନିଜ ଭାଷାରେ କୁହନ୍ତୁ।</p>
@@ -1084,9 +1117,12 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p>ଆପଣଙ୍କ ବୟସ୍କମାନେ ଆପଣଙ୍କୁ ଏତେ କିଛି ଦେଇଛନ୍ତି। ସେମାନଙ୍କୁ ଏହି ଧୈର୍ଯ୍ୟଶୀଳ, ସର୍ବଜ୍ଞ ସାଥୀ ଦେବା ଏକ ସୁନ୍ଦର ଉପହାର। 💛</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 11 — ମହିଳା ଓ ଘର ସମ୍ଭାଳୁଥିବା ଲୋକଙ୍କ ପାଇଁ ChatGPT</h1>
-<p>ଅସଂଖ୍ୟ ଭାରତୀୟ ଘରେ, ଏହା <strong>ଘରର ମହିଳା</strong> ଯିଏ ଚୁପଚାପ୍ ସବୁ କିଛି ଚଳାନ୍ତି — ରୋଷେଇ, ବଜେଟ୍, ପିଲାଙ୍କ ପାଠପଢ଼ା, ପର୍ବ, ପରିବାରର ସ୍ୱାସ୍ଥ୍ୟ, ଏବଂ ବାରମ୍ବାର ପାର୍ଶ୍ୱରେ ଏକ ଛୋଟ ବ୍ୟବସାୟ। ଏହି ଭାଗ ସେହି କଥାକୁ ଉଦ୍‌ଯାପନ କରେ, ଏବଂ ଦେଖାଏ ChatGPT କିପରି ଏ ସବୁ ପାଇଁ ଏକ ଚତୁର ସାହାଯ୍ୟକାରୀ ହୋଇପାରେ।</p>
+</div>
+  <nav class="chnav" id="nav9"></nav>
+</section>
+<section class="chapter" id="c10" data-name="ମହିଳା ଓ ଘର ସମ୍ଭାଳୁଥିବା ଲୋକଙ୍କ ପାଇଁ ChatGPT" hidden>
+  <div class="ch-title"><span class="num">11</span><h1>ମହିଳା ଓ ଘର ସମ୍ଭାଳୁଥିବା ଲୋକଙ୍କ ପାଇଁ ChatGPT</h1></div>
+  <div class="chapter-body"><p>ଅସଂଖ୍ୟ ଭାରତୀୟ ଘରେ, ଏହା <strong>ଘରର ମହିଳା</strong> ଯିଏ ଚୁପଚାପ୍ ସବୁ କିଛି ଚଳାନ୍ତି — ରୋଷେଇ, ବଜେଟ୍, ପିଲାଙ୍କ ପାଠପଢ଼ା, ପର୍ବ, ପରିବାରର ସ୍ୱାସ୍ଥ୍ୟ, ଏବଂ ବାରମ୍ବାର ପାର୍ଶ୍ୱରେ ଏକ ଛୋଟ ବ୍ୟବସାୟ। ଏହି ଭାଗ ସେହି କଥାକୁ ଉଦ୍‌ଯାପନ କରେ, ଏବଂ ଦେଖାଏ ChatGPT କିପରି ଏ ସବୁ ପାଇଁ ଏକ ଚତୁର ସାହାଯ୍ୟକାରୀ ହୋଇପାରେ।</p>
 <p>ଏହା &quot;ମହିଳା କେବଳ ରନ୍ଧା କରନ୍ତି&quot; ବିଷୟରେ ନୁହେଁ। ଏହା ସେହି ବାସ୍ତବତା ବିଷୟରେ ଯେ ଅଧିକାଂଶ ଘରେ, ମହିଳା <strong>ଦୈନନ୍ଦିନ କାର୍ଯ୍ୟ ନିଷ୍ପତ୍ତି</strong> ନିଅନ୍ତି — ଏବଂ ଏକ ଚତୁର ସାହାଯ୍ୟକାରୀ ସମୟ, ଟଙ୍କା, ଓ ଚାପ ବଞ୍ଚାଏ।</p>
 <h2>ଦୈନନ୍ଦିନ ସାହାଯ୍ୟକାରୀ</h2>
 <h3>1. ଘର ପରିଚାଳନା 🏠</h3>
@@ -1150,9 +1186,12 @@ ChatGPT ଆପଣଙ୍କୁ ବତାଇପାରେ ଯେ ପ୍ରତ୍ୟ
 <blockquote>
 <p><strong>ଏହି ଗୋଟିଏ ସାହାଯ୍ୟକାରୀ ଘର ଚଳାଇବାର ମାନସିକ ବୋଝ ହାଲୁକା କରିପାରେ — ଗୋଟିଏ ସପ୍ତାହ ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ ଓ ଫରକ୍ ଅନୁଭବ କରନ୍ତୁ।</strong> 🌸</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 12 — ନୂଆ କୌଶଳ ଶିଖିବା</h1>
-<p>ଏଠାରେ ChatGPT ଏକ &quot;ପ୍ରଶ୍ନ-ଉତ୍ତର ଯନ୍ତ୍ର&quot; ରୁ ବଦଳି ଏକ <strong>&quot;ଜୀବନ-ଉନ୍ନତି ଯନ୍ତ୍ର&quot;</strong> ହୋଇଯାଏ। କାରଣ ChatGPT ଅସୀମ ଭାବରେ ଧୈର୍ଯ୍ୟଶୀଳ ଓ ମାଗଣା, ଏହା ପ୍ରାୟ ଯେକୌଣସି କୌଶଳ ପାଇଁ ଆପଣଙ୍କ <strong>ବ୍ୟକ୍ତିଗତ ଶିକ୍ଷକ</strong> ହୋଇପାରେ — ଆପଣଙ୍କ ନିଜ ଗତିରେ, ଆପଣଙ୍କ ନିଜ ଭାଷାରେ, କୌଣସି ଫିସ୍ ବିନା ଓ କୌଣସି ଲଜ୍ଜା ବିନା।</p>
+</div>
+  <nav class="chnav" id="nav10"></nav>
+</section>
+<section class="chapter" id="c11" data-name="ନୂଆ କୌଶଳ ଶିଖିବା" hidden>
+  <div class="ch-title"><span class="num">12</span><h1>ନୂଆ କୌଶଳ ଶିଖିବା</h1></div>
+  <div class="chapter-body"><p>ଏଠାରେ ChatGPT ଏକ &quot;ପ୍ରଶ୍ନ-ଉତ୍ତର ଯନ୍ତ୍ର&quot; ରୁ ବଦଳି ଏକ <strong>&quot;ଜୀବନ-ଉନ୍ନତି ଯନ୍ତ୍ର&quot;</strong> ହୋଇଯାଏ। କାରଣ ChatGPT ଅସୀମ ଭାବରେ ଧୈର୍ଯ୍ୟଶୀଳ ଓ ମାଗଣା, ଏହା ପ୍ରାୟ ଯେକୌଣସି କୌଶଳ ପାଇଁ ଆପଣଙ୍କ <strong>ବ୍ୟକ୍ତିଗତ ଶିକ୍ଷକ</strong> ହୋଇପାରେ — ଆପଣଙ୍କ ନିଜ ଗତିରେ, ଆପଣଙ୍କ ନିଜ ଭାଷାରେ, କୌଣସି ଫିସ୍ ବିନା ଓ କୌଣସି ଲଜ୍ଜା ବିନା।</p>
 <p>ଆପଣ ଅଧିକ ରୋଜଗାର କରିବାକୁ ଚାହାନ୍ତୁ, ଭଲ ଚାକିରି ପାଇବାକୁ ଚାହାନ୍ତୁ, କିମ୍ବା କେବଳ ଆପଣ ସବୁବେଳେ ସ୍ୱପ୍ନ ଦେଖିଥିବା କିଛି ଶିଖିବାକୁ ଚାହାନ୍ତୁ — ଆପଣ ଆଜି ହିଁ ଆରମ୍ଭ କରିପାରିବେ, ଠିକ୍ ଆପଣଙ୍କ ଫୋନରେ।</p>
 <blockquote>
 <p><strong>ChatGPT ସହ ଯେକୌଣସି ଜିନିଷ କିପରି ଶିଖିବେ:</strong> ଏହାକୁ ପଚାରନ୍ତୁ <em>&quot;ମୋତେ [କୌଶଳ] ପାଦ-ପାଦରେ ଶିଖାଅ, ଜଣେ ନୂତନ ଭାବରେ, ଛୋଟ ଦୈନିକ ପାଠ ସହିତ।&quot;</em> ତା’ପରେ ଗୋଟି ଗୋଟି ପାଠ କରନ୍ତୁ, ଏବଂ ଯେତେବେଳେ ବୁଝି ନ ହୁଏ ସେତେବେଳେ ଏହାକୁ ପୁଣି ବୁଝାଇବାକୁ କୁହନ୍ତୁ।</p>
@@ -1217,9 +1256,12 @@ b) ସୁପ୍ରଭାତ!</p>
 <blockquote>
 <p><strong>କଳ୍ପନା କରନ୍ତୁ ଏକ କୌଶଳ ଶିଖିବା ଯାହା ଆପଣଙ୍କୁ ଏକ ଭଲ ଚାକିରି କିମ୍ବା ଏକ ନୂଆ ଆୟ ଦେବ — ମାଗଣାରେ, ଆପଣଙ୍କ ନିଜ ଫୋନରୁ। ସେୟା ହିଁ ChatGPT ର ଅସଲି ଶକ୍ତି।</strong> 🚀</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 13 — ChatGPT ଆପଣଙ୍କ ଟଙ୍କା ସଞ୍ଚୟ କରିପାରେ</h1>
-<p>ସମସ୍ତେ ଟଙ୍କା ସଞ୍ଚୟ କରିବାକୁ ଭଲ ପାଆନ୍ତି। ଭଲ ଖବର: ChatGPT ଏକ ଚତୁର, ମାଗଣା ପରାମର୍ଶଦାତା ହୋଇପାରେ ଯିଏ ଆପଣଙ୍କୁ <strong>ବୁଦ୍ଧିମାନ ଭାବରେ ଖର୍ଚ୍ଚ କରିବାରେ, ଭୁଲରୁ ବଞ୍ଚିବାରେ, ଓ ଆପଣଙ୍କ ଆୟର ସର୍ବାଧିକ ବ୍ୟବହାର କରିବାରେ</strong> ସାହାଯ୍ୟ କରେ — କୌଣସି ଫିସ୍ ବିନା।</p>
+</div>
+  <nav class="chnav" id="nav11"></nav>
+</section>
+<section class="chapter" id="c12" data-name="ChatGPT ଆପଣଙ୍କ ଟଙ୍କା ସଞ୍ଚୟ କରିପାରେ" hidden>
+  <div class="ch-title"><span class="num">13</span><h1>ChatGPT ଆପଣଙ୍କ ଟଙ୍କା ସଞ୍ଚୟ କରିପାରେ</h1></div>
+  <div class="chapter-body"><p>ସମସ୍ତେ ଟଙ୍କା ସଞ୍ଚୟ କରିବାକୁ ଭଲ ପାଆନ୍ତି। ଭଲ ଖବର: ChatGPT ଏକ ଚତୁର, ମାଗଣା ପରାମର୍ଶଦାତା ହୋଇପାରେ ଯିଏ ଆପଣଙ୍କୁ <strong>ବୁଦ୍ଧିମାନ ଭାବରେ ଖର୍ଚ୍ଚ କରିବାରେ, ଭୁଲରୁ ବଞ୍ଚିବାରେ, ଓ ଆପଣଙ୍କ ଆୟର ସର୍ବାଧିକ ବ୍ୟବହାର କରିବାରେ</strong> ସାହାଯ୍ୟ କରେ — କୌଣସି ଫିସ୍ ବିନା।</p>
 <p>ଏହା ଲାଇଭ୍ ଦାମ ଦେଖିପାରେ ନାହିଁ (ଭାଗ 14 ଦେଖନ୍ତୁ), ତେଣୁ ସବୁବେଳେ ଅନ୍ତିମ ଦାମ ନିଜେ ଯାଞ୍ଚ କରନ୍ତୁ। କିନ୍ତୁ <strong>ଯୋଜନା, ତୁଳନା, ଓ ବୁଝିବା</strong> ପାଇଁ, ଏହା ଏକ ଭଲ ଟଙ୍କା ସାହାଯ୍ୟକାରୀ।</p>
 <h2>ଏହା ଆପଣଙ୍କ ଟଙ୍କା ବଞ୍ଚାଇବାର ଛଅଟି ଉପାୟ</h2>
 <h3>1. କିଣିବା ପୂର୍ବରୁ ତୁଳନା କରନ୍ତୁ 📱</h3>
@@ -1275,9 +1317,12 @@ b) ସୁପ୍ରଭାତ!</p>
 <blockquote>
 <p><strong>ଯେତେବେଳେ ଲୋକେ ChatGPT କୁ ସେମାନଙ୍କ ଅସଲି ଟଙ୍କା ବଞ୍ଚାଉଥିବାର ଦେଖନ୍ତି, ସେମାନେ କେବେ ଏହାକୁ ବ୍ୟବହାର କରିବା ବନ୍ଦ କରନ୍ତି ନାହିଁ।</strong> 💸</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 14 — ChatGPT କ’ଣ କରିପାରିବ ନାହିଁ</h1>
-<p>ChatGPT ଅଦ୍ଭୁତ, କିନ୍ତୁ ଏହା <strong>ଯାଦୁ ନୁହେଁ</strong> ଏବଂ <strong>ସମ୍ପୂର୍ଣ୍ଣ ନୁହେଁ।</strong> ଏହାର ସୀମା ଜାଣିବା ଆପଣଙ୍କୁ ସୁରକ୍ଷିତ ରଖେ ଓ ନିରାଶରୁ ବଞ୍ଚାଏ। ଦୟାକରି ଏହି ଭାଗ ଯତ୍ନର ସହ ପଢ଼ନ୍ତୁ — ଏହା ଛୋଟ କିନ୍ତୁ ବହୁତ ଜରୁରୀ।</p>
+</div>
+  <nav class="chnav" id="nav12"></nav>
+</section>
+<section class="chapter" id="c13" data-name="ChatGPT କ’ଣ କରିପାରିବ ନାହିଁ" hidden>
+  <div class="ch-title"><span class="num">14</span><h1>ChatGPT କ’ଣ କରିପାରିବ ନାହିଁ</h1></div>
+  <div class="chapter-body"><p>ChatGPT ଅଦ୍ଭୁତ, କିନ୍ତୁ ଏହା <strong>ଯାଦୁ ନୁହେଁ</strong> ଏବଂ <strong>ସମ୍ପୂର୍ଣ୍ଣ ନୁହେଁ।</strong> ଏହାର ସୀମା ଜାଣିବା ଆପଣଙ୍କୁ ସୁରକ୍ଷିତ ରଖେ ଓ ନିରାଶରୁ ବଞ୍ଚାଏ। ଦୟାକରି ଏହି ଭାଗ ଯତ୍ନର ସହ ପଢ଼ନ୍ତୁ — ଏହା ଛୋଟ କିନ୍ତୁ ବହୁତ ଜରୁରୀ।</p>
 <h2>1. ଏହା ଭୁଲ କରିପାରେ</h2>
 <p>ChatGPT ବେଳେ ବେଳେ <strong>ଭୁଲ କିମ୍ବା ପୁରୁଣା ସୂଚନା</strong> ଦିଏ, ଯଦିଓ ତାହା ବହୁତ ଆତ୍ମବିଶ୍ୱାସୀ ଶୁଭେ। ଏହା ସେହି ବନ୍ଧୁ ପରି ଯିଏ ସାଧାରଣତଃ ଠିକ୍ କିନ୍ତୁ ବେଳେ ବେଳେ କିଛି ଭୁଲ ମନେ ରଖନ୍ତି।</p>
 <blockquote>
@@ -1314,9 +1359,12 @@ b) ସୁପ୍ରଭାତ!</p>
 <blockquote>
 <p><strong>ଅନ୍‌ଲାଇନ୍ ସୁରକ୍ଷିତ ରୁହନ୍ତୁ:</strong> ଯଦି କେହି — କୌଣସି ଆପ୍‌ରେ — ଆପଣଙ୍କ OTP, PIN, କିମ୍ବା ପାସୱାର୍ଡ ମାଗେ, ତେବେ ତାହା ଏକ <strong>ଠକାମି।</strong> ସେଗୁଡ଼ିକ କେବେ ଅଂଶୀଦାର କରନ୍ତୁ ନାହିଁ। ChatGPT କୁ ବି ସେଗୁଡ଼ିକ କେବେ ଦରକାର ହେବ ନାହିଁ।</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 15 — ଟିପ୍ସ ଓ କୌଶଳ</h1>
-<p>ଏଠାରେ କିଛି ଚତୁର ଛୋଟ କୌଶଳ ଅଛି ଯାହା ChatGPT କୁ ଆହୁରି ଅଧିକ ସାହାଯ୍ୟକାରୀ କରେ। ସେଗୁଡ଼ିକୁ ଗୋଟି ଗୋଟି ଚେଷ୍ଟା କରନ୍ତୁ।</p>
+</div>
+  <nav class="chnav" id="nav13"></nav>
+</section>
+<section class="chapter" id="c14" data-name="ଟିପ୍ସ ଓ କୌଶଳ" hidden>
+  <div class="ch-title"><span class="num">15</span><h1>ଟିପ୍ସ ଓ କୌଶଳ</h1></div>
+  <div class="chapter-body"><p>ଏଠାରେ କିଛି ଚତୁର ଛୋଟ କୌଶଳ ଅଛି ଯାହା ChatGPT କୁ ଆହୁରି ଅଧିକ ସାହାଯ୍ୟକାରୀ କରେ। ସେଗୁଡ଼ିକୁ ଗୋଟି ଗୋଟି ଚେଷ୍ଟା କରନ୍ତୁ।</p>
 <h2>କୌଶଳ 1 — &quot;ଏମିତି ବୁଝାଅ ଯେମିତି ମୋ ବୟସ 5&quot;</h2>
 <p>ଯଦି ଏକ ଉତ୍ତର ବହୁତ କଷ୍ଟକର ଲାଗେ, ତେବେ କେବଳ ଏହି ଯାଦୁଭରା ଲାଇନ୍ ଯୋଡ଼ନ୍ତୁ:</p>
 <blockquote>
@@ -1375,10 +1423,12 @@ b) ସୁପ୍ରଭାତ!</p>
 </ul>
 <h2>କୌଶଳ 10 — ବିଷୟ ବଦଳାଇବା ବେଳେ ନୂଆ ଆରମ୍ଭ କରନ୍ତୁ</h2>
 <p>ଯେତେବେଳେ ଆପଣ ଏକ ସମ୍ପୂର୍ଣ୍ଣ <strong>ନୂଆ ବିଷୟ</strong> ବିଷୟରେ ପଚାରିବାକୁ ଚାହାନ୍ତି, ଏକ <strong>&quot;New chat&quot;</strong> ଆରମ୍ଭ କରନ୍ତୁ (&quot;+&quot; କିମ୍ବା &quot;New chat&quot; ବଟନ୍ ଖୋଜନ୍ତୁ, ସାଧାରଣତଃ ଉପରେ)। ଏହା ପ୍ରତ୍ୟେକ ବିଷୟକୁ ସ୍ୱଚ୍ଛ ଓ ଅଲଗା ରଖେ, ଏକ ନୋଟବୁକ୍‌ରେ ନୂଆ ପୃଷ୍ଠା ବ୍ୟବହାର କରିବା ପରି।</p>
-<hr>
-<div class="page-break"></div><h1>ଭାଗ 16 — ଝଟପଟ ବ୍ୟବହାର କାର୍ଡ</h1>
-<p>✂️ <em>ଏହି ପୃଷ୍ଠାକୁ ହାତ ପାଖରେ ରଖନ୍ତୁ। ଏଗୁଡ଼ିକ ବ୍ୟବହାର-ପ୍ରସ୍ତୁତ ପ୍ରମ୍ପ୍ଟ। କେବଳ ChatGPT ଖୋଲନ୍ତୁ, ଏଗୁଡ଼ିକ ମଧ୍ୟରୁ ଗୋଟିଏ ଟାଇପ୍ କରନ୍ତୁ (ବିବରଣୀ ଆପଣଙ୍କ ଅନୁସାରେ ବଦଳାଇ), ଏବଂ ପଠାନ୍ତୁ!</em></p>
-<hr>
+</div>
+  <nav class="chnav" id="nav14"></nav>
+</section>
+<section class="chapter" id="c15" data-name="ଝଟପଟ ବ୍ୟବହାର କାର୍ଡ" hidden>
+  <div class="ch-title"><span class="num">16</span><h1>ଝଟପଟ ବ୍ୟବହାର କାର୍ଡ</h1></div>
+  <div class="chapter-body"><p>✂️ <em>ଏହି ପୃଷ୍ଠାକୁ ହାତ ପାଖରେ ରଖନ୍ତୁ। ଏଗୁଡ଼ିକ ବ୍ୟବହାର-ପ୍ରସ୍ତୁତ ପ୍ରମ୍ପ୍ଟ। କେବଳ ChatGPT ଖୋଲନ୍ତୁ, ଏଗୁଡ଼ିକ ମଧ୍ୟରୁ ଗୋଟିଏ ଟାଇପ୍ କରନ୍ତୁ (ବିବରଣୀ ଆପଣଙ୍କ ଅନୁସାରେ ବଦଳାଇ), ଏବଂ ପଠାନ୍ତୁ!</em></p>
 <h3>🟢 10ଟି ବ୍ୟବହାର-ପ୍ରସ୍ତୁତ ପ୍ରମ୍ପ୍ଟ</h3>
 <p><strong>1. ଆପଣଙ୍କ ପାଖରେ ଯାହା ଅଛି ତାହାରେ ରେସିପି:</strong></p>
 <blockquote>
@@ -1420,23 +1470,110 @@ b) ସୁପ୍ରଭାତ!</p>
 <blockquote>
 <p>&quot;ଏହାକୁ [ଭାଷା] ରେ ଅନୁବାଦ କର: [ଆପଣଙ୍କ ବାକ୍ୟ]।&quot;</p>
 </blockquote>
-<hr>
 <h3>💡 3ଟି ସୁରକ୍ଷା ନିୟମ ମନେ ରଖନ୍ତୁ</h3>
 <ol>
 <li>Aadhaar (ଆଧାର) ନମ୍ବର, ବ୍ୟାଙ୍କର ସୂଚନା, PIN, OTP, କିମ୍ବା ପାସୱାର୍ଡ <strong>କେବେ ଅଂଶୀଦାର କରନ୍ତୁ ନାହିଁ।</strong></li>
 <li>ଜରୁରୀ ଚିକିତ୍ସା, ଆଇନଗତ, ଆର୍ଥିକ, ଓ ସରକାରୀ ପରାମର୍ଶ <strong>ସବୁବେଳେ ଜଣେ ଅସଲି ବିଶେଷଜ୍ଞଙ୍କ ସହ ନିଶ୍ଚିତ କରନ୍ତୁ।</strong></li>
 <li><strong>ଏହା ମାଗଣା</strong> — ChatGPT &quot;ଚାଲୁ କରିବା&quot; ପାଇଁ କାହାକୁ କେବେ ଟଙ୍କା ଦିଅନ୍ତୁ ନାହିଁ।</li>
 </ol>
-<hr>
 <h3>🌟 ଆପଣ କରି ଦେଖାଇଲେ!</h3>
 <p>ଏବେ ଆପଣ ChatGPT କୁ ଜଣେ ଦକ୍ଷଙ୍କ ପରି ବ୍ୟବହାର କରିବା ଜାଣନ୍ତି। ସେହି ବୁଦ୍ଧିମାନ ବନ୍ଧୁଙ୍କୁ ଆପଣଙ୍କ ପକେଟରେ ରଖନ୍ତୁ, ଖୋଲାଖୋଲି ପଚାରନ୍ତୁ, ଏବଂ ପ୍ରତିଦିନ କିଛି ନୂଆ ଶିଖନ୍ତୁ।</p>
 <p><strong>ଖୁସିରେ ଗପ କରନ୍ତୁ!</strong> 😊</p>
-<hr>
 <p><em>ଗାଇଡ୍ ସମାପ୍ତ — ଓଡ଼ିଆ ସଂସ୍କରଣ</em></p>
 <p><em>ଏହି ଗାଇଡ୍ ଶିକ୍ଷାଗତ ଉଦ୍ଦେଶ୍ୟ ପାଇଁ। ChatGPT, OpenAI ର ଏକ ଉତ୍ପାଦ। ଆପ୍‌ର ରୂପ ସମୟ ସହ ବଦଳିପାରେ; ପାଦଗୁଡ଼ିକ ଲେଖିବା ସମୟରେ ସଠିକ୍। ସବୁବେଳେ ସ୍କ୍ରିନ୍‌ରେ ଦିଆଯାଇଥିବା ନିର୍ଦ୍ଦେଶ ଓ ଅଫିସିଆଲ୍ ଉତ୍ସ ଅନୁସରଣ କରନ୍ତୁ।</em></p>
-
+</div>
+  <nav class="chnav" id="nav15"></nav>
+</section>
 </main>
+
 <footer class="page-foot"><span class="credit">Made with ❤️ by Garv Sachdeva</span></footer>
-<script>document.getElementById('themeBtn').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>var _b=document.getElementById('themeBtn');if(_b)_b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>
+(function(){
+  var sections=[].slice.call(document.querySelectorAll('.chapter'));
+  var N=sections.length;
+  var home=document.getElementById('home');
+  var readbar=document.getElementById('readbar');
+  var speakBtn=document.getElementById('speakBtn');
+  var progFill=document.getElementById('progFill');
+  var chCount=document.getElementById('chCount');
+  var bcp=document.body.getAttribute('data-bcp')||'en-IN';
+  var cur=-1;
+  var ttsSupported=('speechSynthesis' in window);
+
+  function name(i){ return sections[i]?sections[i].getAttribute('data-name'):''; }
+  function buildNav(i){
+    var nav=document.getElementById('nav'+i); if(!nav) return;
+    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">← Back</span><span class="lbl">'+name(i-1)+'</span></a>'
+                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">←</span><span class="lbl">🏠 Home</span></a>';
+    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next →</span><span class="lbl">'+name(i+1)+'</span></a>'
+                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">Done ✓</span><span class="lbl">🏠 Home</span></a>';
+    nav.innerHTML=prev+next;
+  }
+  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.textContent='🔊';} }
+
+  function show(i){
+    stopSpeak();
+    cur=i;
+    home.hidden = (i>=0);
+    for(var k=0;k<N;k++) sections[k].hidden = (k!==i);
+    if(i>=0){
+      buildNav(i);
+      readbar.hidden=false;
+      progFill.style.width=((i+1)/N*100)+'%';
+      chCount.textContent=(i+1)+' / '+N;
+      updateSpeak();
+    } else {
+      readbar.hidden=true;
+    }
+    window.scrollTo(0,0);
+  }
+  window.openCh=function(i){ location.hash='ch'+i; };
+  window.goHome=function(){ if(location.hash){ location.hash=''; } else { show(-1); } };
+
+  function fromHash(){
+    var m=(location.hash||'').match(/^#ch(\d+)$/);
+    if(m){ var i=Math.min(N-1,Math.max(0,parseInt(m[1],10))); show(i); }
+    else { show(-1); }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  // ---- read aloud ----
+  var speaking=false, queue=[], qi=0;
+  function pickVoice(){
+    var vs=window.speechSynthesis.getVoices()||[]; var p=bcp.split('-')[0];
+    return vs.filter(function(v){return v.lang && v.lang.replace('_','-')===bcp;})[0]
+        || vs.filter(function(v){return v.lang && v.lang.replace('_','-').toLowerCase().indexOf(p)===0;})[0]
+        || null;
+  }
+  // only offer read-aloud when the device actually has a voice for THIS language —
+  // otherwise it stays silent or reads with a wrong-language voice (gibberish).
+  function updateSpeak(){ if(speakBtn) speakBtn.hidden = !(ttsSupported && cur>=0 && pickVoice()); }
+  function speakNext(){
+    if(!speaking || qi>=queue.length){ stopSpeak(); return; }
+    var u=new SpeechSynthesisUtterance(queue[qi++]);
+    u.lang=bcp; var v=pickVoice(); if(v) u.voice=v; u.rate=0.95;
+    u.onend=speakNext; u.onerror=function(){ stopSpeak(); };
+    window.speechSynthesis.speak(u);
+  }
+  window.toggleSpeak=function(){
+    if(!ttsSupported) return;
+    if(speaking){ stopSpeak(); return; }
+    if(cur<0) return;
+    var body=sections[cur].querySelector('.chapter-body');
+    var text=(name(cur)+'. '+(body?body.innerText:'')).replace(/\s+/g,' ').trim();
+    // split into sentence-ish chunks WITHOUT lookbehind (old Safari throws on lookbehind regex literals)
+    queue=(text.match(/[^.!?।]+[.!?।]*/g)||[text]).map(function(s){return s.trim();}).filter(Boolean);
+    if(!queue.length) return;
+    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.textContent='⏹ Stop';
+    speakNext();
+  };
+  window.addEventListener('beforeunload', stopSpeak);
+  // voices often load async; re-check whether to show the button once they arrive
+  if(ttsSupported){ try{ window.speechSynthesis.onvoiceschanged=function(){ updateSpeak(); }; }catch(e){} }
+
+  fromHash();
+})();
+</script>
 </body>
 </html>

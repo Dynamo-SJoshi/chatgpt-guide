@@ -19,55 +19,70 @@
 <meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
 <meta name="twitter:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
 <script>
-(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;}catch(e){}})();
+(function(){try{
+  var t=localStorage.getItem('theme');
+  if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  document.documentElement.dataset.theme=t;
+  var f=parseFloat(localStorage.getItem('fs'))||1; document.documentElement.style.setProperty('--fs',f);
+}catch(e){}})();
 function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t);}catch(e){}var b=document.getElementById('themeBtn');if(b)b.textContent=t==='dark'?'☀️':'🌙';}
+function bumpFont(step){var d=document.documentElement;var f=parseFloat(getComputedStyle(d).getPropertyValue('--fs'))||1;f=Math.min(1.4,Math.max(.85,Math.round((f+step)*100)/100));d.style.setProperty('--fs',f);try{localStorage.setItem('fs',f);}catch(e){}}
 </script>
 <link rel="stylesheet" href="style.css">
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>
 </head>
-<body>
+<body data-bcp="en-IN">
 <div class="topbar">
-  <a class="home" href="index.html">🏠 Home</a>
+  <a class="home" href="#" onclick="goHome();return false;">🏠</a>
+  <a class="home" href="index.html" title="All languages">🌐</a>
   <span class="spacer"></span>
-  <select onchange="if(this.value)location.href=this.value" aria-label="Choose language"><option value="english.html" selected>English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html">मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html">ଓଡ଼ିଆ — Odia</option></select>
+  <select onchange="if(this.value)location.href=this.value+location.hash" aria-label="Choose language"><option value="english.html" selected>English — English</option><option value="hindi.html">हिंदी — Hindi</option><option value="bengali.html">বাংলা — Bengali</option><option value="tamil.html">தமிழ் — Tamil</option><option value="telugu.html">తెలుగు — Telugu</option><option value="kannada.html">ಕನ್ನಡ — Kannada</option><option value="marathi.html">मराठी — Marathi</option><option value="punjabi.html">ਪੰਜਾਬੀ — Punjabi</option><option value="odia.html">ଓଡ଼ିଆ — Odia</option></select>
   <a class="pdf-dl" href="pdfs/english.pdf" download>⬇ PDF</a>
-  <button id="themeBtn" class="theme" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+  <div class="fsgroup"><button class="iconbtn" onclick="bumpFont(-0.1)" aria-label="Smaller text" title="Smaller text">A−</button><button class="iconbtn" onclick="bumpFont(0.1)" aria-label="Bigger text" title="Bigger text">A+</button></div><button id="themeBtn" class="iconbtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
 </div>
+
+<div class="readbar" id="readbar" hidden>
+  <button class="btn speak" id="speakBtn" onclick="toggleSpeak()" hidden>🔊</button>
+  <div class="progress"><i id="progFill"></i></div>
+  <span class="count" id="chCount"></span>
+</div>
+
 <main class="wrap">
-<h1>A Basic ChatGPT Guide</h1>
-<p><em>A simple guide to using ChatGPT on your phone. It is written for first-time users and for people who are not comfortable with English or technology. It covers everything from installing the app to using voice and the camera. It uses real everyday examples like cooking, health, farming, budgets, government forms, and small business.</em></p>
-<hr>
-<div class="page-break"></div><h2>Table of Contents</h2>
-<ol>
-<li><strong>A Note Before You Begin</strong></li>
-<li><strong>Section 1 — What is ChatGPT?</strong></li>
-<li><strong>Section 2 — Getting Started on Android</strong></li>
-<li><strong>Section 3 — Getting Started on iPhone (iOS)</strong></li>
-<li><strong>Section 4 — Setting Up for Easy Access</strong></li>
-<li><strong>Section 5 — Talk to ChatGPT Like a Phone Call (Voice)</strong></li>
-<li><strong>Section 6 — Take a Photo and Ask (Using the Camera)</strong></li>
-<li><strong>Section 7 — How to Ask Questions (Prompting Basics)</strong></li>
-<li><strong>Section 8 — 20 Things You Should Try Today</strong></li>
-<li><strong>Section 9 — Daily Life Use Cases</strong></li>
-<li><strong>Section 10 — ChatGPT for Senior Citizens</strong></li>
-<li><strong>Section 11 — ChatGPT for Women &amp; Home Managers</strong></li>
-<li><strong>Section 12 — Learning New Skills</strong></li>
-<li><strong>Section 13 — ChatGPT Can Save You Money</strong></li>
-<li><strong>Section 14 — Things ChatGPT Cannot Do</strong></li>
-<li><strong>Section 15 — Tips and Tricks</strong></li>
-<li><strong>Section 16 — Quick Reference Card</strong></li>
-</ol>
-<hr>
-<div class="page-break"></div><h2>A Note Before You Begin</h2>
+  <section id="home">
+    <div class="cover">
+      <h1>A Basic ChatGPT Guide</h1>
+      <p><em>A simple guide to using ChatGPT on your phone. It is written for first-time users and for people who are not comfortable with English or technology. It covers everything from installing the app to using voice and the camera. It uses real everyday examples like cooking, health, farming, budgets, government forms, and small business.</em></p>
+<h2>A Note Before You Begin</h2>
 <p>Namaste, and welcome!</p>
 <p>If you have ever wished you had a smart friend who knows a little bit about almost everything — someone who is always awake, never gets tired of your questions, and never makes you feel small for asking — then this little book is for you.</p>
 <p>You do not need to know English well. You do not need to be young. You do not need to be &quot;good with computers.&quot; If you can make a phone call, send a WhatsApp message, or take a photo on your phone, you already know enough to use ChatGPT.</p>
 <p>This guide will hold your hand, step by step. We will go slowly. Nothing here is difficult. By the end, you will be able to ask ChatGPT for recipes, help with your children&#39;s homework, advice for your shop, government form information, and so much more — all in your own way of speaking.</p>
 <p>Take your time. There is no hurry. Keep your phone next to you as you read, and try each step yourself. Learning by doing is the best way.</p>
 <p>Let us begin.</p>
-<hr>
-<div class="page-break"></div><h1>Section 1 — What is ChatGPT?</h1>
-<h2>Think of it like a very knowledgeable friend</h2>
+
+    </div>
+    <div class="chapter-list">
+<button class="chapcard" onclick="openCh(0)"><span class="num">1</span><span class="name">What is ChatGPT?</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(1)"><span class="num">2</span><span class="name">Getting Started on Android</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(2)"><span class="num">3</span><span class="name">Getting Started on iPhone (iOS)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(3)"><span class="num">4</span><span class="name">Setting Up for Easy Access</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(4)"><span class="num">5</span><span class="name">Talk to ChatGPT Like a Phone Call (Voice)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(5)"><span class="num">6</span><span class="name">Take a Photo and Ask (Using the Camera)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(6)"><span class="num">7</span><span class="name">How to Ask Questions (Prompting Basics)</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(7)"><span class="num">8</span><span class="name">20 Things You Should Try Today</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(8)"><span class="num">9</span><span class="name">Daily Life Use Cases</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(9)"><span class="num">10</span><span class="name">ChatGPT for Senior Citizens</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(10)"><span class="num">11</span><span class="name">ChatGPT for Women &amp; Home Managers</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(11)"><span class="num">12</span><span class="name">Learning New Skills</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(12)"><span class="num">13</span><span class="name">ChatGPT Can Save You Money</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(13)"><span class="num">14</span><span class="name">Things ChatGPT Cannot Do</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(14)"><span class="num">15</span><span class="name">Tips and Tricks</span><span class="go">→</span></button>
+<button class="chapcard" onclick="openCh(15)"><span class="num">16</span><span class="name">Quick Reference Card</span><span class="go">→</span></button>
+    </div>
+  </section>
+<section class="chapter" id="c0" data-name="What is ChatGPT?" hidden>
+  <div class="ch-title"><span class="num">1</span><h1>What is ChatGPT?</h1></div>
+  <div class="chapter-body"><h2>Think of it like a very knowledgeable friend</h2>
 <p>Imagine you have a friend who has read thousands of books, newspapers, and websites. This friend knows a little about cooking, a little about farming, a little about health, a little about studies, a little about business — almost everything.</p>
 <p>Now imagine this friend lives inside your phone, is awake 24 hours a day, all 7 days of the week, and is always happy to help. You can ask this friend a question at 2 in the afternoon or 2 in the night. The friend never gets angry, never gets tired, and never says &quot;ask me later.&quot;</p>
 <p><strong>That friend is ChatGPT.</strong></p>
@@ -108,9 +123,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </blockquote>
 <h2>A quick promise to you</h2>
 <p>By the time you finish this guide, you will be able to do all of this yourself, without anyone&#39;s help. So keep reading, and let us set it up on your phone.</p>
-<hr>
-<div class="page-break"></div><h1>Section 2 — Getting Started on Android</h1>
-<p><em>(If you have an iPhone instead, you can skip to Section 3)</em></p>
+</div>
+  <nav class="chnav" id="nav0"></nav>
+</section>
+<section class="chapter" id="c1" data-name="Getting Started on Android" hidden>
+  <div class="ch-title"><span class="num">2</span><h1>Getting Started on Android</h1></div>
+  <div class="chapter-body"><p><em>(If you have an iPhone instead, you can skip to Section 3)</em></p>
 <p>We will now install ChatGPT together. Just follow along, one step at a time. Keep your phone unlocked and ready.</p>
 <h2>Step 1 — Open the Google Play Store</h2>
 <ol>
@@ -118,7 +136,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>Below it, you will usually see the words <strong>&quot;Play Store.&quot;</strong></li>
 <li>Tap on it once with your finger.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-1.webp" alt="A phone home screen with a finger pointing to the colourful triangle &quot;Play Store&quot; icon."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-1.webp" alt="A phone home screen with a finger pointing to the colourful triangle &quot;Play Store&quot; icon."></p>
 <p>If you cannot find it, swipe up from the bottom of your screen to see all your apps, then look for &quot;Play Store.&quot;</p>
 <h2>Step 2 — Search for ChatGPT</h2>
 <ol>
@@ -132,7 +150,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li><p>Tap the <strong>search button</strong> (it looks like a magnifying glass 🔍) on your keyboard.</p>
 </li>
 </ol>
-<p><img src="assets/screenshots/screenshot-2.webp" alt="The Play Store search bar with &quot;chatgpt&quot; typed in it, and the magnifying glass search button highlighted."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-2.webp" alt="The Play Store search bar with &quot;chatgpt&quot; typed in it, and the magnifying glass search button highlighted."></p>
 <h2>Step 3 — Find the correct app</h2>
 <p>This is an <strong>important</strong> step. Many apps may appear, and some are copies or fakes. We want the <strong>real, official</strong> one.</p>
 <p>Look for the app that says:</p>
@@ -155,12 +173,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <blockquote>
 <p><strong>Tip:</strong> Use a Wi-Fi connection if you have one, so you do not use up your mobile data. But it is a small app, so mobile data is also fine.</p>
 </blockquote>
-<p><img src="assets/screenshots/screenshot-3.webp" alt="The ChatGPT app page with the green &quot;Install&quot; button highlighted."></p>
-<p><img src="assets/screenshots/screenshot-5.webp" alt="The same page now showing a green &quot;Open&quot; button after installation is complete."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-3.webp" alt="The ChatGPT app page with the green &quot;Install&quot; button highlighted."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-5.webp" alt="The same page now showing a green &quot;Open&quot; button after installation is complete."></p>
 <h2>Step 5 — Open the app</h2>
 <p>Tap the <strong>&quot;Open&quot;</strong> button. (From next time, you can also open it directly by tapping the ChatGPT icon, which is now on your phone&#39;s home screen.)</p>
 <p>The first time it opens, you will see a welcome screen. Now we will create your account.</p>
-<p><img src="assets/screenshots/screenshot-6.webp" alt="The ChatGPT welcome screen with options to &quot;Sign up&quot; and &quot;Log in.&quot;"></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-6.webp" alt="The ChatGPT welcome screen with options to &quot;Sign up&quot; and &quot;Log in.&quot;"></p>
 <h2>Step 6 — Create your account</h2>
 <p>To use ChatGPT, you need a free account. This is like getting a library card — it remembers who you are so your chats are saved for you. Making it takes two minutes.</p>
 <p>On the welcome screen, you will see a few buttons. Let us look at your choices:</p>
@@ -178,7 +196,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>It may ask &quot;ChatGPT wants to use Google to sign in&quot; — tap <strong>&quot;Continue&quot;</strong> or <strong>&quot;Allow.&quot;</strong></li>
 <li>That&#39;s it! Your account is created. No password, no email to verify.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-7.webp" alt="A pop-up showing a list of Gmail accounts to choose from, with one account highlighted."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-7.webp" alt="A pop-up showing a list of Gmail accounts to choose from, with one account highlighted."></p>
 <h3>The Other Way — Sign up with Email</h3>
 <p>If you want to use a different email, or you do not have Gmail, follow these steps:</p>
 <ol>
@@ -193,7 +211,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </li>
 <li>Tap <strong>&quot;Continue.&quot;</strong></li>
 </ol>
-<p><img src="assets/screenshots/screenshot-8.webp" alt="The sign-up screen with an email field and a password field, with example text typed in."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-8.webp" alt="The sign-up screen with an email field and a password field, with example text typed in."></p>
 <h2>Step 7 — Verify your email</h2>
 <p>If you signed up with email, ChatGPT needs to make sure the email is really yours. This is called <strong>&quot;verifying.&quot;</strong></p>
 <ol>
@@ -224,7 +242,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>To the <strong>right of that box</strong> is an arrow or microphone — the arrow <strong>sends</strong> your message; the microphone lets you <strong>speak</strong> instead of typing.</li>
 <li>In the <strong>top-left corner</strong>, there are usually three lines (☰) or a small icon. Tapping it shows your <strong>past chats</strong> — like a history of everything you asked.</li>
 </ul>
-<p><img src="assets/screenshots/screenshot-9.webp" alt="The main ChatGPT chat screen with labels pointing to: (1) the message box at the bottom, (2) the send arrow, (3) the microphone, and (4) the menu lines at top-left."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-9.webp" alt="The main ChatGPT chat screen with labels pointing to: (1) the message box at the bottom, (2) the send arrow, (3) the microphone, and (4) the menu lines at top-left."></p>
 <h2>Step 11 — Say your first hello</h2>
 <p>Let us test it! Tap the message box at the bottom and type:</p>
 <blockquote>
@@ -232,10 +250,13 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </blockquote>
 <p>Then tap the send arrow. Within a few seconds, ChatGPT will reply warmly. </p>
 <p><strong>You did it!</strong> You now have ChatGPT working on your phone. From here on, everything is just asking questions — which we will learn properly in Section 7.</p>
-<p><img src="assets/screenshots/screenshot-10.webp" alt="A chat showing the user&#39;s message &quot;Hello! Can you help me in simple language?&quot; and ChatGPT&#39;s friendly reply below it."></p>
-<hr>
-<div class="page-break"></div><h1>Section 3 — Getting Started on iPhone (iOS)</h1>
-<p><em>(If you have an Android phone, you already finished in Section 2. You can skip ahead to Section 4.)</em></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-10.webp" alt="A chat showing the user&#39;s message &quot;Hello! Can you help me in simple language?&quot; and ChatGPT&#39;s friendly reply below it."></p>
+</div>
+  <nav class="chnav" id="nav1"></nav>
+</section>
+<section class="chapter" id="c2" data-name="Getting Started on iPhone (iOS)" hidden>
+  <div class="ch-title"><span class="num">3</span><h1>Getting Started on iPhone (iOS)</h1></div>
+  <div class="chapter-body"><p><em>(If you have an Android phone, you already finished in Section 2. You can skip ahead to Section 4.)</em></p>
 <p>If your phone is an <strong>iPhone</strong> (made by Apple), the steps are almost the same as Android — only the &quot;shop&quot; we download from is different. On iPhone, the app shop is called the <strong>App Store</strong> (not Play Store).</p>
 <h2>Step 1 — Open the App Store</h2>
 <ol>
@@ -243,7 +264,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>Below it is written <strong>&quot;App Store.&quot;</strong></li>
 <li>Tap on it.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-11.webp" alt="An iPhone home screen with a finger pointing to the blue &quot;App Store&quot; icon."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-11.webp" alt="An iPhone home screen with a finger pointing to the blue &quot;App Store&quot; icon."></p>
 <h2>Step 2 — Search for ChatGPT</h2>
 <ol>
 <li>At the bottom-right of the App Store, tap the <strong>&quot;Search&quot;</strong> button (a magnifying glass 🔍).</li>
@@ -268,7 +289,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </li>
 <li>The app will download. When finished, the button changes to <strong>&quot;OPEN.&quot;</strong></li>
 </ol>
-<p><img src="assets/screenshots/screenshot-12.webp" alt="The ChatGPT app page on iPhone with the &quot;GET&quot; button highlighted."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-12.webp" alt="The ChatGPT app page on iPhone with the &quot;GET&quot; button highlighted."></p>
 <h2>Step 5 — Open and create your account</h2>
 <ol>
 <li>Tap <strong>&quot;OPEN&quot;</strong> (or tap the new ChatGPT icon on your home screen).</li>
@@ -322,9 +343,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 </tr>
 </tbody></table>
 <p>Everything else — asking questions, voice input, saving chats — is identical. So whichever phone you have, the rest of this guide applies fully to you.</p>
-<hr>
-<div class="page-break"></div><h1>Section 4 — Setting Up for Easy Access</h1>
-<p>Now that ChatGPT is installed, let us make it <strong>quick and comfortable</strong> to use — so you can open it in one tap and use it in your own language.</p>
+</div>
+  <nav class="chnav" id="nav2"></nav>
+</section>
+<section class="chapter" id="c3" data-name="Setting Up for Easy Access" hidden>
+  <div class="ch-title"><span class="num">4</span><h1>Setting Up for Easy Access</h1></div>
+  <div class="chapter-body"><p>Now that ChatGPT is installed, let us make it <strong>quick and comfortable</strong> to use — so you can open it in one tap and use it in your own language.</p>
 <h2>1. Put ChatGPT on your home screen</h2>
 <p>When you install an app, its icon usually goes on your home screen automatically. But if you cannot find it easily, here is how to keep it handy.</p>
 <h3>On Android</h3>
@@ -342,7 +366,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>Scroll to find <strong>ChatGPT.</strong></li>
 <li>Press, hold, and drag its widget onto your home screen. A widget lets you start a chat or speak directly from the home screen.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-13.webp" alt="The Android widgets menu showing the ChatGPT widget being placed on the home screen."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-13.webp" alt="The Android widgets menu showing the ChatGPT widget being placed on the home screen."></p>
 <h3>On iPhone</h3>
 <p>The icon is usually added automatically. To make sure:</p>
 <ol>
@@ -373,7 +397,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>If your language is not there, go to phone <strong>Settings → System → Languages &amp; input → On-screen keyboard → Gboard → Languages → Add keyboard,</strong> and add your language (for example, &quot;Hindi&quot; or &quot;Tamil&quot;).</li>
 <li>Now you can switch to your language keyboard by tapping the globe 🌐, and type in your own script.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-14.webp" alt="An Android keyboard showing the globe icon and a list of added languages like Hindi and Tamil."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-14.webp" alt="An Android keyboard showing the globe icon and a list of added languages like Hindi and Tamil."></p>
 <p><strong>On iPhone:</strong></p>
 <ol>
 <li>Go to <strong>Settings → General → Keyboard → Keyboards → Add New Keyboard.</strong></li>
@@ -388,9 +412,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <p>And it will continue in Tamil for the rest of the chat. You can do this for any language.</p>
 <h2>3. You can also speak instead of typing</h2>
 <p>If typing is slow or hard, you do not have to type at all — you can <strong>speak</strong> to ChatGPT in your own language, just like talking on the phone. This is so important for so many people that we have given it its own section. See <strong>Section 5 — Talk to ChatGPT Like a Phone Call</strong> next.</p>
-<hr>
-<div class="page-break"></div><h1>Section 5 — Talk to ChatGPT Like a Phone Call (Voice)</h1>
-<p>This may be the <strong>most important section in the whole book.</strong> If reading and typing feel slow or difficult — maybe your eyes tire, your fingers are not used to the keyboard, or English letters confuse you — then this is your golden door.</p>
+</div>
+  <nav class="chnav" id="nav3"></nav>
+</section>
+<section class="chapter" id="c4" data-name="Talk to ChatGPT Like a Phone Call (Voice)" hidden>
+  <div class="ch-title"><span class="num">5</span><h1>Talk to ChatGPT Like a Phone Call (Voice)</h1></div>
+  <div class="chapter-body"><p>This may be the <strong>most important section in the whole book.</strong> If reading and typing feel slow or difficult — maybe your eyes tire, your fingers are not used to the keyboard, or English letters confuse you — then this is your golden door.</p>
 <p><strong>You can simply talk to ChatGPT, in your own language, the same way you talk on a phone call.</strong> It listens, understands, and even talks back. No typing needed at all.</p>
 <h2>Why voice is the easiest way</h2>
 <ul>
@@ -414,7 +441,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>Your spoken words turn into text in the box. Check it looks right, then tap the <strong>send arrow.</strong></li>
 <li>ChatGPT replies in writing, which you can read or have read aloud.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-15.webp" alt="A &quot;Allow ChatGPT to record audio&quot; permission pop-up with the &quot;Allow&quot; button highlighted."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-15.webp" alt="A &quot;Allow ChatGPT to record audio&quot; permission pop-up with the &quot;Allow&quot; button highlighted."></p>
 <h3>Way 2 — Full voice conversation (talk and listen, like a real call)</h3>
 <p>This is the magical one. You <strong>talk,</strong> and ChatGPT <strong>talks back out loud</strong> — a real back-and-forth conversation, just like a phone call. Perfect for elders and anyone who prefers listening to reading.</p>
 <ol>
@@ -425,7 +452,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>To ask the next thing, just keep talking. It remembers the conversation.</li>
 <li>When done, tap the <strong>&quot;X&quot;</strong> or close button to end the call.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-16.webp" alt="The voice conversation screen with a large glowing circle and a &quot;listening...&quot; indicator."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-16.webp" alt="The voice conversation screen with a large glowing circle and a &quot;listening...&quot; indicator."></p>
 <blockquote>
 <p><strong>Tip:</strong> This is also a wonderful, private way to <strong>practise spoken English.</strong> Talk to it in English, and it will gently reply — no one is judging you, and you can repeat as many times as you like.</p>
 </blockquote>
@@ -456,9 +483,12 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <blockquote>
 <p><strong>Many people who struggle with typing become daily ChatGPT users the moment they discover voice.</strong> Try it today, and show it to a family member who finds typing hard. It changes everything.</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 6 — Take a Photo and Ask (Using the Camera)</h1>
-<p>Here is something most people do not know: <strong>ChatGPT can SEE pictures.</strong> You can take a photo with your phone, send it to ChatGPT, and ask a question about it. For many people, this is even more useful than typing — because you can just <em>show</em> it your problem.</p>
+</div>
+  <nav class="chnav" id="nav4"></nav>
+</section>
+<section class="chapter" id="c5" data-name="Take a Photo and Ask (Using the Camera)" hidden>
+  <div class="ch-title"><span class="num">6</span><h1>Take a Photo and Ask (Using the Camera)</h1></div>
+  <div class="chapter-body"><p>Here is something most people do not know: <strong>ChatGPT can SEE pictures.</strong> You can take a photo with your phone, send it to ChatGPT, and ask a question about it. For many people, this is even more useful than typing — because you can just <em>show</em> it your problem.</p>
 <p>Think of it like showing a photo to a knowledgeable friend and asking, <em>&quot;What is this? What should I do?&quot;</em></p>
 <h2>How to send a photo and ask about it</h2>
 <ol>
@@ -473,7 +503,7 @@ function toggleTheme(){var d=document.documentElement;var t=d.dataset.theme==='d
 <li>After the photo is attached, <strong>type or speak your question</strong> about it — for example, <em>&quot;What is wrong with this plant?&quot;</em></li>
 <li>Tap send. ChatGPT looks at the photo and answers.</li>
 </ol>
-<p><img src="assets/screenshots/screenshot-17.webp" alt="The message box with the &quot;+&quot; / camera icon 📷 circled, showing &quot;Take Photo&quot; and &quot;Photo Library&quot; options."></p>
+<p><img loading="lazy" src="assets/screenshots/screenshot-17.webp" alt="The message box with the &quot;+&quot; / camera icon 📷 circled, showing &quot;Take Photo&quot; and &quot;Photo Library&quot; options."></p>
 <h2>Six powerful ways to use the camera</h2>
 <h3>1. Sick plant or crop 🌱</h3>
 <p>Take a photo of a leaf with spots or a wilting plant and ask:</p>
@@ -533,9 +563,12 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <li>❌ Avoid photographing: your Aadhaar card number, bank passbook, ATM card, cheques, passwords, or anyone&#39;s private documents.</li>
 </ul>
 <p>Treat photos the same as words — never share secret or personal information.</p>
-<hr>
-<div class="page-break"></div><h1>Section 7 — How to Ask Questions (Prompting Basics)</h1>
-<p>This is the <strong>heart</strong> of the whole guide. Once you learn how to ask good questions, ChatGPT becomes ten times more useful. Don&#39;t worry — it is very simple, and we will use lots of examples.</p>
+</div>
+  <nav class="chnav" id="nav5"></nav>
+</section>
+<section class="chapter" id="c6" data-name="How to Ask Questions (Prompting Basics)" hidden>
+  <div class="ch-title"><span class="num">7</span><h1>How to Ask Questions (Prompting Basics)</h1></div>
+  <div class="chapter-body"><p>This is the <strong>heart</strong> of the whole guide. Once you learn how to ask good questions, ChatGPT becomes ten times more useful. Don&#39;t worry — it is very simple, and we will use lots of examples.</p>
 <h2>What is a &quot;prompt&quot;?</h2>
 <p>A <strong>&quot;prompt&quot;</strong> is just a fancy word for <strong>your question or request</strong> — whatever you type to ChatGPT.</p>
 <ul>
@@ -623,9 +656,12 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <li>&quot;Translate &#39;Wishing you a happy and prosperous Diwali&#39; into formal Hindi.&quot;</li>
 </ol>
 <p>Try a few. The more you ask, the more comfortable you will feel.</p>
-<hr>
-<div class="page-break"></div><h1>Section 8 — 20 Things You Should Try Today</h1>
-<p>Reading about ChatGPT is fine, but the real magic happens when <em>you</em> try it. So here are <strong>20 quick things</strong> you can do <strong>right now</strong> to feel that &quot;Wah! It really works!&quot; moment.</p>
+</div>
+  <nav class="chnav" id="nav6"></nav>
+</section>
+<section class="chapter" id="c7" data-name="20 Things You Should Try Today" hidden>
+  <div class="ch-title"><span class="num">8</span><h1>20 Things You Should Try Today</h1></div>
+  <div class="chapter-body"><p>Reading about ChatGPT is fine, but the real magic happens when <em>you</em> try it. So here are <strong>20 quick things</strong> you can do <strong>right now</strong> to feel that &quot;Wah! It really works!&quot; moment.</p>
 <p>Pick any one, open ChatGPT, type (or speak) it, and see. Change the details to suit your life. Each one takes less than a minute.</p>
 <blockquote>
 <p><strong>How to use this list:</strong> Just copy a line into ChatGPT, replacing anything in [brackets] with your own details. Try at least 5 today!</p>
@@ -714,11 +750,13 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p><strong>The secret:</strong> The more of these little &quot;aha!&quot; moments you collect, the more ChatGPT becomes a natural part of your day. Don&#39;t just read — <strong>try!</strong></p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 9 — Daily Life Use Cases</h1>
-<p>Now for the fun part — real examples! Below are <strong>eight full conversations</strong> showing how everyday people across India use ChatGPT. Each one shows <strong>what you type</strong> and <strong>what ChatGPT replies.</strong> Read them, then try your own version.</p>
+</div>
+  <nav class="chnav" id="nav7"></nav>
+</section>
+<section class="chapter" id="c8" data-name="Daily Life Use Cases" hidden>
+  <div class="ch-title"><span class="num">9</span><h1>Daily Life Use Cases</h1></div>
+  <div class="chapter-body"><p>Now for the fun part — real examples! Below are <strong>eight full conversations</strong> showing how everyday people across India use ChatGPT. Each one shows <strong>what you type</strong> and <strong>what ChatGPT replies.</strong> Read them, then try your own version.</p>
 <p><em>(The replies below are shortened examples. The real ChatGPT may give a little more detail — that is normal and good.)</em></p>
-<hr>
 <h2>Use Case 1 — In the Kitchen 🍲</h2>
 <p><strong>Situation:</strong> It is evening, and Sunita has limited vegetables at home. She wants a quick recipe.</p>
 <p><strong>You type:</strong></p>
@@ -738,7 +776,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p>&quot;I don&#39;t have a pressure cooker. How do I cook the dal in a normal pot?&quot;</p>
 </blockquote>
-<hr>
 <h2>Use Case 2 — Child&#39;s Health 🤒</h2>
 <p><strong>Situation:</strong> Meena&#39;s little son has a mild fever at night. She wants safe home care tips while deciding about the doctor.</p>
 <p><strong>You type:</strong></p>
@@ -766,7 +803,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p><strong>Note for you, the reader:</strong> Notice how ChatGPT clearly says &quot;I am not a doctor&quot; and tells you when to seek real help. <strong>Always</strong> treat health answers as general information, not as a doctor&#39;s prescription.</p>
 </blockquote>
-<hr>
 <h2>Use Case 3 — Children&#39;s Education 📚</h2>
 <p><strong>Situation:</strong> Ramesh&#39;s daughter is in Class 5 and finds science hard. He wants to explain photosynthesis simply.</p>
 <p><strong>You type:</strong></p>
@@ -791,7 +827,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p>&quot;Now give me 3 easy questions to test my daughter on this.&quot;</p>
 </blockquote>
-<hr>
 <h2>Use Case 4 — Farming 🌾</h2>
 <p><strong>Situation:</strong> Karthik grows wheat and wants advice on winter fertiliser.</p>
 <p><strong>You type:</strong></p>
@@ -813,7 +848,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p><strong>Note:</strong> For farming, always confirm with your local Krishi Vigyan Kendra (KVK) or agriculture extension officer, because the right answer depends on your soil, seed variety, and region.</p>
 </blockquote>
-<hr>
 <h2>Use Case 5 — Family Finance 💰</h2>
 <p><strong>Situation:</strong> A family of four wants to budget on a ₹20,000 monthly income.</p>
 <p><strong>You type:</strong></p>
@@ -883,7 +917,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 </ol>
 <p>Would you like me to adjust this if your rent or school fees are different?</p>
 </blockquote>
-<hr>
 <h2>Use Case 6 — Travel ✈️</h2>
 <p><strong>Situation:</strong> A couple wants a cheap 2-day trip to Jaipur.</p>
 <p><strong>You type:</strong></p>
@@ -945,7 +978,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p>&quot;We are vegetarian and don&#39;t eat onion-garlic. Suggest food spots for us.&quot;</p>
 </blockquote>
-<hr>
 <h2>Use Case 7 — Government &amp; Documents 🏛️</h2>
 <p><strong>Situation:</strong> An elderly man wants to know the documents needed for an Aadhaar card.</p>
 <p><strong>You type:</strong></p>
@@ -984,7 +1016,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p><strong>Note:</strong> For any government scheme or document, always confirm details on the <strong>official government website</strong> or office, since procedures are updated from time to time.</p>
 </blockquote>
-<hr>
 <h2>Use Case 8 — Small Business 🏪</h2>
 <p><strong>Situation:</strong> Lakshmi owns a saree shop and wants a WhatsApp message for a festival sale.</p>
 <p><strong>You type:</strong></p>
@@ -1009,7 +1040,6 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p>&quot;Make one more version that I can also post as a status, with fewer words.&quot;</p>
 </blockquote>
-<hr>
 <h2>More ideas to explore on your own</h2>
 <p>Once you are comfortable, try asking ChatGPT for:</p>
 <ul>
@@ -1022,9 +1052,12 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <li>A <strong>list of questions</strong> to ask a doctor before a visit.</li>
 </ul>
 <p>The possibilities are endless. Treat ChatGPT like that knowledgeable friend — ask freely!</p>
-<hr>
-<div class="page-break"></div><h1>Section 10 — ChatGPT for Senior Citizens</h1>
-<p>This section is specially for our <strong>elders</strong> — grandparents, retired uncles and aunties, and anyone in the golden years of life. And it is also for their children and grandchildren, to help them set it up.</p>
+</div>
+  <nav class="chnav" id="nav8"></nav>
+</section>
+<section class="chapter" id="c9" data-name="ChatGPT for Senior Citizens" hidden>
+  <div class="ch-title"><span class="num">10</span><h1>ChatGPT for Senior Citizens</h1></div>
+  <div class="chapter-body"><p>This section is specially for our <strong>elders</strong> — grandparents, retired uncles and aunties, and anyone in the golden years of life. And it is also for their children and grandchildren, to help them set it up.</p>
 <p>Dear elders: do not feel that &quot;this is for young people&quot; or &quot;I am too old for this.&quot; That is not true at all. ChatGPT is wonderful for you — and you may end up loving it more than anyone, because it has <strong>endless patience</strong> and answers in whatever language and at whatever pace you like.</p>
 <blockquote>
 <p><strong>A gentle tip:</strong> Use the <strong>voice feature</strong> (Section 5). You can simply <em>talk</em> to ChatGPT and <em>listen</em> to its reply — no need to strain your eyes or fight with the small keyboard. Just speak in your own language.</p>
@@ -1083,9 +1116,12 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p>Your elders gave you so much. Giving them this patient, all-knowing companion is a beautiful gift. 💛</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 11 — ChatGPT for Women &amp; Home Managers</h1>
-<p>In countless Indian homes, it is the <strong>woman of the house</strong> who quietly runs everything — the kitchen, the budget, the children&#39;s studies, the festivals, the health of the family, and often a small business on the side. This section celebrates that, and shows how ChatGPT can be a smart helper for all of it.</p>
+</div>
+  <nav class="chnav" id="nav9"></nav>
+</section>
+<section class="chapter" id="c10" data-name="ChatGPT for Women &amp; Home Managers" hidden>
+  <div class="ch-title"><span class="num">11</span><h1>ChatGPT for Women &amp; Home Managers</h1></div>
+  <div class="chapter-body"><p>In countless Indian homes, it is the <strong>woman of the house</strong> who quietly runs everything — the kitchen, the budget, the children&#39;s studies, the festivals, the health of the family, and often a small business on the side. This section celebrates that, and shows how ChatGPT can be a smart helper for all of it.</p>
 <p>This is not about &quot;women only cook.&quot; It is about the fact that in most households, women make the <strong>daily operational decisions</strong> — and a smart helper saves time, money, and stress.</p>
 <h2>Everyday helpers</h2>
 <h3>1. Household management 🏠</h3>
@@ -1149,9 +1185,12 @@ ChatGPT can walk you through what each box means. <em>(Do not photograph pages t
 <blockquote>
 <p><strong>This single helper can lighten the mental load of running a home — try it for one week and feel the difference.</strong> 🌸</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 12 — Learning New Skills</h1>
-<p>This is where ChatGPT changes from a &quot;question-answer tool&quot; into a <strong>&quot;life-improvement tool.&quot;</strong> Because ChatGPT is endlessly patient and free, it can be your <strong>personal teacher</strong> for almost any skill — at your own pace, in your own language, with no fees and no embarrassment.</p>
+</div>
+  <nav class="chnav" id="nav10"></nav>
+</section>
+<section class="chapter" id="c11" data-name="Learning New Skills" hidden>
+  <div class="ch-title"><span class="num">12</span><h1>Learning New Skills</h1></div>
+  <div class="chapter-body"><p>This is where ChatGPT changes from a &quot;question-answer tool&quot; into a <strong>&quot;life-improvement tool.&quot;</strong> Because ChatGPT is endlessly patient and free, it can be your <strong>personal teacher</strong> for almost any skill — at your own pace, in your own language, with no fees and no embarrassment.</p>
 <p>Whether you want to earn more, get a better job, or simply learn something you always dreamed of — you can start today, right on your phone.</p>
 <blockquote>
 <p><strong>How to learn anything with ChatGPT:</strong> Ask it to <em>&quot;teach me [skill] step by step, like a beginner, with small daily lessons.&quot;</em> Then go one lesson at a time, and ask it to explain again whenever you don&#39;t understand.</p>
@@ -1216,9 +1255,12 @@ b) सुप्रभात!</p>
 <blockquote>
 <p><strong>Imagine learning a skill that gets you a better job or a new income — for free, from your own phone. That is the real power of ChatGPT.</strong> 🚀</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 13 — ChatGPT Can Save You Money</h1>
-<p>Everyone likes to save money. The good news: ChatGPT can be a smart, free advisor that helps you <strong>spend wisely, avoid mistakes, and make the most of your income</strong> — without any fees.</p>
+</div>
+  <nav class="chnav" id="nav11"></nav>
+</section>
+<section class="chapter" id="c12" data-name="ChatGPT Can Save You Money" hidden>
+  <div class="ch-title"><span class="num">13</span><h1>ChatGPT Can Save You Money</h1></div>
+  <div class="chapter-body"><p>Everyone likes to save money. The good news: ChatGPT can be a smart, free advisor that helps you <strong>spend wisely, avoid mistakes, and make the most of your income</strong> — without any fees.</p>
 <p>It cannot see live prices (see Section 14), so always check the final price yourself. But for <strong>planning, comparing, and understanding,</strong> it is a great money helper.</p>
 <h2>Six ways it saves you money</h2>
 <h3>1. Compare before you buy 📱</h3>
@@ -1274,9 +1316,12 @@ b) सुप्रभात!</p>
 <blockquote>
 <p><strong>When people see ChatGPT save them real rupees, they never stop using it.</strong> 💸</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 14 — Things ChatGPT Cannot Do</h1>
-<p>ChatGPT is wonderful, but it is <strong>not magic</strong> and <strong>not perfect.</strong> Knowing its limits keeps you safe and saves you from disappointment. Please read this section carefully — it is short but very important.</p>
+</div>
+  <nav class="chnav" id="nav12"></nav>
+</section>
+<section class="chapter" id="c13" data-name="Things ChatGPT Cannot Do" hidden>
+  <div class="ch-title"><span class="num">14</span><h1>Things ChatGPT Cannot Do</h1></div>
+  <div class="chapter-body"><p>ChatGPT is wonderful, but it is <strong>not magic</strong> and <strong>not perfect.</strong> Knowing its limits keeps you safe and saves you from disappointment. Please read this section carefully — it is short but very important.</p>
 <h2>1. It can make mistakes</h2>
 <p>ChatGPT sometimes gives <strong>wrong or outdated information,</strong> even when it sounds very confident. It is like a friend who is usually right but occasionally remembers something incorrectly.</p>
 <blockquote>
@@ -1313,9 +1358,12 @@ b) सुप्रभात!</p>
 <blockquote>
 <p><strong>Stay safe online:</strong> If anyone — on any app — asks for your OTP, PIN, or password, it is a <strong>fraud.</strong> Never share them. ChatGPT will never need them either.</p>
 </blockquote>
-<hr>
-<div class="page-break"></div><h1>Section 15 — Tips and Tricks</h1>
-<p>Here are some clever little tricks that make ChatGPT even more helpful. Try them one by one.</p>
+</div>
+  <nav class="chnav" id="nav13"></nav>
+</section>
+<section class="chapter" id="c14" data-name="Tips and Tricks" hidden>
+  <div class="ch-title"><span class="num">15</span><h1>Tips and Tricks</h1></div>
+  <div class="chapter-body"><p>Here are some clever little tricks that make ChatGPT even more helpful. Try them one by one.</p>
 <h2>Trick 1 — &quot;Explain like I&#39;m 5&quot;</h2>
 <p>If an answer feels too difficult, just add this magic line:</p>
 <blockquote>
@@ -1374,10 +1422,12 @@ b) सुप्रभात!</p>
 </ul>
 <h2>Trick 10 — Start fresh when changing topic</h2>
 <p>When you want to ask about a completely <strong>new topic,</strong> start a <strong>&quot;New chat&quot;</strong> (look for the &quot;+&quot; or &quot;New chat&quot; button, usually at the top). This keeps each topic clean and separate, like using a new page in a notebook.</p>
-<hr>
-<div class="page-break"></div><h1>Section 16 — Quick Reference Card</h1>
-<p>✂️ <em>Keep this page handy. These are ready-to-use prompts. Just open ChatGPT, type one of these (changing the details to suit you), and send!</em></p>
-<hr>
+</div>
+  <nav class="chnav" id="nav14"></nav>
+</section>
+<section class="chapter" id="c15" data-name="Quick Reference Card" hidden>
+  <div class="ch-title"><span class="num">16</span><h1>Quick Reference Card</h1></div>
+  <div class="chapter-body"><p>✂️ <em>Keep this page handy. These are ready-to-use prompts. Just open ChatGPT, type one of these (changing the details to suit you), and send!</em></p>
 <h3>🟢 10 Ready-to-Use Prompts</h3>
 <p><strong>1. Recipe with what you have:</strong></p>
 <blockquote>
@@ -1419,23 +1469,110 @@ b) सुप्रभात!</p>
 <blockquote>
 <p>&quot;Translate this into [language]: [your sentence].&quot;</p>
 </blockquote>
-<hr>
 <h3>💡 Remember the 3 Safety Rules</h3>
 <ol>
 <li><strong>Never share</strong> Aadhaar number, bank details, PIN, OTP, or passwords.</li>
 <li><strong>Always verify</strong> important medical, legal, financial, and government advice with a real expert.</li>
 <li><strong>It&#39;s free</strong> — never pay anyone to &quot;activate&quot; ChatGPT.</li>
 </ol>
-<hr>
 <h3>🌟 You did it!</h3>
 <p>You now know how to use ChatGPT like a pro. Keep that knowledgeable friend in your pocket, ask freely, and learn something new every day.</p>
 <p><strong>Happy chatting!</strong> 😊</p>
-<hr>
 <p><em>End of Guide — Master Edition (English)</em></p>
 <p><em>This guide is intended for educational purposes. ChatGPT is a product of OpenAI. App interfaces may change over time; steps are accurate at the time of writing. Always follow on-screen instructions and official sources.</em></p>
-
+</div>
+  <nav class="chnav" id="nav15"></nav>
+</section>
 </main>
+
 <footer class="page-foot"><span class="credit">Made with ❤️ by Garv Sachdeva</span></footer>
-<script>document.getElementById('themeBtn').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>var _b=document.getElementById('themeBtn');if(_b)_b.textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';</script>
+<script>
+(function(){
+  var sections=[].slice.call(document.querySelectorAll('.chapter'));
+  var N=sections.length;
+  var home=document.getElementById('home');
+  var readbar=document.getElementById('readbar');
+  var speakBtn=document.getElementById('speakBtn');
+  var progFill=document.getElementById('progFill');
+  var chCount=document.getElementById('chCount');
+  var bcp=document.body.getAttribute('data-bcp')||'en-IN';
+  var cur=-1;
+  var ttsSupported=('speechSynthesis' in window);
+
+  function name(i){ return sections[i]?sections[i].getAttribute('data-name'):''; }
+  function buildNav(i){
+    var nav=document.getElementById('nav'+i); if(!nav) return;
+    var prev = i>0 ? '<a href="#ch'+(i-1)+'" class="prev"><span class="dir">← Back</span><span class="lbl">'+name(i-1)+'</span></a>'
+                   : '<a href="#" onclick="goHome();return false;" class="prev"><span class="dir">←</span><span class="lbl">🏠 Home</span></a>';
+    var next = i<N-1 ? '<a href="#ch'+(i+1)+'" class="next"><span class="dir">Next →</span><span class="lbl">'+name(i+1)+'</span></a>'
+                     : '<a href="#" onclick="goHome();return false;" class="next"><span class="dir">Done ✓</span><span class="lbl">🏠 Home</span></a>';
+    nav.innerHTML=prev+next;
+  }
+  function stopSpeak(){ if(ttsSupported) window.speechSynthesis.cancel(); speaking=false; if(speakBtn){speakBtn.classList.remove('on'); speakBtn.textContent='🔊';} }
+
+  function show(i){
+    stopSpeak();
+    cur=i;
+    home.hidden = (i>=0);
+    for(var k=0;k<N;k++) sections[k].hidden = (k!==i);
+    if(i>=0){
+      buildNav(i);
+      readbar.hidden=false;
+      progFill.style.width=((i+1)/N*100)+'%';
+      chCount.textContent=(i+1)+' / '+N;
+      updateSpeak();
+    } else {
+      readbar.hidden=true;
+    }
+    window.scrollTo(0,0);
+  }
+  window.openCh=function(i){ location.hash='ch'+i; };
+  window.goHome=function(){ if(location.hash){ location.hash=''; } else { show(-1); } };
+
+  function fromHash(){
+    var m=(location.hash||'').match(/^#ch(\d+)$/);
+    if(m){ var i=Math.min(N-1,Math.max(0,parseInt(m[1],10))); show(i); }
+    else { show(-1); }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  // ---- read aloud ----
+  var speaking=false, queue=[], qi=0;
+  function pickVoice(){
+    var vs=window.speechSynthesis.getVoices()||[]; var p=bcp.split('-')[0];
+    return vs.filter(function(v){return v.lang && v.lang.replace('_','-')===bcp;})[0]
+        || vs.filter(function(v){return v.lang && v.lang.replace('_','-').toLowerCase().indexOf(p)===0;})[0]
+        || null;
+  }
+  // only offer read-aloud when the device actually has a voice for THIS language —
+  // otherwise it stays silent or reads with a wrong-language voice (gibberish).
+  function updateSpeak(){ if(speakBtn) speakBtn.hidden = !(ttsSupported && cur>=0 && pickVoice()); }
+  function speakNext(){
+    if(!speaking || qi>=queue.length){ stopSpeak(); return; }
+    var u=new SpeechSynthesisUtterance(queue[qi++]);
+    u.lang=bcp; var v=pickVoice(); if(v) u.voice=v; u.rate=0.95;
+    u.onend=speakNext; u.onerror=function(){ stopSpeak(); };
+    window.speechSynthesis.speak(u);
+  }
+  window.toggleSpeak=function(){
+    if(!ttsSupported) return;
+    if(speaking){ stopSpeak(); return; }
+    if(cur<0) return;
+    var body=sections[cur].querySelector('.chapter-body');
+    var text=(name(cur)+'. '+(body?body.innerText:'')).replace(/\s+/g,' ').trim();
+    // split into sentence-ish chunks WITHOUT lookbehind (old Safari throws on lookbehind regex literals)
+    queue=(text.match(/[^.!?।]+[.!?।]*/g)||[text]).map(function(s){return s.trim();}).filter(Boolean);
+    if(!queue.length) return;
+    qi=0; speaking=true; speakBtn.classList.add('on'); speakBtn.textContent='⏹ Stop';
+    speakNext();
+  };
+  window.addEventListener('beforeunload', stopSpeak);
+  // voices often load async; re-check whether to show the button once they arrive
+  if(ttsSupported){ try{ window.speechSynthesis.onvoiceschanged=function(){ updateSpeak(); }; }catch(e){} }
+
+  fromHash();
+})();
+</script>
 </body>
 </html>
