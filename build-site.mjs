@@ -14,6 +14,7 @@ const LANGS = [
   { code: 'marathi', native: 'मराठी',      en: 'Marathi',  bcp: 'mr-IN', locale: 'mr_IN', file: 'guides/marathi.md' },
   { code: 'punjabi', native: 'ਪੰਜਾਬੀ',     en: 'Punjabi',  bcp: 'pa-IN', locale: 'pa_IN', file: 'guides/punjabi.md' },
   { code: 'odia',    native: 'ଓଡ଼ିଆ',       en: 'Odia',     bcp: 'or-IN', locale: 'or_IN', file: 'guides/odia.md' },
+  { code: 'gujarati', native: 'ગુજરાતી',   en: 'Gujarati',  bcp: 'gu-IN', locale: 'gu_IN', file: 'guides/gujarati.md' },
 ];
 
 const PORTFOLIO = 'https://pygarv.github.io/Portfolio/';
@@ -22,7 +23,7 @@ const BASE = 'https://pygarv.github.io/chatgpt-guide/';
 const REPO = 'https://github.com/pygarv/chatgpt-guide';
 const OPENAI = 'https://openai.com';
 const OG_IMG = BASE + 'assets/og.png';
-const DESC = 'A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.';
+const DESC = 'A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 10 languages.';
 // Cloudflare Web Analytics (cookieless, privacy-friendly visitor counts)
 const ANALYTICS = `<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd4d7943c34641419a7b764d9fac038b"}'></script>`;
 
@@ -403,7 +404,7 @@ function indexHtml() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — in Your Language</title>
-${meta({ title: 'A Basic ChatGPT Guide — Free, in 9 Indian languages', url: BASE })}
+${meta({ title: 'A Basic ChatGPT Guide — Free, in 10 languages', url: BASE })}
 ${PWA_HEAD}
 ${ICON_SCRIPT}
 ${HEAD_JS}
@@ -429,7 +430,7 @@ ${THEME_INIT}
   var pref=(navigator.languages||[navigator.language||'']).map(function(x){return (x||'').toLowerCase().split('-')[0];});
   var grid=document.getElementById('langGrid');
   var cards=[].slice.call(grid.children);
-  var map={en:'english',hi:'hindi',bn:'bengali',ta:'tamil',te:'telugu',kn:'kannada',mr:'marathi',pa:'punjabi',or:'odia'};
+  var map={en:'english',hi:'hindi',bn:'bengali',ta:'tamil',te:'telugu',kn:'kannada',mr:'marathi',pa:'punjabi',or:'odia',gu:'gujarati'};
   var want=null; for(var i=0;i<pref.length && !want;i++){ if(map[pref[i]]) want=map[pref[i]]; }
   if(!want) return;
   var card=cards.filter(function(c){return c.dataset.code===want;})[0];

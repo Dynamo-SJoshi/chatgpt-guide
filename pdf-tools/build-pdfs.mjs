@@ -20,6 +20,7 @@ const LANGS = [
   { code: 'marathi', file: 'guides/marathi.md' },
   { code: 'punjabi', file: 'guides/punjabi.md' },
   { code: 'odia',    file: 'guides/odia.md' },
+  { code: 'gujarati', file: 'guides/gujarati.md' },
 ];
 const only = process.argv.slice(2);
 const targets = only.length ? LANGS.filter((l) => only.includes(l.code)) : LANGS;
@@ -28,7 +29,7 @@ const CSS = `
 @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
 body { font-family: 'Helvetica Neue', Arial,
   'Noto Sans','Noto Sans Devanagari','Noto Sans Bengali','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Kannada','Noto Sans Oriya','Noto Sans Gurmukhi',
-  'Kohinoor Devanagari','Kohinoor Bangla','Tamil Sangam MN','Kohinoor Telugu','Kannada Sangam MN','Gurmukhi MN','Oriya Sangam MN', sans-serif;
+  'Kohinoor Devanagari','Kohinoor Bangla','Tamil Sangam MN','Kohinoor Telugu','Kannada Sangam MN','Gurmukhi MN','Oriya Sangam MN','Noto Sans Gujarati','Kohinoor Gujarati', sans-serif;
   line-height: 1.6; margin: 0; color: #222; }
 table { border-collapse: collapse; width: 100%; margin: 1em 0; }
 th, td { border: 1px solid #ddd; padding: 7px 9px; }

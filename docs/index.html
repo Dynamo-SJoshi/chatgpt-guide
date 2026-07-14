@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Basic ChatGPT Guide — in Your Language</title>
-<meta name="description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
+<meta name="description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 10 languages.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="A Basic ChatGPT Guide">
-<meta property="og:title" content="A Basic ChatGPT Guide — Free, in 9 Indian languages">
-<meta property="og:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
+<meta property="og:title" content="A Basic ChatGPT Guide — Free, in 10 languages">
+<meta property="og:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 10 languages.">
 <meta property="og:url" content="https://pygarv.github.io/chatgpt-guide/">
 <meta property="og:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="A Basic ChatGPT Guide — Free, in 9 Indian languages">
-<meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.">
+<meta name="twitter:title" content="A Basic ChatGPT Guide — Free, in 10 languages">
+<meta name="twitter:description" content="A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 10 languages.">
 <meta name="twitter:image" content="https://pygarv.github.io/chatgpt-guide/assets/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0e8f6f">
@@ -57,6 +57,7 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
   <a class="card" data-code="marathi" data-bcp="mr-IN" href="marathi.html"><div class="lang">मराठी</div><div class="en">Marathi</div></a>
   <a class="card" data-code="punjabi" data-bcp="pa-IN" href="punjabi.html"><div class="lang">ਪੰਜਾਬੀ</div><div class="en">Punjabi</div></a>
   <a class="card" data-code="odia" data-bcp="or-IN" href="odia.html"><div class="lang">ଓଡ଼ିଆ</div><div class="en">Odia</div></a>
+  <a class="card" data-code="gujarati" data-bcp="gu-IN" href="gujarati.html"><div class="lang">ગુજરાતી</div><div class="en">Gujarati</div></a>
 </nav>
 <footer class="site-foot">
   <div class="foot-links">
@@ -72,7 +73,7 @@ function bumpFont(step){var d=document.documentElement;var f=parseFloat(getCompu
   var pref=(navigator.languages||[navigator.language||'']).map(function(x){return (x||'').toLowerCase().split('-')[0];});
   var grid=document.getElementById('langGrid');
   var cards=[].slice.call(grid.children);
-  var map={en:'english',hi:'hindi',bn:'bengali',ta:'tamil',te:'telugu',kn:'kannada',mr:'marathi',pa:'punjabi',or:'odia'};
+  var map={en:'english',hi:'hindi',bn:'bengali',ta:'tamil',te:'telugu',kn:'kannada',mr:'marathi',pa:'punjabi',or:'odia',gu:'gujarati'};
   var want=null; for(var i=0;i<pref.length && !want;i++){ if(map[pref[i]]) want=map[pref[i]]; }
   if(!want) return;
   var card=cards.filter(function(c){return c.dataset.code===want;})[0];

@@ -6,11 +6,11 @@ Free to read, download, and share.
 
 🌐 **Read it online:** https://pygarv.github.io/chatgpt-guide/
 
-## Available in 9 languages
+## Available in 10 languages
 
-English · हिंदी (Hindi) · বাংলা (Bengali) · தமிழ் (Tamil) · తెలుగు (Telugu) · ಕನ್ನಡ (Kannada) · मराठी (Marathi) · ਪੰਜਾਬੀ (Punjabi) · ଓଡ଼ିଆ (Odia)
+English · हिंदी (Hindi) · বাংলা (Bengali) · தமிழ் (Tamil) · తెలుగు (Telugu) · ಕನ್ನಡ (Kannada) · मराठी (Marathi) · ਪੰਜਾਬੀ (Punjabi) · ଓଡ଼ିଆ (Odia) · ગુજરાતી (Gujarati)
 
-_(Gujarati and Urdu are planned.)_
+_(Urdu is planned.)_
 
 Each language can be read on the website or **downloaded as a PDF** to read offline or print and hand out.
 
@@ -56,7 +56,7 @@ Built by **Garv Sachdeva**.
 
 This project was created with the help of:
 
-- **[Claude](https://www.anthropic.com/claude) (Anthropic)** — to write and translate all 9 language guides, build the website and PDF tooling, and organise the repo.
+- **[Claude](https://www.anthropic.com/claude) (Anthropic)** — to write and translate all 10 language guides, build the website and PDF tooling, and organise the repo.
 - **[ChatGPT](https://chatgpt.com/) / OpenAI** — the product this guide teaches people to use.
 - **[marked](https://marked.js.org/)** — Markdown → HTML rendering.
 - **[Puppeteer](https://pptr.dev/)** + **Google Chrome (headless)** — rendering the PDFs.

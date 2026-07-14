@@ -1,7 +1,7 @@
 {
   "name": "A Basic ChatGPT Guide",
   "short_name": "ChatGPT Guide",
-  "description": "A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 9 Indian languages.",
+  "description": "A simple, beginner-friendly guide to using ChatGPT on your phone. Written for first-time users and people not comfortable with English or technology. Free to read in 10 languages.",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
